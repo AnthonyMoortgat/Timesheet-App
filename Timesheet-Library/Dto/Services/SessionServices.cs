@@ -21,7 +21,7 @@ namespace Timesheet_Library.Dto.Services
                 client.BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxMiIsImVtYWlsIjoibWljaGFlbEBnbWFpbC5jb20iLCJuYmYiOjE1NTQxMzYzMTQsImV4cCI6MTU1NDIyMjcxNCwiaWF0IjoxNTU0MTM2MzE0fQ.5LPuMM1l_z8ToFLqw0X-kdl8Xy1dCDbjWtd_l_sDvaKC6YiXnQsZB2sff7HaPxSsGK6u5sLL49-4n6_CEm8J9A");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxMiIsImVtYWlsIjoibWljaGFlbEBnbWFpbC5jb20iLCJuYmYiOjE1NTQyMjU1ODAsImV4cCI6MTU1NDMxMTk4MCwiaWF0IjoxNTU0MjI1NTgwfQ.Qe8R3CvFyQkZvu-bLdOT4yrrYjSEGK5aeVvmqMIPkpH-qlYGx2cBrcsoIJ4TL-KjrEuudWCIgOWDrD2364cq_w");
             }
         }
 

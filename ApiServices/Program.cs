@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Timesheet_Library.Dto;
 using Timesheet_Library.Dto.Services;
 
@@ -60,23 +61,23 @@ namespace ApiServices
             UserDto user1 = new UserDto();
 
             //user1 = UserServices.GetUserByIdAsync(16).GetAwaiter().GetResult();
-            //List<UserDto> userlist = UserServices.GetAllUsersAsync().GetAwaiter().GetResult();
+            List<UserDto> userlist = UserServices.GetAllUsersAsync().GetAwaiter().GetResult();
             //user1 = UserServices.CreateUserAsync(createdUser).GetAwaiter().GetResult();
             //user1 = UserServices.UpdateUserByIdAsync(updatedUser, 16).GetAwaiter().GetResult();
             //user1 = UserServices.DeleteUserByIdAsync(14).GetAwaiter().GetResult();
-            string str = SessionServices.CreateSessionAsync(login).GetAwaiter().GetResult();
+            //string str = SessionServices.CreateSessionAsync(login).GetAwaiter().GetResult();
             //string str = SessionServices.DeleteSessionAsync().GetAwaiter().GetResult();
 
             //Console.WriteLine(user1.ID);
 
-            /*
+            
             for (int i = 0; i < userlist.Count; i++)
             {
-                Console.WriteLine(userlist[i].ID);
+                Console.WriteLine(userlist[i].FirstName);
             }
-            */
+            
 
-            Console.WriteLine(str);
+            //Console.WriteLine(str);
 
             Console.ReadLine();
         }

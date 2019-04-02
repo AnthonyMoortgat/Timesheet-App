@@ -5,10 +5,57 @@
              x:Class="Timesheet_Xamarin.MainPage">
 
     <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
-    </StackLayout>
+        <Label 
+            Text="Start..."
+            x:Name="LabelStartTime"
+            />
 
+        <TimePicker
+            x:Name="StartTime" 
+            Format="HH:mm"
+            />
+
+        <Label 
+            Text="End..."
+            x:Name="LabelEndTime"
+            />
+
+        <TimePicker
+            x:Name="EndTime" 
+            Format="HH:mm"
+            />
+
+        <Label 
+            Text="Project"
+            x:Name="LabelProject"
+            />
+
+        <Picker
+            x:Name="Project"  
+            />
+
+        <Entry
+            x:Name="DescriptionEntry"
+            Placeholder="Description"
+            Text=""
+            />
+
+        <Button 
+            Text="Log Uren" 
+            x:Name="LogTime"
+            Clicked="LogTime_Clicked"
+            />
+
+        <ListView 
+            x:Name="LogList1"
+            />
+
+        <!--
+        <Button 
+            Text="To_MainPage" 
+            x:Name="btnmainpage"
+            Clicked="GoToMainPage"
+            />
+            -->
+    </StackLayout>
 </ContentPage>
