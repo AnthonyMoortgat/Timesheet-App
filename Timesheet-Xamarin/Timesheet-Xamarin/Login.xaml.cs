@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Timesheet_Library.Dto;
+using Timesheet_Library.Dto.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -20,7 +21,12 @@ namespace Timesheet_Xamarin
         private void GoToHomePage(object sender, EventArgs args)
         {
             bool a = false;
-            if (/*User.CheckLogin() == */a == true)
+
+            UserToLoginDto user = new UserToLoginDto();
+            user.Email = "michael@gmail.com";
+            user.Password = "hallo1";
+
+            if (SessionServices.CreateSession(user) != "")
             {
                 Application.Current.MainPage = new MainPage();
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,9 +11,23 @@ namespace Timesheet_Xamarin
         public App()
         {
             InitializeComponent();
+            Initialize();
 
             MainPage = new Login();
         }
+        
+        private async void Initialize()
+        {
+            await Foo<object>();
+        }
+
+        private async Task<TResponse> Foo<TResponse>()
+    where TResponse : class
+        {
+            await Task.Delay(500);
+            return null;
+        }
+        
 
         protected override void OnStart()
         {

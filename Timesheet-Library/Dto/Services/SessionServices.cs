@@ -37,6 +37,18 @@ namespace Timesheet_Library.Dto.Services
             return session;
         }
 
+        public static string CreateSession(UserToLoginDto user)
+        {
+            GetClient();
+            string session = "";
+            HttpResponseMessage response = client.PostAsJsonAsync("api/session/", user).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                session = response.Content.ReadAsStringAsync().Result;
+            }
+            return session;
+        }
+
         public static async Task<string> DeleteSessionAsync()
         {
             GetClient();
