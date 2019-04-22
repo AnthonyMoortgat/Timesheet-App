@@ -18,15 +18,15 @@ namespace Timesheet_Xamarin
 			InitializeComponent ();
 		}
 
-        private void GoToHomePage(object sender, EventArgs args)
+        private async void GoToHomePage(object sender, EventArgs args)
         {
-            bool a = false;
-
             UserToLoginDto user = new UserToLoginDto();
-            user.Email = "michael@gmail.com";
-            user.Password = "hallo1";
+            user.Email = email.Text;
+            user.Password = password.Text;
 
-            if (SessionServices.CreateSession(user) != "")
+            string x = await SessionServices.CreateSessionAsync(user);
+
+            if (x != "")
             {
                 Application.Current.MainPage = new MainPage();
             }

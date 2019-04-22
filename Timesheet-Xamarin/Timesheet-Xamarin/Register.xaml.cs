@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using Timesheet_Library.Dto;
+using Timesheet_Library.Dto.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -18,7 +19,7 @@ namespace Timesheet_Xamarin
 			InitializeComponent ();
 		}
 
-        private void ClickRegister(object sender, EventArgs e)
+        private async void ClickRegister(object sender, EventArgs e)
         {
             List<Entry> NoErrors = new List<Entry>();
 
@@ -205,15 +206,36 @@ namespace Timesheet_Xamarin
 
             if (Errors.Count == 0)
             {
-                DisplayAlert("Message", $"No errors found! Errors: {Errors.Count}", "Ok");
+                await DisplayAlert("Message", $"No errors found! Errors: {Errors.Count}", "Ok");
+            }
+
+            if (Errors.Count() == 0)
+            {
+                UserToCreateDto user = new UserToCreateDto
+                {
+                    Email = email.Text,
+                    Psw = password.Text,
+                    FirstName = firstname.Text,
+                    LastName = lastname.Text,
+                    PhoneNumber = phonenumber.Text,
+                    Address = new AddressToCreateDto
+                    {
+                        Street = streetname.Text,
+                        HouseNumber = housenumber.Text,
+                        Country = country.Text,
+                        PostalCode = postalcode.Text,
+                        City = city.Text,
+                        BoxNumber = boxnumber.Text
+                    }
+                };
+                //await DisplayAlert("Warning", Errors.Count() + " haha", "Ok");
+                await UserServices.CreateUserAsync(user);
+
+                Application.Current.MainPage = new Login();
             }
 
             SetError(Errors);
             SetNoError(NoErrors);
-
-
-
-            //DisplayAlert("Warning", "Fout gevonden", "Ok");
         }
 
         private void SetError(List<Entry> Errors)
@@ -261,11 +283,6 @@ namespace Timesheet_Xamarin
             {
                 return false;
             }
-        }
-
-        private static string CheckLogin(string email, string password)
-        {
-            return "";
         }
     }
 }
