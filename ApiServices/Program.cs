@@ -57,8 +57,50 @@ namespace ApiServices
                 Password = "Azerty123"
             };
 
+            //Create company
+            CompanyToCreateDto createdCompany = new CompanyToCreateDto
+            {
+                Name = "Microsoft1",
+                Address = createdAddress
+            };
+
+            //Update company
+            CompanyToUpdateDto updatedCompany = new CompanyToUpdateDto
+            {
+                Name = "Dell",
+                Address = updatedAddress
+            };
+
+            //Create companyrole
+            CompanyRoleToCreateDto createdCompanyRole = new CompanyRoleToCreateDto
+            {
+                Name = "CompanyRole1",
+                Description = "It's just a test",
+                IsDefault = true,
+                ManageCompany = true,
+                ManageUsers = false,
+                ManageProjects = true,
+                ManageProjectRoles = true,
+                ManageProjectUsers = true
+            };
+
+            //Update companyrole
+            CompanyRoleToUpdateDto updatedCompanyRole = new CompanyRoleToUpdateDto
+            {
+                Name = "CompanyRole1Updated",
+                Description = "It's just a test for something",
+                IsDefault = true,
+                ManageCompany = true,
+                ManageUsers = true,
+                ManageProjects = true,
+                ManageProjectRoles = true,
+                ManageProjectUsers = false
+            };
+
             //Test
             UserDto user1 = new UserDto();
+            CompanyDto c = new CompanyDto();
+            CompanyRoleDto cr = new CompanyRoleDto();
 
             //user1 = UserServices.GetUserByIdAsync(1).GetAwaiter().GetResult();
             //List<UserDto> userlist = UserServices.GetAllUsersAsync().GetAwaiter().GetResult();
@@ -79,12 +121,19 @@ namespace ApiServices
 
             //Console.WriteLine(str);
 
+            //List<CompanyDto> companylist = CompanyServices.GetAllCompaniesAsync().GetAwaiter().GetResult();
+            //c = CompanyServices.GetCompanyByIdAsync(1).GetAwaiter().GetResult();
+            //c = CompanyServices.CreateCompanyAsync(createdCompany).GetAwaiter().GetResult();
+            c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
 
-            CompanyDto companyDto = 
+            Console.WriteLine(c.Name);
 
-
-
-
+            /*
+            for (int i = 0; i < companylist.Count; i++)
+            {
+                Console.WriteLine(companylist[i].Name);
+            }
+            */
 
             Console.ReadLine();
         }

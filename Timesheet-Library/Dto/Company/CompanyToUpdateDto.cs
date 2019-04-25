@@ -7,6 +7,6 @@ namespace Timesheet_Library.Dto
     public class CompanyToUpdateDto
     {
         public string Name { get; set; }
-        public AddressDto Address { get; set; }
+        public AddressToUpdateDto Address { get; set; }
     }
 }
