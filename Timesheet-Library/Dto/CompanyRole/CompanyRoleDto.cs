@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Timesheet_Library.Dto
 {
-    class CompanyRoleDto
+    public class CompanyRoleDto
     {
         public int ID { get; set; }
         public int CompanyID { get; set; }

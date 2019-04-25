@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Timesheet_Library.Dto
 {
-    class CompanyRoleToUpdateDto
+    public class CompanyRoleToUpdateDto
     {
         public string Name { get; set; }
         public string Description { get; set; }

@@ -37,6 +37,7 @@ namespace Timesheet_Library.Dto.Services
             return session;
         }
 
+        /*
         public static string CreateSession(UserToLoginDto user)
         {
             GetClient();
@@ -48,6 +49,7 @@ namespace Timesheet_Library.Dto.Services
             }
             return session;
         }
+        */
 
         public static async Task<string> DeleteSessionAsync()
         {

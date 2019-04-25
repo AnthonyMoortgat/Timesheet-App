@@ -54,18 +54,18 @@ namespace ApiServices
             UserToLoginDto login = new UserToLoginDto
             {
                 Email = "michael@gmail.com",
-                Password = "hallo"
+                Password = "Azerty123"
             };
 
             //Test
             UserDto user1 = new UserDto();
 
-            //user1 = UserServices.GetUserByIdAsync(16).GetAwaiter().GetResult();
+            //user1 = UserServices.GetUserByIdAsync(1).GetAwaiter().GetResult();
             //List<UserDto> userlist = UserServices.GetAllUsersAsync().GetAwaiter().GetResult();
             //user1 = UserServices.CreateUserAsync(createdUser).GetAwaiter().GetResult();
-            //user1 = UserServices.UpdateUserByIdAsync(updatedUser, 16).GetAwaiter().GetResult();
-            //user1 = UserServices.DeleteUserByIdAsync(14).GetAwaiter().GetResult();
-            string str = SessionServices.CreateSession(login);
+            //user1 = UserServices.UpdateUserByIdAsync(updatedUser, 1).GetAwaiter().GetResult();
+            //user1 = UserServices.DeleteUserByIdAsync(3).GetAwaiter().GetResult();
+            //string str = SessionServices.CreateSession(login);
             //string str = SessionServices.DeleteSessionAsync().GetAwaiter().GetResult();
 
             //Console.WriteLine(user1.ID);
@@ -77,7 +77,14 @@ namespace ApiServices
             }
             */
 
-            Console.WriteLine(str);
+            //Console.WriteLine(str);
+
+
+            CompanyDto companyDto = 
+
+
+
+
 
             Console.ReadLine();
         }
