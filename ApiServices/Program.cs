@@ -124,9 +124,9 @@ namespace ApiServices
             //List<CompanyDto> companylist = CompanyServices.GetAllCompaniesAsync().GetAwaiter().GetResult();
             //c = CompanyServices.GetCompanyByIdAsync(1).GetAwaiter().GetResult();
             //c = CompanyServices.CreateCompanyAsync(createdCompany).GetAwaiter().GetResult();
-            c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
+            //c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
 
-            Console.WriteLine(c.Name);
+            //Console.WriteLine(c.Name);
 
             /*
             for (int i = 0; i < companylist.Count; i++)
@@ -135,6 +135,18 @@ namespace ApiServices
             }
             */
 
+            //cr = CompanyRoleServices.CreateCompanyRoleAsync(createdCompanyRole, 1).GetAwaiter().GetResult();
+            //List<CompanyRoleDto> crlist = CompanyRoleServices.GetAllCompanyRolesAsync(1).GetAwaiter().GetResult();
+            /*for (int i = 0; i < crlist.Count; i++)
+            {
+                Console.WriteLine(crlist[i].Name);
+            }
+            */
+
+            //cr = CompanyRoleServices.GetCompanyRoleByIdAsync(1, 3).GetAwaiter().GetResult();
+            //cr = CompanyRoleServices.UpdateCompanyRoleByIdAsync(updatedCompanyRole, 1, 3).GetAwaiter().GetResult();
+
+            Console.WriteLine(cr.Name);
             Console.ReadLine();
         }
     }
