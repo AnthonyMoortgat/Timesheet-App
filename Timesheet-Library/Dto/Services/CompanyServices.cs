@@ -22,7 +22,7 @@ namespace Timesheet_Library.Dto.Services
                 client.BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/");
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxMiIsImVtYWlsIjoibWljaGFlbEBnbWFpbC5jb20iLCJuYmYiOjE1NTQyMjU1ODAsImV4cCI6MTU1NDMxMTk4MCwiaWF0IjoxNTU0MjI1NTgwfQ.Qe8R3CvFyQkZvu-bLdOT4yrrYjSEGK5aeVvmqMIPkpH-qlYGx2cBrcsoIJ4TL-KjrEuudWCIgOWDrD2364cq_w");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJtaWNoYWVsQGdtYWlsLmNvbSIsIm5iZiI6MTU1Njg4NTAzNCwiZXhwIjoxNTU2OTcxNDM0LCJpYXQiOjE1NTY4ODUwMzR9.GSdOjI0UVAM1owMRNyfCdJ5rqBm4tTPvr_quKXS4B5SN1yMOwT-GCLcuKL1qyDDxCTq_xTu7ncV14LqQtEoHHA");
             }
         }
 
@@ -87,6 +87,48 @@ namespace Timesheet_Library.Dto.Services
                 deletedCompany = await response.Content.ReadAsAsync<CompanyDto>();
             }
             return deletedCompany;
+        }
+
+        public static async Task<List<UserDto>> GetUsersFromCompanyByIdAsync(int id)
+        {
+            GetClient();
+            string getAllCompanyUsers = null;
+            List<UserDto> getCompanyUsers = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Users");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanyUsers = await response.Content.ReadAsStringAsync();
+                getCompanyUsers = JsonConvert.DeserializeObject<List<UserDto>>(getAllCompanyUsers);
+            }
+            return getCompanyUsers;
+        }
+
+        public static async Task<bool> AddUserToCompanyByIdAsync(int id, int userid)
+        {
+            GetClient();
+            string getAllCompanies = null;
+
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Companies/{id}/Users?userId={userid}", id);
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanies = await response.Content.ReadAsStringAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public static async Task<bool> DeleteUserFromCompanyByIdAsync(int id, int userid)
+        {
+            GetClient();
+            CompanyDto deletedCompany = null;
+            HttpResponseMessage response = await client.DeleteAsync($"api/Companies/{id}/Users/{userid}");
+            if (response.IsSuccessStatusCode)
+            {
+                deletedCompany = await response.Content.ReadAsAsync<CompanyDto>();
+                return true;
+            }
+            return false;
         }
     }
 }
