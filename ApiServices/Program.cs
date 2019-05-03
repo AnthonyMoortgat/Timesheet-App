@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Timesheet_Library.Dto;
+using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
 
 namespace ApiServices
@@ -67,7 +68,7 @@ namespace ApiServices
             //Update company
             CompanyToUpdateDto updatedCompany = new CompanyToUpdateDto
             {
-                Name = "Dell",
+                Name = "Microsoft 2",
                 Address = updatedAddress
             };
 
@@ -97,10 +98,27 @@ namespace ApiServices
                 ManageProjectUsers = false
             };
 
+            ProjectToCreateDto createdProject = new ProjectToCreateDto
+            {
+                CompanyID = 1,
+                Name = "Tim",
+                Description = "desc"
+            };
+
+            ProjectToUpdateDto updatedProject = new ProjectToUpdateDto
+            {
+                CompanyID = 2,
+                Name = "Kevin",
+                Description = "desc 2"
+            };
+
+            
+
             //Test
             UserDto user1 = new UserDto();
             CompanyDto c = new CompanyDto();
             CompanyRoleDto cr = new CompanyRoleDto();
+            ProjectDto p = new ProjectDto();
 
             //user1 = UserServices.GetUserByIdAsync(1).GetAwaiter().GetResult();
             //List<UserDto> userlist = UserServices.GetAllUsersAsync().GetAwaiter().GetResult();
@@ -124,9 +142,9 @@ namespace ApiServices
             //List<CompanyDto> companylist = CompanyServices.GetAllCompaniesAsync().GetAwaiter().GetResult();
             //c = CompanyServices.GetCompanyByIdAsync(1).GetAwaiter().GetResult();
             //c = CompanyServices.CreateCompanyAsync(createdCompany).GetAwaiter().GetResult();
-            c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
+            //c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
 
-            Console.WriteLine(c.ID);
+            //Console.WriteLine(c.Name);
 
             /*
             for (int i = 0; i < companylist.Count; i++)
@@ -135,6 +153,26 @@ namespace ApiServices
             }
             */
 
+            //cr = CompanyRoleServices.CreateCompanyRoleAsync(createdCompanyRole, 1).GetAwaiter().GetResult();
+            //List<CompanyRoleDto> crlist = CompanyRoleServices.GetAllCompanyRolesAsync(1).GetAwaiter().GetResult();
+            /*for (int i = 0; i < crlist.Count; i++)
+            {
+                Console.WriteLine(crlist[i].Name);
+            }
+            */
+
+            ////cr = CompanyRoleServices.GetCompanyRoleByIdAsync(1, 3).GetAwaiter().GetResult();
+            //cr = CompanyRoleServices.UpdateCompanyRoleByIdAsync(updatedCompanyRole, 1, 3).GetAwaiter().GetResult();
+
+
+            //List<UserDto> cl = CompanyServices.GetUsersFromCompanyByIdAsync(1).GetAwaiter().GetResult();
+
+            //Console.WriteLine(cl[0].FirstName);
+
+            //bool b = CompanyServices.AddUserToCompanyByIdAsync(1, 8).GetAwaiter().GetResult();
+
+            p = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
+            Console.WriteLine(p.Name);
             Console.ReadLine();
         }
     }

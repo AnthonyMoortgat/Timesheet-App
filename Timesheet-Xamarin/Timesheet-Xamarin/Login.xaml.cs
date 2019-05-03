@@ -37,7 +37,6 @@ namespace Timesheet_Xamarin
             }
         }
 
-
         private void GoToRegisterPage(object sender, EventArgs args)
         {
             Application.Current.MainPage = new Register();
