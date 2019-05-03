@@ -148,13 +148,13 @@
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Timesheet_Xamarin\Timesheet_Xamarin.csproj">
-      <Project>{FABFC269-0B11-4394-8D55-DAFC067A14D3}</Project>
-      <Name>Timesheet_Xamarin</Name>
+    <ProjectReference Include="..\Timesheet-Xamarin\Timesheet-Xamarin.csproj">
+      <Project>{1ff3f243-80ce-4ece-ad4b-318bfe34941e}</Project>
+      <Name>Timesheet-Xamarin</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
