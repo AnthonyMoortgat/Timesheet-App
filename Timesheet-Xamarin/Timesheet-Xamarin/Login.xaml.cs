@@ -24,14 +24,15 @@ namespace Timesheet_Xamarin
             user.Email = email.Text;
             user.Password = password.Text;
 
-            string x = await SessionServices.CreateSessionAsync(user);
+            string token = await SessionServices.CreateSessionAsync(user);
 
-            if (x != "")
+            if (token != "")
             {
                 Application.Current.MainPage = new MainPage();
             }
             else
-            {
+            { 
+                Application.Current.Properties["Token"] = token;
                 error.IsVisible = true;
             }
         }

@@ -126,7 +126,7 @@ namespace ApiServices
             //c = CompanyServices.CreateCompanyAsync(createdCompany).GetAwaiter().GetResult();
             c = CompanyServices.UpdateCompanyByIdAsync(updatedCompany, 1).GetAwaiter().GetResult();
 
-            Console.WriteLine(c.Name);
+            Console.WriteLine(c.ID);
 
             /*
             for (int i = 0; i < companylist.Count; i++)
