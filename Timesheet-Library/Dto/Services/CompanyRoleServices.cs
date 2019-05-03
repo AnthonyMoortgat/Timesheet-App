@@ -88,5 +88,44 @@ namespace Timesheet_Library.Dto.Services
             }
             return deletedCompanyRole;
         }
+
+        public static async Task<CompanyRoleDto> GetUsersCompanyRolesAsync(int id, int userId)
+        {
+            GetClient();
+            CompanyRoleDto getCompanyRole = null;
+            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Users/{userId}/Roles");
+
+            if (response.IsSuccessStatusCode)
+            {
+                getCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+            }
+            return getCompanyRole;
+        }
+
+        public static async Task<bool> CreateUserCompanyRolesAsync(int id, int userId, int roleId)
+        {
+            GetClient();
+            CompanyRoleDto createdCompanyRole = null;
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Companies/{id}/Users/{userId}/Roles?roleId={roleId}", roleId);
+            if (response.IsSuccessStatusCode)
+            {
+                createdCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+                return true;
+            }
+            return false;
+        }
+
+        public static async Task<bool> DeleteCompanyRoleByIdAsync(int id, int userId, int roleId)
+        {
+            GetClient();
+            CompanyRoleDto deletedCompanyRole = null;
+            HttpResponseMessage response = await client.DeleteAsync($"api/Companies/{id}/Users/{userId}/Roles/{roleId}");
+            if (response.IsSuccessStatusCode)
+            {
+                deletedCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+                return true;
+            }
+            return false;
+        }
     }
 }
