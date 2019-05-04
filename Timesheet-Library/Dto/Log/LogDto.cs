@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Timesheet_Library.Dto.Log
 {
-    class LogDto
+    public class LogDto
     {
         public int ID { get; set; }
         public int UserID { get; set; }

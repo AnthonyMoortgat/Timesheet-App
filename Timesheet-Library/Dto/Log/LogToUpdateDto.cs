@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Timesheet_Library.Dto.Log
 {
-    class LogToUpdateDto
+    public class LogToUpdateDto
     {
         public int ProjectID { get; set; }
         public DateTime StartTime { get; set; }
