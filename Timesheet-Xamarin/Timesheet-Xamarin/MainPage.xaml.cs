@@ -4,6 +4,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto.Log;
+using Timesheet_Library.Dto.Project;
+using Timesheet_Library.Dto.Services;
 using Xamarin.Forms;
 
 namespace Timesheet_Xamarin
@@ -11,12 +14,22 @@ namespace Timesheet_Xamarin
     public partial class MainPage : ContentPage
     {
         private ObservableCollection<string> Logs = null;
+        Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
         public MainPage()
         {
             InitializeComponent();
             StartTime.Time = new TimeSpan(8, 0, 0);
-            EndTime.Time = new TimeSpan(16, 0, 0);
+            EndTime.Time = new TimeSpan(16, 0, 0); 
+        }
+
+        protected async override void OnAppearing()
+        {
+            ProjectServices projectServices = new ProjectServices();
+            //Haal alle projecten
+            List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
+            //Steekt alle projecten in ProjectList (Picker)
+            AddProjectsToProjectList(projects, projectsWithKey);
         }
 
         bool CheckTimePicker()
@@ -55,6 +68,8 @@ namespace Timesheet_Xamarin
 
         private void LogTime_Clicked(object sender, EventArgs e)
         {
+            string idUser = Application.Current.Properties["IdUser"].ToString();
+
             string StartHour = StartTime.Time.Hours.ToString();
             string StartMin = StartTime.Time.Minutes.ToString();
             string StartT = $"{StartHour}:{StartMin}";
@@ -63,18 +78,32 @@ namespace Timesheet_Xamarin
             string EndMin = EndTime.Time.Minutes.ToString();
             string EndT = $"{EndHour}:{EndMin}";
 
-            /*
-            if (CheckTimePicker() == true && CheckDescription() == true)
+            string value = ProjectList.SelectedItem.ToString();
+            int id = 1;
+
+            foreach (var project in projectsWithKey)
             {
-                LogList.Text += $"\n{DateTime.Parse(StartT).ToString("dd/MM/yyyy")} - {DateTime.Parse(StartT).ToString("HH:mm")} - {DateTime.Parse(EndT).ToString("HH:mm")}: {DescriptionEntry.Text}, Total: {DateTime.Parse(EndT) - DateTime.Parse(StartT)}";
+                if (project.Value == value)
+                {
+                    id = project.Key;
+                }
             }
-            */
+
+            LogToCreateDto log = new LogToCreateDto()
+            {
+                UserID = int.Parse(idUser),
+                ProjectID = id,
+                StartTime = DateTime.Parse(StartT),
+                StopTime = DateTime.Parse(EndT),
+                Description = DescriptionEntry.Text
+            };
 
             if (CheckTimePicker() == true && CheckDescription() == true)
             {
                 if (Logs == null)
                 {
                     Logs = new ObservableCollection<string>();
+                    //LOG TOEVOEGEN AAN API CALL
                     Logs.Add($"{DateTime.Parse(StartT).ToString("dd/MM/yyyy")} - {DateTime.Parse(StartT).ToString("HH:mm")} - {DateTime.Parse(EndT).ToString("HH:mm")}: {DescriptionEntry.Text}, Total: {DateTime.Parse(EndT) - DateTime.Parse(StartT)}");
                     LogList1.ItemsSource = Logs;
                 }
@@ -96,6 +125,20 @@ namespace Timesheet_Xamarin
             {
                 return true;
             }
+        }
+
+        private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
+        {
+            foreach (var project in projects)
+            {
+                projectsWithKey.Add(project.ID, project.Name);
+            }
+
+            foreach (var project in projectsWithKey)
+            {
+                ProjectList.Items.Add(project.Value);
+            }
+            ProjectList.SelectedIndex = 0;
         }
     }
 }

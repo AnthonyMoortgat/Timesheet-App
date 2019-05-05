@@ -31,7 +31,7 @@
             />
 
         <Picker
-            x:Name="Project"  
+            x:Name="ProjectList"  
             />
 
         <Entry

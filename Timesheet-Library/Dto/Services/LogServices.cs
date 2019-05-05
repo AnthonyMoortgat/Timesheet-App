@@ -27,7 +27,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<List<LogDto>> GetAllLogsAsync()
+        public async Task<List<LogDto>> GetAllLogsAsync()
         {
             GetClient();
             string getAllLogs = null;
@@ -42,7 +42,7 @@ namespace Timesheet_Library.Dto.Services
             return LogList;
         }
 
-        public static async Task<LogDto> CreateLogAsync(LogToCreateDto log)
+        public async Task<LogDto> CreateLogAsync(LogToCreateDto log)
         {
             GetClient();
             LogDto createdLog = null;
@@ -54,7 +54,7 @@ namespace Timesheet_Library.Dto.Services
             return createdLog;
         }
 
-        public static async Task<LogDto> GetLogByIdAsync(int id)
+        public async Task<LogDto> GetLogByIdAsync(int id)
         {
             GetClient();
             LogDto getLog = null;
@@ -66,7 +66,7 @@ namespace Timesheet_Library.Dto.Services
             return getLog;
         }
 
-        public static async Task<LogDto> UpdateLogByIdAsync(LogToUpdateDto log, int id)
+        public async Task<LogDto> UpdateLogByIdAsync(LogToUpdateDto log, int id)
         {
             GetClient();
             LogDto updatedLog = null;
@@ -78,7 +78,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedLog;
         }
 
-        public static async Task<bool> DeleteLogByIdAsync(int id)
+        public async Task<bool> DeleteLogByIdAsync(int id)
         {
             GetClient();
             LogDto deletedLog = null;

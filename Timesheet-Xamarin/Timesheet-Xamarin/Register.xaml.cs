@@ -213,6 +213,8 @@ namespace Timesheet_Xamarin
 
             if (Errors.Count() == 0)
             {
+                UserServices userServices = new UserServices();
+
                 UserToCreateDto user = new UserToCreateDto
                 {
                     Email = email.Text,
@@ -230,9 +232,10 @@ namespace Timesheet_Xamarin
                         BoxNumber = boxnumber.Text
                     }
                 };
+                buttonRegister.IsEnabled = false;
                 //await DisplayAlert("Warning", Errors.Count() + " haha", "Ok");
-                await UserServices.CreateUserAsync(user);
-
+                await userServices.CreateUserAsync(user);
+                
                 Application.Current.MainPage = new Login();
             }
 

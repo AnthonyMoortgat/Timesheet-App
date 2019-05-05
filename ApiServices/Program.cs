@@ -113,9 +113,11 @@ namespace ApiServices
                 Description = "desc 2"
             };
 
-            
+
 
             //Test
+            UserServices userServices = new UserServices();
+
             UserDto user1 = new UserDto();
             CompanyDto c = new CompanyDto();
             CompanyRoleDto cr = new CompanyRoleDto();
@@ -175,8 +177,9 @@ namespace ApiServices
             //bool bp = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
             //Console.WriteLine(bp);
 
-            List<LogDto> user = UserServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
-            Console.WriteLine(user[1].Description);
+            //List<LogDto> user = UserServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
+            List<UserDto> users = userServices.GetUserByEmailAsync("kevin@gmail.com").GetAwaiter().GetResult();
+            Console.WriteLine(users[0].ID);
 
             Console.ReadLine();
         }

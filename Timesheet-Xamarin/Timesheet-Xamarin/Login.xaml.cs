@@ -20,13 +20,20 @@ namespace Timesheet_Xamarin
 
         private async void GoToHomePage(object sender, EventArgs args)
         {
+            SessionServices sessionServices = new SessionServices();
+            UserServices userServices = new UserServices();
+
             UserToLoginDto user = new UserToLoginDto()
             {
                 Email = email.Text,
                 Password = password.Text
             };
 
-            string token = await SessionServices.CreateSessionAsync(user);
+            List<UserDto> u = await userServices.GetUserByEmailAsync(email.Text);
+
+            Application.Current.Properties["IdUser"] = u[0].ID;
+
+            string token = await sessionServices.CreateSessionAsync(user);
 
             if (token != "") //Indien login niet klopt (dus geen token)
             {
