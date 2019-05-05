@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Timesheet_Library.Dto;
+using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
 
@@ -171,8 +172,12 @@ namespace ApiServices
 
             //bool b = CompanyServices.AddUserToCompanyByIdAsync(1, 8).GetAwaiter().GetResult();
 
-            p = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
-            Console.WriteLine(p.Name);
+            //bool bp = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
+            //Console.WriteLine(bp);
+
+            List<LogDto> user = UserServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
+            Console.WriteLine(user[1].Description);
+
             Console.ReadLine();
         }
     }

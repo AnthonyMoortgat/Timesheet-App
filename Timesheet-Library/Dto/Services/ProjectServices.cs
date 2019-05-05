@@ -66,7 +66,7 @@ namespace Timesheet_Library.Dto.Services
             return createdProject;
         }
 
-        public static async Task<ProjectDto> UpdateProjectByIdAsync(ProjectToUpdateDto Project, int id)
+        public static async Task<bool> UpdateProjectByIdAsync(ProjectToUpdateDto Project, int id)
         {
             GetClient();
             ProjectDto updatedProject = null;
@@ -74,8 +74,9 @@ namespace Timesheet_Library.Dto.Services
             if (response.IsSuccessStatusCode)
             {
                 updatedProject = await response.Content.ReadAsAsync<ProjectDto>();
+                return true;
             }
-            return updatedProject;
+            return false;
         }
 
         public static async Task<ProjectDto> DeleteProjectByIdAsync(int id)

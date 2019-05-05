@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto.Log;
 
 namespace Timesheet_Library.Dto.Services
 {
@@ -88,5 +89,21 @@ namespace Timesheet_Library.Dto.Services
             }
             return deletedUser;
         }
+
+        public static async Task<List<LogDto>> GetAllUserLogsAsync(int id)
+        {
+            GetClient();
+            string getAllUserLogs = null;
+            List<LogDto> LogList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Users/{id}/Logs");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllUserLogs = await response.Content.ReadAsStringAsync();
+                LogList = JsonConvert.DeserializeObject<List<LogDto>>(getAllUserLogs);
+            }
+            return LogList;
+        }
+
     }
 }
