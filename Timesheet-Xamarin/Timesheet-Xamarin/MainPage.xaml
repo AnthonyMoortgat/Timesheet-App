@@ -48,6 +48,7 @@
 
         <ListView 
             x:Name="LogList1"
+            ItemSelected="OnItemSelected"
             />
 
         <!--
