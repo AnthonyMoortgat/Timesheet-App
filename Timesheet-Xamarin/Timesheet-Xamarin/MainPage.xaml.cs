@@ -62,7 +62,7 @@ namespace Timesheet_Xamarin
             }
 
             LogList1.SelectedItem = null;
-            await Navigation.PushModalAsync(new MainPage2(logid, logToEdit));
+            await Navigation.PushModalAsync(new MainPage2(logid));
         }
 
         private async void LogTime_Clicked(object sender, EventArgs e)
