@@ -26,7 +26,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<List<CompanyDto>> GetAllCompaniesAsync()
+        public async Task<List<CompanyDto>> GetAllCompaniesAsync()
         {
             GetClient();
             string getAllCompanies = null;
@@ -41,7 +41,7 @@ namespace Timesheet_Library.Dto.Services
             return CompanyList; 
         }
 
-        public static async Task<CompanyDto> GetCompanyByIdAsync(int id)
+        public async Task<CompanyDto> GetCompanyByIdAsync(int id)
         {
             GetClient();
             CompanyDto getCompany = null;
@@ -53,7 +53,7 @@ namespace Timesheet_Library.Dto.Services
             return getCompany;
         }
 
-        public static async Task<CompanyDto> CreateCompanyAsync(CompanyToCreateDto company)
+        public async Task<CompanyDto> CreateCompanyAsync(CompanyToCreateDto company)
         {
             GetClient();
             CompanyDto createdCompany = null;
@@ -65,7 +65,7 @@ namespace Timesheet_Library.Dto.Services
             return createdCompany;
         }
 
-        public static async Task<CompanyDto> UpdateCompanyByIdAsync(CompanyToUpdateDto company, int id)
+        public async Task<CompanyDto> UpdateCompanyByIdAsync(CompanyToUpdateDto company, int id)
         {
             GetClient();
             CompanyDto updatedCompany = null;
@@ -77,7 +77,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedCompany;
         }
 
-        public static async Task<CompanyDto> DeleteCompanyByIdAsync(int id)
+        public async Task<CompanyDto> DeleteCompanyByIdAsync(int id)
         {
             GetClient();
             CompanyDto deletedCompany = null;
@@ -89,7 +89,7 @@ namespace Timesheet_Library.Dto.Services
             return deletedCompany;
         }
 
-        public static async Task<List<UserDto>> GetUsersFromCompanyByIdAsync(int id)
+        public async Task<List<UserDto>> GetUsersFromCompanyByIdAsync(int id)
         {
             GetClient();
             string getAllCompanyUsers = null;
@@ -104,7 +104,7 @@ namespace Timesheet_Library.Dto.Services
             return getCompanyUsers;
         }
 
-        public static async Task<bool> AddUserToCompanyByIdAsync(int id, int userid)
+        public async Task<bool> AddUserToCompanyByIdAsync(int id, int userid)
         {
             GetClient();
             string getAllCompanies = null;
@@ -118,7 +118,7 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public static async Task<bool> DeleteUserFromCompanyByIdAsync(int id, int userid)
+        public async Task<bool> DeleteUserFromCompanyByIdAsync(int id, int userid)
         {
             GetClient();
             CompanyDto deletedCompany = null;

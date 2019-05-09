@@ -27,7 +27,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<List<ProjectDto>> GetAllProjectsAsync()
+        public async Task<List<ProjectDto>> GetAllProjectsAsync()
         {
             GetClient();
             string getAllProjects = null;
@@ -42,7 +42,7 @@ namespace Timesheet_Library.Dto.Services
             return ProjectList;
         }
 
-        public static async Task<ProjectDto> GetProjectByIdAsync(int id)
+        public async Task<ProjectDto> GetProjectByIdAsync(int id)
         {
             GetClient();
             ProjectDto getProject = null;
@@ -54,7 +54,7 @@ namespace Timesheet_Library.Dto.Services
             return getProject;
         }
 
-        public static async Task<ProjectDto> CreateProjectAsync(ProjectToCreateDto Project)
+        public async Task<ProjectDto> CreateProjectAsync(ProjectToCreateDto Project)
         {
             GetClient();
             ProjectDto createdProject = null;
@@ -66,7 +66,7 @@ namespace Timesheet_Library.Dto.Services
             return createdProject;
         }
 
-        public static async Task<bool> UpdateProjectByIdAsync(ProjectToUpdateDto Project, int id)
+        public async Task<bool> UpdateProjectByIdAsync(ProjectToUpdateDto Project, int id)
         {
             GetClient();
             ProjectDto updatedProject = null;
@@ -79,7 +79,7 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public static async Task<ProjectDto> DeleteProjectByIdAsync(int id)
+        public async Task<ProjectDto> DeleteProjectByIdAsync(int id)
         {
             GetClient();
             ProjectDto deletedProject = null;

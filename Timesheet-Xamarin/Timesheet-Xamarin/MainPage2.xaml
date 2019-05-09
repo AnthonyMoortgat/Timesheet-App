@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.MainPage2">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <Label 
+                Text="Start..."
+                x:Name="LabelStartTime"
+                />
+
+                <TimePicker
+                x:Name="StartTime" 
+                Format="HH:mm"
+                />
+
+                <Label 
+                Text="End..."
+                x:Name="LabelEndTime"
+                />
+
+                <TimePicker
+                x:Name="EndTime" 
+                Format="HH:mm"
+                />
+
+                <Label 
+                Text="Project"
+                x:Name="LabelProject"
+                />
+
+                <Picker
+                x:Name="ProjectList"  
+                />
+
+                <Entry
+                x:Name="DescriptionEntry"
+                Placeholder="Description"
+                Text=""
+                />
+
+                <Button 
+                Text="Edit" 
+                x:Name="EditLog"
+                Clicked="ClickEdit"
+                />
+
+                <Button 
+                Text="Delete" 
+                x:Name="DeleteLog"
+                Clicked="ClickDelete"
+                />
+
+                <Button 
+                Text="Cancel" 
+                x:Name="Cancel"
+                Clicked="ClickCancel"
+                />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

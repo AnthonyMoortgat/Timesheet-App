@@ -25,7 +25,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<string> CreateSessionAsync(UserToLoginDto user)
+        public async Task<string> CreateSessionAsync(UserToLoginDto user)
         {
             GetClient();
             string session = "";

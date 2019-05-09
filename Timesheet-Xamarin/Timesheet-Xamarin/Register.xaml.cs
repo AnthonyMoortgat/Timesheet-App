@@ -204,13 +204,17 @@ namespace Timesheet_Xamarin
                 confirmpasswordError.IsVisible = true;
             }
 
+            /*
             if (Errors.Count == 0)
             {
                 await DisplayAlert("Message", $"No errors found! Errors: {Errors.Count}", "Ok");
             }
+            */
 
             if (Errors.Count() == 0)
             {
+                UserServices userServices = new UserServices();
+
                 UserToCreateDto user = new UserToCreateDto
                 {
                     Email = email.Text,
@@ -228,9 +232,10 @@ namespace Timesheet_Xamarin
                         BoxNumber = boxnumber.Text
                     }
                 };
+                buttonRegister.IsEnabled = false;
                 //await DisplayAlert("Warning", Errors.Count() + " haha", "Ok");
-                await UserServices.CreateUserAsync(user);
-
+                await userServices.CreateUserAsync(user);
+                
                 Application.Current.MainPage = new Login();
             }
 
@@ -263,16 +268,22 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Login();
         }
 
+        //Check op lege string
         private static Predicate<string> CheckStringIsFilled = str => str.Trim() == "";
 
+        //Email controle
         private static Predicate<string> CheckEmail = email => Regex.IsMatch(email, @"^([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$");
 
+        //Check op phone number
         private static Predicate<string> CheckPhone = phone => Regex.IsMatch(phone, @"^([0-9]{9,10})$");
 
+        //Password controle: tussen 8 en 20 characters max en moet uit minstens 1 hoofdletter, 1 speciaal teken en 1 nummer bestaan
         private static Predicate<string> CheckPassword = pass => Regex.IsMatch(pass, @"(?=^.{8,20}$)(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?!.*\s).*$");
 
+        //Postalcode check: tussen 1000 en 9999
         private static Predicate<string> CheckPostalCode = postal => Regex.IsMatch(postal, @"^([1-9][0-9][0-9][0-9])$");
 
+        //Check dat beide password gelijk zijn aan elkaar
         private static bool CheckpasswordEquality(string Password, string CheckPassword)
         {
             if (Password == CheckPassword)
