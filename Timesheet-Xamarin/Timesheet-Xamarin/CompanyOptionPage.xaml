@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.CompanyOptionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button
+                x:Name="AddProject"
+                Text="Add Project"
+                Clicked="ClickAddProject"
+            />
+            <Button
+                x:Name="AddWorkerToCompany"
+                Text="Add Worker To Company"
+                Clicked="ClickAddWorker"
+            />
+            <Button
+                x:Name="AddConsultantToProject"
+                Text="Add Consultant To Project"
+                Clicked="ClickAddConsultant"
+            />
+            <!--<Button
+                x:Name="Add Roles"
+            />-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
