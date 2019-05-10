@@ -6,40 +6,38 @@
         <ScrollView>
             <StackLayout>
 
-                <Label 
-                Text="Start..."
-                x:Name="LabelStartTime"
-                />
+                <StackLayout>
+                    <RelativeLayout>
+                        <StackLayout>
+                            <Grid RowSpacing="0" ColumnSpacing="0">
+                                <Label Text="Start..." x:Name="LabelStartTime" FontSize="12" Grid.Row="0" Grid.Column="0"/>
+                                <TimePicker x:Name="StartTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="0"/>
+                                <Label Text="End..." x:Name="LabelEndTime" FontSize="12" Grid.Row="0" Grid.Column="1"/>
+                                <TimePicker x:Name="EndTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="1"/>
+                            </Grid>
+                        </StackLayout>
+                    </RelativeLayout>
+                </StackLayout>
 
-                <TimePicker
-                x:Name="StartTime" 
-                Format="HH:mm"
-                />
+                <StackLayout>
+                    <Label 
+                        Text="Project"
+                        x:Name="LabelProject"
+                        FontSize="13"
+                    />
 
-                <Label 
-                Text="End..."
-                x:Name="LabelEndTime"
-                />
+                    <Picker
+                        x:Name="ProjectList"  
+                        FontSize="13"
+                    />
 
-                <TimePicker
-                x:Name="EndTime" 
-                Format="HH:mm"
-                />
-
-                <Label 
-                Text="Project"
-                x:Name="LabelProject"
-                />
-
-                <Picker
-                x:Name="ProjectList"  
-                />
-
-                <Entry
-                x:Name="DescriptionEntry"
-                Placeholder="Description"
-                Text=""
-                />
+                    <Entry
+                        x:Name="DescriptionEntry"
+                        Placeholder="Description"
+                        Text=""
+                        FontSize="13"
+                    />
+                </StackLayout>
 
                 <Button 
                 Text="Edit" 
