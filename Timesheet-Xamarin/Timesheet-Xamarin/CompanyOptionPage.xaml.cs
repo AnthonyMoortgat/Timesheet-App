@@ -16,6 +16,7 @@ namespace Timesheet_Xamarin
         {
             InitializeComponent();
         }
+
         private async void ClickAddProject(object sender, EventArgs args)
         {
             await Navigation.PushModalAsync(new AddProjectPage());
@@ -24,9 +25,14 @@ namespace Timesheet_Xamarin
         {
             await Navigation.PushModalAsync(new AddWorkerPage());
         }
-        private void ClickAddConsultant(object sender, EventArgs args)
+        private async void ClickAddConsultant(object sender, EventArgs args)
         {
-            //await Navigation.PushModalAsync(new AddProjectPage());
+            await Navigation.PushModalAsync(new AddConsultantPage());
         }
+        private async void ClickAddRoles(object sender, EventArgs args)
+        {
+            await Navigation.PushModalAsync(new AddRolesPage());
+        }
+
     }
 }

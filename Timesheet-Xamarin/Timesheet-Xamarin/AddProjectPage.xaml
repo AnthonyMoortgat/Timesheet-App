@@ -8,16 +8,22 @@
                 x:Name="EntryNameProject"
                 Placeholder="Project Name"
                 Text=""
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
             <Entry
                 x:Name="EntryDescription"
                 Placeholder="Description"
                 Text=""
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
             <Button
                 x:Name="AddProjectButton"
-                Clicked="ClickAddProject"
+                Clicked="ClickAddProjectAsync"
                 Text="Add Project"
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
         </StackLayout>
     </ContentPage.Content>

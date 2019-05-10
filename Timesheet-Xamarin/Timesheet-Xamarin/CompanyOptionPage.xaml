@@ -8,20 +8,30 @@
                 x:Name="AddProject"
                 Text="Add Project"
                 Clicked="ClickAddProject"
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
             <Button
                 x:Name="AddWorkerToCompany"
                 Text="Add Worker To Company"
                 Clicked="ClickAddWorker"
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
             <Button
                 x:Name="AddConsultantToProject"
                 Text="Add Consultant To Project"
                 Clicked="ClickAddConsultant"
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
             <Button
-                x:Name="Add Roles"
+                x:Name="AddRoles"
+                Clicked="ClickAddRoles"
+                ScaleX="0.75"
+                ScaleY="0.75"
             />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    
