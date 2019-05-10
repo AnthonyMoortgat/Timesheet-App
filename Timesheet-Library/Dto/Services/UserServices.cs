@@ -119,6 +119,5 @@ namespace Timesheet_Library.Dto.Services
             }
             return LogList;
         }
-
     }
 }
