@@ -29,7 +29,7 @@ namespace Timesheet_Xamarin
         {
             InitializeComponent();
             StartTime.Time = new TimeSpan(8, 0, 0);
-            EndTime.Time = new TimeSpan(16, 0, 0); 
+            EndTime.Time = new TimeSpan(16, 0, 0);
         }
 
         protected async override void OnAppearing()
@@ -37,7 +37,7 @@ namespace Timesheet_Xamarin
             //Haalt alle projecten op
             List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
             List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
-            
+
             //Steekt alle projecten in ProjectList (Picker)
             AddProjectsToProjectList(projects, projectsWithKey);
             AddLogsToLogList(LogsCollection, logs);
@@ -102,7 +102,7 @@ namespace Timesheet_Xamarin
                     StopTime = DateTime.Parse(EndT),
                     Description = DescriptionEntry.Text
                 };
-               
+
                 LogDto logDto = await logServices.CreateLogAsync(log);
                 Application.Current.MainPage = new MainPage();
             }
@@ -166,7 +166,7 @@ namespace Timesheet_Xamarin
             {
                 logsWithKey.Add(log.ID, $"{log.StartTime.ToString("dd/MM/yyyy")} | {log.StartTime.ToString("HH:mm")} - {log.StopTime.ToString("HH:mm")}: {log.Description} - Total: {log.StopTime - log.StartTime}");
             }
-            
+
             //Dictionary in LogList(ListView) steken
             foreach (var log in logsWithKey)
             {
@@ -194,14 +194,12 @@ namespace Timesheet_Xamarin
             ProjectList.SelectedIndex = 0;
         }
 
-        private void LogList1_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void Logout_Clicked(object sender, EventArgs e)
         {
+            Application.Current.Properties["IdUser"] = "";
+            Application.Current.Properties["Token"] = "";
 
-        }
-
-        private void LogList1_Focused(object sender, FocusEventArgs e)
-        {
-
+            Application.Current.MainPage = new Login();
         }
     }
 }
