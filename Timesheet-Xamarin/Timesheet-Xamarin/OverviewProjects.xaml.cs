@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
-namespace Timesheet-Xamarin
+namespace Timesheet_Xamarin
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class OverviewProjects : ContentPage

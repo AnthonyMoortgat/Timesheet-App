@@ -19,9 +19,9 @@
                 Text="Add Consultant To Project"
                 Clicked="ClickAddConsultant"
             />
-            <!--<Button
+            <Button
                 x:Name="Add Roles"
-            />-->
+            />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
