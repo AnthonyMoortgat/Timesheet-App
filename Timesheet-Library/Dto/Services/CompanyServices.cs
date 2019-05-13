@@ -104,12 +104,12 @@ namespace Timesheet_Library.Dto.Services
             return getCompanyUsers;
         }
 
-        public async Task<bool> AddUserToCompanyByIdAsync(int id, int userid)
+        public async Task<bool> AddUserToCompanyByIdAsync(int id, string email)
         {
             GetClient();
             string getAllCompanies = null;
 
-            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Companies/{id}/Users?userId={userid}", id);
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Companies/{id}/Users?email={email}", id);
             if (response.IsSuccessStatusCode)
             {
                 getAllCompanies = await response.Content.ReadAsStringAsync();

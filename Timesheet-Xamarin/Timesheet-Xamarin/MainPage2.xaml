@@ -43,18 +43,24 @@
                 Text="Edit" 
                 x:Name="EditLog"
                 Clicked="ClickEdit"
+                ScaleX="0.75"
+                ScaleY="0.75"
                 />
 
                 <Button 
                 Text="Delete" 
                 x:Name="DeleteLog"
                 Clicked="ClickDelete"
+                ScaleX="0.75"
+                ScaleY="0.75"
                 />
 
                 <Button 
                 Text="Cancel" 
                 x:Name="Cancel"
                 Clicked="ClickCancel"
+                ScaleX="0.75"
+                ScaleY="0.75"
                 />
 
             </StackLayout>

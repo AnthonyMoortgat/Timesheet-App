@@ -10,10 +10,10 @@ namespace Timesheet_Xamarin
     {
         public App()
         {
-            string a = Application.Current.Properties["IdUser"].ToString();
-            string b = Application.Current.Properties["Token"].ToString();
+            //var a = Application.Current.Properties["IdUser"];
+            //var b = Application.Current.Properties["Token"];
 
-            if (a == "" && b == "")
+            if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
             {
                 MainPage = new Login();
             }

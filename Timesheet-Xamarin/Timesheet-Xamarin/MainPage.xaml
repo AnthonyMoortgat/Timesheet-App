@@ -48,14 +48,26 @@
                     x:Name="LogList1"
                     ItemSelected="OnItemSelected"
                     />
-
-                <Button 
-                    Text="Log out" 
-                    x:Name="Logout"
-                    Clicked="Logout_Clicked"
-                    />
             </StackLayout>
         </ScrollView>
+
+        <Button 
+            Text="Log out" 
+            x:Name="Logout"
+            Clicked="Logout_Clicked"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
+            />
+
+        <Button 
+            Text="Add Roles" 
+            x:Name="addRolesButton"
+            Clicked="Add_Role"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
+            />
     </StackLayout>
 
 </ContentPage>

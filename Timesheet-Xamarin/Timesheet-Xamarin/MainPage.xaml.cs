@@ -201,5 +201,10 @@ namespace Timesheet_Xamarin
 
             Application.Current.MainPage = new Login();
         }
+
+        private void Add_Role(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new Roles();
+        }
     }
 }
