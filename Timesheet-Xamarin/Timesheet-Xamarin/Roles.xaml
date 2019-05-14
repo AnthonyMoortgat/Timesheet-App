@@ -8,16 +8,29 @@
                 x:Name="addRole"
                 Text="Add Role"
                 Clicked="Add_Role"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
                 />
 
             <StackLayout>
                 <ScrollView>
                     <ListView
                         x:Name="RoleList"
+                        ItemSelected="RoleList_ItemSelected"
                         />
                 </ScrollView>
             </StackLayout>
-            
+
+            <Button
+                x:Name="BackButton"
+                Text="Back"
+                Clicked="BackButton_Clicked"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                />
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

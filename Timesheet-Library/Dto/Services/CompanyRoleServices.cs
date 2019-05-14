@@ -77,7 +77,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedCompanyRole;
         }
 
-        public async Task<CompanyRoleDto> DeleteCompanyRoleByIdAsync(int id, int roleId)
+        public async Task<bool> DeleteCompanyRoleByIdAsync(int id, int roleId)
         {
             GetClient();
             CompanyRoleDto deletedCompanyRole = null;
@@ -85,8 +85,9 @@ namespace Timesheet_Library.Dto.Services
             if (response.IsSuccessStatusCode)
             {
                 deletedCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+                return true;
             }
-            return deletedCompanyRole;
+            return false;
         }
 
         public async Task<CompanyRoleDto> GetUsersCompanyRolesAsync(int id, int userId)
