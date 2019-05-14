@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Timesheet_Library.Dto;
+using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
 
@@ -112,9 +113,11 @@ namespace ApiServices
                 Description = "desc 2"
             };
 
-            
+
 
             //Test
+            UserServices userServices = new UserServices();
+
             UserDto user1 = new UserDto();
             CompanyDto c = new CompanyDto();
             CompanyRoleDto cr = new CompanyRoleDto();
@@ -171,8 +174,14 @@ namespace ApiServices
 
             //bool b = CompanyServices.AddUserToCompanyByIdAsync(1, 8).GetAwaiter().GetResult();
 
-            p = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
-            Console.WriteLine(p.Name);
+            //bool bp = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
+            //Console.WriteLine(bp);
+
+            List<LogDto> user = userServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
+            //List<UserDto> users = userServices.GetUserByEmailAsync("kevin@gmail.com").GetAwaiter().GetResult();
+            //Console.WriteLine(user[0].StartTime.ToString("HH:mm"));
+            string s = $"{user[0].StartTime.ToString("dd/MM/yyyy")} | {user[0].StartTime.ToString("HH:mm")} - {user[0].StopTime.ToString("HH:mm")}: {user[0].Description} - Total: {user[0].StopTime - user[0].StartTime}";
+            Console.WriteLine(s);
             Console.ReadLine();
         }
     }

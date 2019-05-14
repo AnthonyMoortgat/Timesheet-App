@@ -8,74 +8,71 @@ using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
 using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace Timesheet_Xamarin
 {
-    public partial class MainPage : ContentPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class MainPage2 : ContentPage
     {
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
-        private string idUser = Application.Current.Properties["IdUser"].ToString();
 
-        private ObservableCollection<string> LogsCollection = null;
+        private LogDto log = new LogDto();
+        private DateTime date;
 
-        //Logs met Key
-        private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
         //Projecten met Key
         private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
+        private int logId = 0;
 
-        public MainPage()
+        public MainPage2(int id)
         {
             InitializeComponent();
-            StartTime.Time = new TimeSpan(8, 0, 0);
-            EndTime.Time = new TimeSpan(16, 0, 0);
+            logId = id;
         }
-
+        
         protected async override void OnAppearing()
         {
             //Haalt alle projecten op
             List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
-            List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+            ProjectDto projectDto = null;
 
             //Steekt alle projecten in ProjectList (Picker)
             AddProjectsToProjectList(projects, projectsWithKey);
-            AddLogsToLogList(LogsCollection, logs);
+
+            if (logId != 0) {
+                log = await logServices.GetLogByIdAsync(logId);
+                StartTime.Time = new TimeSpan(log.StartTime.Hour, log.StopTime.Minute, 0);
+                EndTime.Time = new TimeSpan(log.StopTime.Hour, log.StopTime.Minute, 0);
+
+                projectDto = await projectServices.GetProjectByIdAsync(log.ProjectID);
+                LabelProject.Text = $"Project [Before: {projectDto.Name}]";
+
+                DescriptionEntry.Text = log.Description;
+
+                date = log.StartTime.Date; ;
+            }
         }
 
-        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        public async void ClickCancel(object sender, EventArgs args)
         {
-            if (e.SelectedItem == null)
-            {
-                return;
-            }
-            string logToEdit = LogList1.SelectedItem.ToString();
-            int logid = 0;
-
-            //Zoekt id van de log
-            foreach (var l in logsWithKey)
-            {
-                if (l.Value == logToEdit)
-                {
-                    logid = l.Key;
-                }
-            }
-
-            LogList1.SelectedItem = null;
-            await Navigation.PushModalAsync(new MainPage2(logid));
+            await Navigation.PushModalAsync(new MainPage());
         }
 
-        private async void LogTime_Clicked(object sender, EventArgs e)
+        private async void ClickEdit(object sender, EventArgs e)
         {
             //Startuur
             string StartHour = StartTime.Time.Hours.ToString();
             string StartMin = StartTime.Time.Minutes.ToString();
             string StartT = $"{StartHour}:{StartMin}";
+            DateTime start = new DateTime(date.Year, date.Month, date.Day, int.Parse(StartHour), int.Parse(StartMin), 0);
 
             //Einduur
             string EndHour = EndTime.Time.Hours.ToString();
             string EndMin = EndTime.Time.Minutes.ToString();
             string EndT = $"{EndHour}:{EndMin}";
+            DateTime end = new DateTime(date.Year, date.Month, date.Day, int.Parse(EndHour), int.Parse(EndMin), 0);
 
 
             string value = ProjectList.SelectedItem.ToString();
@@ -94,17 +91,30 @@ namespace Timesheet_Xamarin
             if (CheckTimePicker() == true && CheckDescription() == true)
             {
                 //Alle gegevens in een log object steken
-                LogToCreateDto log = new LogToCreateDto()
+                LogToUpdateDto log = new LogToUpdateDto()
                 {
-                    UserID = int.Parse(idUser),
                     ProjectID = projectid,
-                    StartTime = DateTime.Parse(StartT),
-                    StopTime = DateTime.Parse(EndT),
+                    StartTime = start,
+                    StopTime = end,
                     Description = DescriptionEntry.Text
                 };
 
-                LogDto logDto = await logServices.CreateLogAsync(log);
+                LogDto logDto = await logServices.UpdateLogByIdAsync(log, logId);
                 Application.Current.MainPage = new MainPage();
+            }
+        }
+
+        public async void ClickDelete(object sender, EventArgs args)
+        {
+            bool action = await DisplayAlert("Warning", "Do you want to delete this log?", "Yes", "No");
+
+            if (action == true)
+            {
+                bool deleted = await logServices.DeleteLogByIdAsync(logId);
+                if (deleted == true)
+                {
+                    Application.Current.MainPage = new MainPage();
+                }  
             }
         }
 
@@ -157,26 +167,6 @@ namespace Timesheet_Xamarin
             }
         }
 
-        //Logs toevoegen aan LogList (ListView)
-        private void AddLogsToLogList(ObservableCollection<string> LogsCollection, List<LogDto> logsDto = null)
-        {
-            LogsCollection = new ObservableCollection<string>();
-            //Logs(naam en id) in Dictionary steken
-            foreach (var log in logsDto)
-            {
-                logsWithKey.Add(log.ID, $"{log.StartTime.ToString("dd/MM/yyyy")} | {log.StartTime.ToString("HH:mm")} - {log.StopTime.ToString("HH:mm")}: {log.Description} - Total: {log.StopTime - log.StartTime}");
-            }
-
-            //Dictionary in LogList(ListView) steken
-            foreach (var log in logsWithKey)
-            {
-                LogsCollection.Add(log.Value.ToString());
-            }
-
-            //Dictionary in LogList(ListView) steken
-            LogList1.ItemsSource = LogsCollection;
-        }
-
         //Projecten toevoegen aan ProjectList (Picker)
         private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
         {
@@ -192,19 +182,6 @@ namespace Timesheet_Xamarin
                 ProjectList.Items.Add(project.Value);
             }
             ProjectList.SelectedIndex = 0;
-        }
-
-        private void Logout_Clicked(object sender, EventArgs e)
-        {
-            Application.Current.Properties["IdUser"] = "";
-            Application.Current.Properties["Token"] = "";
-
-            Application.Current.MainPage = new Login();
-        }
-
-        private void Add_Role(object sender, EventArgs e)
-        {
-            Application.Current.MainPage = new Roles();
         }
     }
 }

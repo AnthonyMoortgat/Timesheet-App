@@ -5,11 +5,11 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using Timesheet_Library.Dto.Project;
+using Timesheet_Library.Dto.Log;
 
 namespace Timesheet_Library.Dto.Services
 {
-    public class ProjectServices
+    public class LogServices
     {
         private static HttpClient client = null;
 
@@ -27,68 +27,68 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public async Task<List<ProjectDto>> GetAllProjectsAsync()
+        public async Task<List<LogDto>> GetAllLogsAsync()
         {
             GetClient();
-            string getAllProjects = null;
-            List<ProjectDto> ProjectList = null;
+            string getAllLogs = null;
+            List<LogDto> LogList = null;
 
-            HttpResponseMessage response = await client.GetAsync($"api/Projects/");
+            HttpResponseMessage response = await client.GetAsync($"api/Logs/");
             if (response.IsSuccessStatusCode)
             {
-                getAllProjects = await response.Content.ReadAsStringAsync();
-                ProjectList = JsonConvert.DeserializeObject<List<ProjectDto>>(getAllProjects);
+                getAllLogs = await response.Content.ReadAsStringAsync();
+                LogList = JsonConvert.DeserializeObject<List<LogDto>>(getAllLogs);
             }
-            return ProjectList;
+            return LogList;
         }
 
-        public async Task<ProjectDto> GetProjectByIdAsync(int id)
+        public async Task<LogDto> CreateLogAsync(LogToCreateDto log)
         {
             GetClient();
-            ProjectDto getProject = null;
-            HttpResponseMessage response = await client.GetAsync($"api/Projects/{id}");
+            LogDto createdLog = null;
+            HttpResponseMessage response = await client.PostAsJsonAsync("api/Log/", log);
             if (response.IsSuccessStatusCode)
             {
-                getProject = await response.Content.ReadAsAsync<ProjectDto>();
+                createdLog = await response.Content.ReadAsAsync<LogDto>();
             }
-            return getProject;
+            return createdLog;
         }
 
-        public async Task<ProjectDto> CreateProjectAsync(ProjectToCreateDto Project)
+        public async Task<LogDto> GetLogByIdAsync(int id)
         {
             GetClient();
-            ProjectDto createdProject = null;
-            HttpResponseMessage response = await client.PostAsJsonAsync("api/Projects/", Project);
+            LogDto getLog = null;
+            HttpResponseMessage response = await client.GetAsync($"api/Log/{id}");
             if (response.IsSuccessStatusCode)
             {
-                createdProject = await response.Content.ReadAsAsync<ProjectDto>();
+                getLog = await response.Content.ReadAsAsync<LogDto>();
             }
-            return createdProject;
+            return getLog;
         }
 
-        public async Task<bool> UpdateProjectByIdAsync(ProjectToUpdateDto Project, int id)
+        public async Task<LogDto> UpdateLogByIdAsync(LogToUpdateDto log, int id)
         {
             GetClient();
-            ProjectDto updatedProject = null;
-            HttpResponseMessage response = await client.PutAsJsonAsync($"api/Projects/{id}", Project);
+            LogDto updatedLog = null;
+            HttpResponseMessage response = await client.PutAsJsonAsync($"api/Log/{id}", log);
             if (response.IsSuccessStatusCode)
             {
-                updatedProject = await response.Content.ReadAsAsync<ProjectDto>();
+                updatedLog = await response.Content.ReadAsAsync<LogDto>();
+            }
+            return updatedLog;
+        }
+
+        public async Task<bool> DeleteLogByIdAsync(int id)
+        {
+            GetClient();
+            LogDto deletedLog = null;
+            HttpResponseMessage response = await client.DeleteAsync($"api/Log/{id}");
+            if (response.IsSuccessStatusCode)
+            {
+                deletedLog = await response.Content.ReadAsAsync<LogDto>();
                 return true;
             }
             return false;
-        }
-
-        public async Task<ProjectDto> DeleteProjectByIdAsync(int id)
-        {
-            GetClient();
-            ProjectDto deletedProject = null;
-            HttpResponseMessage response = await client.DeleteAsync($"api/Projects/{id}");
-            if (response.IsSuccessStatusCode)
-            {
-                deletedProject = await response.Content.ReadAsAsync<ProjectDto>();
-            }
-            return deletedProject;
         }
     }
 }

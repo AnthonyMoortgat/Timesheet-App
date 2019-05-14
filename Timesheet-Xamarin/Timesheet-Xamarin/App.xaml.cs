@@ -10,10 +10,20 @@ namespace Timesheet_Xamarin
     {
         public App()
         {
+            //var a = Application.Current.Properties["IdUser"];
+            //var b = Application.Current.Properties["Token"];
+
+            if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
+            {
+                MainPage = new Login();
+            }
+            else
+            {
+                MainPage = new MainPage();
+            }
+
             InitializeComponent();
             Initialize();
-
-            MainPage = new Login();
         }
         
         private async void Initialize()

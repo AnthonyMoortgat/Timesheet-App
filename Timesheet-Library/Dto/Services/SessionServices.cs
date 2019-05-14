@@ -25,7 +25,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<string> CreateSessionAsync(UserToLoginDto user)
+        public async Task<string> CreateSessionAsync(UserToLoginDto user)
         {
             GetClient();
             string session = "";
@@ -36,20 +36,6 @@ namespace Timesheet_Library.Dto.Services
             }
             return session;
         }
-
-        /*
-        public static string CreateSession(UserToLoginDto user)
-        {
-            GetClient();
-            string session = "";
-            HttpResponseMessage response = client.PostAsJsonAsync("api/session/", user).Result;
-            if (response.IsSuccessStatusCode)
-            {
-                session = response.Content.ReadAsStringAsync().Result;
-            }
-            return session;
-        }
-        */
 
         public static async Task<string> DeleteSessionAsync()
         {
@@ -64,3 +50,7 @@ namespace Timesheet_Library.Dto.Services
         }
     }
 }
+
+// Microsoft. Call a Web API From a .NET Client (C#)
+// https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+// Geraadpleegd op 29 maart 2019

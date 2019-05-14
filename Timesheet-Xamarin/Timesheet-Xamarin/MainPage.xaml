@@ -4,58 +4,70 @@
              xmlns:local="clr-namespace:Timesheet_Xamarin"
              x:Class="Timesheet_Xamarin.MainPage">
 
-    <StackLayout>
-        <Label 
-            Text="Start..."
-            x:Name="LabelStartTime"
-            />
+    <StackLayout Margin="5,0,8,3">
+        <RelativeLayout>
+            <StackLayout>
+                <Grid RowSpacing="-25" ColumnSpacing="0">
+                    <Label Text="Start..." x:Name="LabelStartTime" FontSize="12" Grid.Row="0" Grid.Column="0"/>
+                    <TimePicker x:Name="StartTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="0"/>
+                    <Label Text="End..." x:Name="LabelEndTime" FontSize="12" Grid.Row="0" Grid.Column="1"/>
+                    <TimePicker x:Name="EndTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+            </StackLayout>
+        </RelativeLayout>
 
-        <TimePicker
-            x:Name="StartTime" 
-            Format="HH:mm"
-            />
+        <StackLayout>
+            <Label 
+                Text="Project"
+                x:Name="LabelProject"
+                FontSize="13"
+                />
 
-        <Label 
-            Text="End..."
-            x:Name="LabelEndTime"
-            />
+            <Picker
+                x:Name="ProjectList"  
+                FontSize="13"
+                />
 
-        <TimePicker
-            x:Name="EndTime" 
-            Format="HH:mm"
-            />
+            <Entry
+                x:Name="DescriptionEntry"
+                Placeholder="Description"
+                Text=""
+                FontSize="13"
+                />
 
-        <Label 
-            Text="Project"
-            x:Name="LabelProject"
-            />
+            <Button 
+                Text="Log Uren" 
+                x:Name="LogTime"
+                Clicked="LogTime_Clicked"
+                />
+        </StackLayout>
 
-        <Picker
-            x:Name="Project"  
-            />
+        <ScrollView>
+            <StackLayout>
+                <ListView 
+                    x:Name="LogList1"
+                    ItemSelected="OnItemSelected"
+                    />
+            </StackLayout>
+        </ScrollView>
 
-        <Entry
-            x:Name="DescriptionEntry"
-            Placeholder="Description"
-            Text=""
+        <Button 
+            Text="Log out" 
+            x:Name="Logout"
+            Clicked="Logout_Clicked"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
             />
 
         <Button 
-            Text="Log Uren" 
-            x:Name="LogTime"
-            Clicked="LogTime_Clicked"
+            Text="Add Roles" 
+            x:Name="addRolesButton"
+            Clicked="Add_Role"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
             />
-
-        <ListView 
-            x:Name="LogList1"
-            />
-
-        <!--
-        <Button 
-            Text="To_MainPage" 
-            x:Name="btnmainpage"
-            Clicked="GoToMainPage"
-            />
-            -->
     </StackLayout>
+
 </ContentPage>

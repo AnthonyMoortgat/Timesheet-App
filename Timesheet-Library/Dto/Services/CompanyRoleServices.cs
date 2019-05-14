@@ -26,7 +26,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<List<CompanyRoleDto>> GetAllCompanyRolesAsync(int id)
+        public async Task<List<CompanyRoleDto>> GetAllCompanyRolesAsync(int id)
         {
             GetClient();
             string getAllCompanyRoles = null;
@@ -41,7 +41,7 @@ namespace Timesheet_Library.Dto.Services
             return CompanyRoleList;
         }
 
-        public static async Task<CompanyRoleDto> GetCompanyRoleByIdAsync(int id, int roleId)
+        public async Task<CompanyRoleDto> GetCompanyRoleByIdAsync(int id, int roleId)
         {
             GetClient();
             CompanyRoleDto getCompanyRole = null;
@@ -53,7 +53,7 @@ namespace Timesheet_Library.Dto.Services
             return getCompanyRole;
         }
 
-        public static async Task<CompanyRoleDto> CreateCompanyRoleAsync(CompanyRoleToCreateDto companyRole, int id)
+        public async Task<CompanyRoleDto> CreateCompanyRoleAsync(CompanyRoleToCreateDto companyRole, int id)
         {
             GetClient();
             CompanyRoleDto createdCompanyRole = null;
@@ -65,7 +65,7 @@ namespace Timesheet_Library.Dto.Services
             return createdCompanyRole;
         }
 
-        public static async Task<CompanyRoleDto> UpdateCompanyRoleByIdAsync(CompanyRoleToUpdateDto companyRole, int id, int roleId)
+        public async Task<CompanyRoleDto> UpdateCompanyRoleByIdAsync(CompanyRoleToUpdateDto companyRole, int id, int roleId)
         {
             GetClient();
             CompanyRoleDto updatedCompanyRole = null;
@@ -77,7 +77,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedCompanyRole;
         }
 
-        public static async Task<CompanyRoleDto> DeleteCompanyRoleByIdAsync(int id, int roleId)
+        public async Task<bool> DeleteCompanyRoleByIdAsync(int id, int roleId)
         {
             GetClient();
             CompanyRoleDto deletedCompanyRole = null;
@@ -85,11 +85,12 @@ namespace Timesheet_Library.Dto.Services
             if (response.IsSuccessStatusCode)
             {
                 deletedCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+                return true;
             }
-            return deletedCompanyRole;
+            return false;
         }
 
-        public static async Task<CompanyRoleDto> GetUsersCompanyRolesAsync(int id, int userId)
+        public async Task<CompanyRoleDto> GetUsersCompanyRolesAsync(int id, int userId)
         {
             GetClient();
             CompanyRoleDto getCompanyRole = null;
@@ -102,7 +103,7 @@ namespace Timesheet_Library.Dto.Services
             return getCompanyRole;
         }
 
-        public static async Task<bool> CreateUserCompanyRolesAsync(int id, int userId, int roleId)
+        public async Task<bool> CreateUserCompanyRolesAsync(int id, int userId, int roleId)
         {
             GetClient();
             CompanyRoleDto createdCompanyRole = null;
@@ -115,7 +116,7 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public static async Task<bool> DeleteCompanyRoleByIdAsync(int id, int userId, int roleId)
+        public async Task<bool> DeleteCompanyRoleByIdAsync(int id, int userId, int roleId)
         {
             GetClient();
             CompanyRoleDto deletedCompanyRole = null;
@@ -129,3 +130,7 @@ namespace Timesheet_Library.Dto.Services
         }
     }
 }
+
+// Microsoft. Call a Web API From a .NET Client (C#)
+// https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+// Geraadpleegd op 29 maart 2019

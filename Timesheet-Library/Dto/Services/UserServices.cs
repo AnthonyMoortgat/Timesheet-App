@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto.Log;
 
 namespace Timesheet_Library.Dto.Services
 {
@@ -26,7 +27,7 @@ namespace Timesheet_Library.Dto.Services
             }
         }
 
-        public static async Task<List<UserDto>> GetAllUsersAsync()
+        public async Task<List<UserDto>> GetAllUsersAsync()
         {
             GetClient();
             string getAllUsers = null;
@@ -41,7 +42,7 @@ namespace Timesheet_Library.Dto.Services
             return UsersList;
         }
 
-        public static async Task<UserDto> GetUserByIdAsync(int id)
+        public async Task<UserDto> GetUserByIdAsync(int id)
         {
             GetClient();
             UserDto getUser = null;
@@ -53,7 +54,22 @@ namespace Timesheet_Library.Dto.Services
             return getUser;
         }
 
-        public static async Task<UserDto> CreateUserAsync(UserToCreateDto user)
+        public async Task<List<UserDto>> GetUserByEmailAsync(string email)
+        {
+            GetClient();
+            string getUser = null;
+            List<UserDto> UsersList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/users?email={email}");
+            if (response.IsSuccessStatusCode)
+            {
+                getUser = await response.Content.ReadAsStringAsync();
+                UsersList = JsonConvert.DeserializeObject<List<UserDto>>(getUser);
+            }
+            return UsersList;
+        }
+
+        public async Task<UserDto> CreateUserAsync(UserToCreateDto user)
         {
             GetClient();
             UserDto createdUser = null;
@@ -65,7 +81,7 @@ namespace Timesheet_Library.Dto.Services
             return createdUser;
         }
 
-        public static async Task<UserDto> UpdateUserByIdAsync(UserToUpdateDto user, int id)
+        public async Task<UserDto> UpdateUserByIdAsync(UserToUpdateDto user, int id)
         {
             GetClient();
             UserDto updatedUser = null;
@@ -77,7 +93,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedUser;
         }
 
-        public static async Task<UserDto> DeleteUserByIdAsync(int id)
+        public async Task<UserDto> DeleteUserByIdAsync(int id)
         {
             GetClient();
             UserDto deletedUser = null;
@@ -88,5 +104,25 @@ namespace Timesheet_Library.Dto.Services
             }
             return deletedUser;
         }
+
+        public async Task<List<LogDto>> GetAllUserLogsAsync(int id)
+        {
+            GetClient();
+            string getAllUserLogs = null;
+            List<LogDto> LogList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Users/{id}/Logs");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllUserLogs = await response.Content.ReadAsStringAsync();
+                LogList = JsonConvert.DeserializeObject<List<LogDto>>(getAllUserLogs);
+            }
+            return LogList;
+        }
+
     }
 }
+
+// Microsoft. Call a Web API From a .NET Client (C#)
+// https://docs.microsoft.com/en-us/aspnet/web-api/overview/advanced/calling-a-web-api-from-a-net-client
+// Geraadpleegd op 29 maart 2019

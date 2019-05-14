@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.MainPage2">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+
+                <StackLayout>
+                    <RelativeLayout>
+                        <StackLayout>
+                            <Grid RowSpacing="-25" ColumnSpacing="0">
+                                <Label Text="Start..." x:Name="LabelStartTime" FontSize="12" Grid.Row="0" Grid.Column="0"/>
+                                <TimePicker x:Name="StartTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="0"/>
+                                <Label Text="End..." x:Name="LabelEndTime" FontSize="12" Grid.Row="0" Grid.Column="1"/>
+                                <TimePicker x:Name="EndTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="1"/>
+                            </Grid>
+                        </StackLayout>
+                    </RelativeLayout>
+                </StackLayout>
+
+                <StackLayout>
+                    <Label 
+                        Text="Project"
+                        x:Name="LabelProject"
+                        FontSize="13"
+                    />
+
+                    <Picker
+                        x:Name="ProjectList"  
+                        FontSize="13"
+                    />
+
+                    <Entry
+                        x:Name="DescriptionEntry"
+                        Placeholder="Description"
+                        Text=""
+                        FontSize="13"
+                    />
+                </StackLayout>
+
+                <Button 
+                Text="Edit" 
+                x:Name="EditLog"
+                Clicked="ClickEdit"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                />
+
+                <Button 
+                Text="Delete" 
+                x:Name="DeleteLog"
+                Clicked="ClickDelete"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                />
+
+                <Button 
+                Text="Cancel" 
+                x:Name="Cancel"
+                Clicked="ClickCancel"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                />
+
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

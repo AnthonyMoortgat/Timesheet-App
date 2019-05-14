@@ -192,6 +192,7 @@
 
                 <Button Text="Register"
                         Clicked="ClickRegister"
+                        x:Name="buttonRegister"
                     />
 
                 <Button Text="Back"
