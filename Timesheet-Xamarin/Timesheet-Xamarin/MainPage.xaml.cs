@@ -219,4 +219,12 @@ namespace Timesheet_Xamarin
 
 // Mobile Wits. How to pass data in pages using xamarin forms
 // http://www.mobilewits.com/blog/how-to-pass-data-in-pages-using-xamarin-forms/
-// Geraadpleegd op 4 mei 2019
+// Geraadpleegd op 7 mei 2019
+
+// Stackoverflow. How do you switch pages in Xamarin Forms
+// https://stackoverflow.com/questions/25165106/how-do-you-switch-pages-in-xamarin-forms
+// Geraadpleegd op 7 mei 2019
+
+// Stackoverflow. Xamarin forms listview itemselected functionality
+// https://stackoverflow.com/questions/33376462/xamarin-forms-listview-itemselected-functionality
+// Geraadpleegd op 7 mei 2019
