@@ -15,15 +15,15 @@ namespace Timesheet_Xamarin
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage2 : ContentPage
     {
-        LogServices logServices = new LogServices();
-        UserServices userServices = new UserServices();
-        ProjectServices projectServices = new ProjectServices();
+        private LogServices logServices = new LogServices();
+        private UserServices userServices = new UserServices();
+        private ProjectServices projectServices = new ProjectServices();
 
-        LogDto log = new LogDto();
-        DateTime date;
+        private LogDto log = new LogDto();
+        private DateTime date;
 
         //Projecten met Key
-        Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
+        private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
         private int logId = 0;
 
         public MainPage2(int id)
@@ -185,3 +185,11 @@ namespace Timesheet_Xamarin
         }
     }
 }
+
+// Stackoverflow. How to set value to picker in xamarin forms?
+// https://stackoverflow.com/questions/51272706/how-to-set-value-to-picker-in-xamarin-forms
+// Geraadpleegd op 4 mei 2019
+
+// Formum xamarin. How to bind value as id and text as string of the list in Picker control in xamarin forms?
+// https://forums.xamarin.com/discussion/87760/how-to-bind-value-as-id-and-text-as-string-of-the-list-in-picker-control-in-xamarin-forms
+// Geraadpleegd op 4 mei 2019

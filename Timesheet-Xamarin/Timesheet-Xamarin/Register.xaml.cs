@@ -297,3 +297,7 @@ namespace Timesheet_Xamarin
         }
     }
 }
+
+// Stackoverflow. Regular expression for password validation
+// https://stackoverflow.com/questions/5859632/regular-expression-for-password-validation
+// Geraadpleegd op 18 maart 2019

@@ -13,20 +13,22 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class AddRolePage : ContentPage
 	{
-        bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false;
-        CompanyRoleServices companyRoleServices = new CompanyRoleServices();
-        List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>();
+        private bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false; //booleans voor status checkbox op te slaan
+        private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
+        private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>(); //companyRoles moeten hierin geplaatst worden
 
 		public AddRolePage ()
 		{
 			InitializeComponent ();
 		}
 
+        //Alle companies ophalen
         protected async override void OnAppearing()
         {
-            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1);
+            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1); //companyRoles worden in deze array gezet
         }
 
+        //Role toevoegen
         private void AddRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
@@ -64,6 +66,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Kijken of de role al bestaat
         private bool CheckRoleExists()
         {
             foreach (var companyRole in companyRoles)
@@ -76,6 +79,7 @@ namespace Timesheet_Xamarin
             return true;
         }
 
+        //Checkbox isDefault
         private void CheckBoxIsDefault_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if(CheckBoxIsDefault.IsChecked == true)
@@ -92,6 +96,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Companies
         private void CheckBoxManageCompanies_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageCompanies.IsChecked == true)
@@ -106,6 +111,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Roles
         private void CheckBoxManageRoles_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageRoles.IsChecked == true)
@@ -120,6 +126,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Users
         private void CheckBoxManageUsers_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageUsers.IsChecked == true)
@@ -134,6 +141,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Projects
         private void CheckBoxManageProjects_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageProjects.IsChecked == true)
@@ -148,6 +156,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Terug naar de Rolespage
         private void BackToRoles(object sender, EventArgs e)
         {
             Application.Current.MainPage = new Roles();

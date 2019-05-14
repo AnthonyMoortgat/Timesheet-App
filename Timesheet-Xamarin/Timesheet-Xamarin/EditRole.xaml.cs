@@ -13,23 +13,24 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditRole : ContentPage
 	{
-        bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false;
-        string RoleName = "";
-        int roleId = 0;
-        CompanyRoleServices companyRoleServices = new CompanyRoleServices();
-        List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>();
-        CompanyRoleDto companyRole;
+        private bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false; //booleans voor status checkbox weer te geven
+        private string RoleName = "";
+        private int roleId = 0;
+        private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
+        private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>();
+        private CompanyRoleDto companyRole;
         //ID Company
 
         public EditRole (int roleID)
 		{
 			InitializeComponent ();
             roleId = roleID;
-		}
+            DisplayAlert("Warning", roleId.ToString(), "Ok");
+        }
 
+        //Alle Role gegevens ophalen en tonen op het scherm
         protected async override void OnAppearing()
         {
-            RoleName = EntryName.Text;
             companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1);
             companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(1, roleId);
             CheckBoxIsDefault.IsChecked = companyRole.IsDefault;
@@ -38,9 +39,11 @@ namespace Timesheet_Xamarin
             CheckBoxManageUsers.IsChecked = companyRole.ManageUsers;
             CheckBoxManageProjects.IsChecked = companyRole.ManageProjects;
             EntryName.Text = companyRole.Name;
+            RoleName = EntryName.Text;
             EntryDescription.Text = companyRole.Description;
         }
 
+        //Edit role
         private void EditRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
@@ -49,6 +52,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Delete role
         private async void DeleteRoleButton_Clicked(object sender, EventArgs e)
         {
             bool action = await DisplayAlert("Warning", "Do you want to delete this Role?", "Yes", "No");
@@ -63,6 +67,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Annuleer verandering
         private async void CancelButton_Clicked(object sender, EventArgs e)
         {
             await Navigation.PushModalAsync(new Roles());
@@ -97,6 +102,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Kijken of de role bestaat
         private bool CheckRoleExists()
         {
             foreach (var companyRole in companyRoles)
@@ -113,6 +119,7 @@ namespace Timesheet_Xamarin
             return true;
         }
 
+        //Checkbox isDefault
         private void CheckBoxIsDefault_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxIsDefault.IsChecked == true)
@@ -129,6 +136,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Companies
         private void CheckBoxManageCompanies_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageCompanies.IsChecked == true)
@@ -143,6 +151,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Roles
         private void CheckBoxManageRoles_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageRoles.IsChecked == true)
@@ -157,6 +166,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Users
         private void CheckBoxManageUsers_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageUsers.IsChecked == true)
@@ -171,6 +181,7 @@ namespace Timesheet_Xamarin
             }
         }
 
+        //Checkbox manage Projects
         private void CheckBoxManageProjects_IsCheckedChanged(object sender, TappedEventArgs e)
         {
             if (CheckBoxManageProjects.IsChecked == true)

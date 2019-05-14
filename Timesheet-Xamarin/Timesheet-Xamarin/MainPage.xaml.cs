@@ -13,17 +13,17 @@ namespace Timesheet_Xamarin
 {
     public partial class MainPage : ContentPage
     {
-        LogServices logServices = new LogServices();
-        UserServices userServices = new UserServices();
-        ProjectServices projectServices = new ProjectServices();
-        string idUser = Application.Current.Properties["IdUser"].ToString();
+        private LogServices logServices = new LogServices();
+        private UserServices userServices = new UserServices();
+        private ProjectServices projectServices = new ProjectServices();
+        private string idUser = Application.Current.Properties["IdUser"].ToString();
 
-        public ObservableCollection<string> LogsCollection = null;
+        private ObservableCollection<string> LogsCollection = null;
 
         //Logs met Key
-        Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
+        private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
         //Projecten met Key
-        Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
+        private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
         public MainPage()
         {
@@ -208,3 +208,15 @@ namespace Timesheet_Xamarin
         }
     }
 }
+
+// Stackoverflow. How to set value to picker in xamarin forms?
+// https://stackoverflow.com/questions/51272706/how-to-set-value-to-picker-in-xamarin-forms
+// Geraadpleegd op 4 mei 2019
+
+// Formum xamarin. How to bind value as id and text as string of the list in Picker control in xamarin forms?
+// https://forums.xamarin.com/discussion/87760/how-to-bind-value-as-id-and-text-as-string-of-the-list-in-picker-control-in-xamarin-forms
+// Geraadpleegd op 4 mei 2019
+
+// Mobile Wits. How to pass data in pages using xamarin forms
+// http://www.mobilewits.com/blog/how-to-pass-data-in-pages-using-xamarin-forms/
+// Geraadpleegd op 4 mei 2019
