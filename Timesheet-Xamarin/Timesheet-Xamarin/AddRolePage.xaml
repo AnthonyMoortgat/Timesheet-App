@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.AddRolePage"
+             xmlns:ia="clr-namespace:IntelliAbb.Xamarin.Controls;assembly=IntelliAbb.Xamarin.Controls">
+    <ContentPage.Content>
+        <StackLayout >
+            <Label 
+                Text="Name Role"
+                />
+
+            <Entry
+                x:Name="EntryName"
+                Placeholder="Name"
+                Text=""
+                FontSize="13"
+                />
+
+            <Entry
+                x:Name="EntryDescription"
+                Placeholder="Description"
+                Text=""
+                FontSize="13"
+                />
+
+            <Grid RowSpacing="0" ColumnSpacing="-50">
+                <ia:Checkbox
+                    x:Name="CheckBoxIsDefault"
+                    Shape="Rectangle"
+                    OutlineColor="Blue"
+                    FillColor="Blue"
+                    CheckColor="White"
+                    Grid.Row="0" Grid.Column="0"
+                    IsChecked="True"
+                    IsCheckedChanged="CheckBoxIsDefault_IsCheckedChanged"
+                />
+
+                <Label Text="Is Default" Grid.Row="0" Grid.Column="1"/>
+
+                <ia:Checkbox
+                    x:Name="CheckBoxManageCompanies"
+                    Shape="Rectangle"
+                    OutlineColor="Blue"
+                    FillColor="Blue"
+                    CheckColor="White"
+                    Grid.Row="1" Grid.Column="0"
+                    IsCheckedChanged="CheckBoxManageCompanies_IsCheckedChanged"
+                />
+
+                <Label Text="Manage Companies" Grid.Row="1" Grid.Column="1"/>
+
+                <ia:Checkbox
+                    x:Name="CheckBoxManageRoles"
+                    Shape="Rectangle"
+                    OutlineColor="Blue"
+                    FillColor="Blue"
+                    CheckColor="White"
+                    Grid.Row="2" Grid.Column="0"
+                    IsCheckedChanged="CheckBoxManageRoles_IsCheckedChanged"
+                    />
+
+                <Label Text="Manage Roles" Grid.Row="2" Grid.Column="1"/>
+
+                <ia:Checkbox
+                    x:Name="CheckBoxManageUsers"
+                    Shape="Rectangle"
+                    OutlineColor="Blue"
+                    FillColor="Blue"
+                    CheckColor="White"
+                    Grid.Row="3" Grid.Column="0"
+                    IsCheckedChanged="CheckBoxManageUsers_IsCheckedChanged"
+                    />
+
+                <Label Text="Manage Users" Grid.Row="3" Grid.Column="1"/>
+
+                <ia:Checkbox
+                    x:Name="CheckBoxManageProjects"
+                    Shape="Rectangle"
+                    OutlineColor="Blue"
+                    FillColor="Blue"
+                    CheckColor="White"
+                    Grid.Row="4" Grid.Column="0"
+                    IsCheckedChanged="CheckBoxManageProjects_IsCheckedChanged"
+                    />
+
+                <Label Text="Manage Projects" Grid.Row="4" Grid.Column="1"/>
+            </Grid>
+
+            <Button
+                x:Name="AddRoleButton"
+                Text="Add Role"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="AddRoleButton_Clicked"
+                />
+
+            <Button
+                x:Name="BackButton"
+                Text="Back"
+                Clicked="BackToRoles"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

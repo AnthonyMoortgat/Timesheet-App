@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,10 +10,34 @@ namespace Timesheet_Xamarin
     {
         public App()
         {
-            InitializeComponent();
+            //var a = Application.Current.Properties["IdUser"];
+            //var b = Application.Current.Properties["Token"];
 
-            MainPage = new MainPage();
+            if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
+            {
+                MainPage = new Login();
+            }
+            else
+            {
+                MainPage = new MainPage();
+            }
+
+            InitializeComponent();
+            Initialize();
         }
+        
+        private async void Initialize()
+        {
+            await Foo<object>();
+        }
+
+        private async Task<TResponse> Foo<TResponse>()
+    where TResponse : class
+        {
+            await Task.Delay(500);
+            return null;
+        }
+        
 
         protected override void OnStart()
         {

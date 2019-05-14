@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.Login">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label 
+                Text="Login"
+                HorizontalTextAlignment="Center"
+                FontSize="Large"
+                />
+
+            <Label 
+                x:Name="error"
+                Text="Incorrect username or password!"
+                IsVisible="false"
+                TextColor="Red"
+                HorizontalTextAlignment="Center"
+                />
+
+            <Entry 
+                Placeholder="E-mail"
+                x:Name="email"
+                Text=""
+                />
+
+            <Entry 
+                Placeholder="Password"
+                x:Name="password"
+                Text=""
+                IsPassword="True"
+                />
+
+            <Button 
+                Text="Login"
+                x:Name="login"
+                Clicked="GoToHomePage"
+                />
+
+            <Button 
+                Text="Register here"
+                x:Name="register"
+                Clicked="GoToRegisterPage"
+                />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

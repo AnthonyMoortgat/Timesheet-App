@@ -4,11 +4,70 @@
              xmlns:local="clr-namespace:Timesheet_Xamarin"
              x:Class="Timesheet_Xamarin.MainPage">
 
-    <StackLayout>
-        <!-- Place new controls here -->
-        <Label Text="Welcome to Xamarin.Forms!" 
-           HorizontalOptions="Center"
-           VerticalOptions="CenterAndExpand" />
+    <StackLayout Margin="5,0,8,3">
+        <RelativeLayout>
+            <StackLayout>
+                <Grid RowSpacing="-25" ColumnSpacing="0">
+                    <Label Text="Start..." x:Name="LabelStartTime" FontSize="12" Grid.Row="0" Grid.Column="0"/>
+                    <TimePicker x:Name="StartTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="0"/>
+                    <Label Text="End..." x:Name="LabelEndTime" FontSize="12" Grid.Row="0" Grid.Column="1"/>
+                    <TimePicker x:Name="EndTime" Format="HH:mm" WidthRequest="40" FontSize="13" Grid.Row="1" Grid.Column="1"/>
+                </Grid>
+            </StackLayout>
+        </RelativeLayout>
+
+        <StackLayout>
+            <Label 
+                Text="Project"
+                x:Name="LabelProject"
+                FontSize="13"
+                />
+
+            <Picker
+                x:Name="ProjectList"  
+                FontSize="13"
+                />
+
+            <Entry
+                x:Name="DescriptionEntry"
+                Placeholder="Description"
+                Text=""
+                FontSize="13"
+                />
+
+            <Button 
+                Text="Log Uren" 
+                x:Name="LogTime"
+                Clicked="LogTime_Clicked"
+                />
+        </StackLayout>
+
+        <ScrollView>
+            <StackLayout>
+                <ListView 
+                    x:Name="LogList1"
+                    ItemSelected="OnItemSelected"
+                    />
+            </StackLayout>
+        </ScrollView>
+
+        <Button 
+            Text="Log out" 
+            x:Name="Logout"
+            Clicked="Logout_Clicked"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
+            />
+
+        <Button 
+            Text="Add Roles" 
+            x:Name="addRolesButton"
+            Clicked="Add_Role"
+            Padding="3"
+            ScaleX="0.5"
+            ScaleY="0.5"
+            />
     </StackLayout>
 
 </ContentPage>
