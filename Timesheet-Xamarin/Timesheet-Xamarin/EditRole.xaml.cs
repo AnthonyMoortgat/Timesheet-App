@@ -25,7 +25,6 @@ namespace Timesheet_Xamarin
 		{
 			InitializeComponent ();
             roleId = roleID;
-            DisplayAlert("Warning", roleId.ToString(), "Ok");
         }
 
         //Alle Role gegevens ophalen en tonen op het scherm
@@ -35,7 +34,7 @@ namespace Timesheet_Xamarin
             companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(1, roleId);
             CheckBoxIsDefault.IsChecked = companyRole.IsDefault;
             CheckBoxManageCompanies.IsChecked = companyRole.ManageCompany;
-            CheckBoxManageRoles.IsChecked = companyRole.ManageProjectRoles;
+            CheckBoxManageRoles.IsChecked = companyRole.ManageRoles;
             CheckBoxManageUsers.IsChecked = companyRole.ManageUsers;
             CheckBoxManageProjects.IsChecked = companyRole.ManageProjects;
             EntryName.Text = companyRole.Name;

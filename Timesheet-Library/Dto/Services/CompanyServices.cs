@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto.Project;
 
 namespace Timesheet_Library.Dto.Services
 {
@@ -129,6 +130,21 @@ namespace Timesheet_Library.Dto.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<ProjectDto>> GetAllCompanyProjectsAsync(int id)
+        {
+            GetClient();
+            string getAllCompanyProjects = null;
+            List<ProjectDto> ProjectList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Projects");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanyProjects = await response.Content.ReadAsStringAsync();
+                ProjectList = JsonConvert.DeserializeObject<List<ProjectDto>>(getAllCompanyProjects);
+            }
+            return ProjectList;
         }
     }
 }

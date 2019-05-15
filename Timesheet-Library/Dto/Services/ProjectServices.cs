@@ -90,6 +90,31 @@ namespace Timesheet_Library.Dto.Services
             }
             return deletedProject;
         }
+
+        public async Task<ProjectUserDto> AddUserToProjectAsync(int id, int userId)
+        {
+            GetClient();
+            ProjectUserDto userProject = null;
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Projects/{id}/users?userId={userId}", id);
+            if (response.IsSuccessStatusCode)
+            {
+                userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+            }
+            return userProject;
+        }
+
+        public async Task<bool> RemoveUserToProjectAsync(int id, int userId)
+        {
+            GetClient();
+            ProjectUserDto userProject = null;
+            HttpResponseMessage response = await client.DeleteAsync($"api/Projects/{id}/users?userId={userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+                return true;
+            }
+            return false;
+        }
     }
 }
 
