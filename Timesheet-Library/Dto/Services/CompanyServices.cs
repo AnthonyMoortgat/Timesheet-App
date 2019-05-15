@@ -77,7 +77,7 @@ namespace Timesheet_Library.Dto.Services
             return updatedCompany;
         }
 
-        public async Task<CompanyDto> DeleteCompanyByIdAsync(int id)
+        public async Task<CompanyDto> DeleteCompanyByIdAsync(int id, int projectId)
         {
             GetClient();
             CompanyDto deletedCompany = null;

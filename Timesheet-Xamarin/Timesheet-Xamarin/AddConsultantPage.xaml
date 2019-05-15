@@ -5,13 +5,18 @@
     <ContentPage.Content>
         <StackLayout>
         <Entry
-            x:Name="EntryNameProject"
-            Placeholder="Project Name"
+            x:Name="Email"
+            Placeholder="Enter Email"
             Text=""
         />
-        <Picker
-            x:Name="ProjectList"
-        />
+            <Button
+                x:Name="AddConsultant"
+                Text="Add Consultant"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked=""
+                />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
