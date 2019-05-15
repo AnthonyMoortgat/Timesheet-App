@@ -16,6 +16,7 @@ namespace Timesheet_Xamarin
         private bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false; //booleans voor status checkbox op te slaan
         private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
         private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>(); //companyRoles moeten hierin geplaatst worden
+        //Company ID
 
 		public AddRolePage ()
 		{
@@ -29,11 +30,22 @@ namespace Timesheet_Xamarin
         }
 
         //Role toevoegen
-        private void AddRoleButton_Clicked(object sender, EventArgs e)
+        private async void AddRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
             {
-                DisplayAlert("Warning", $"Correct!", "Ok");
+                CompanyRoleToCreateDto companyRole = new CompanyRoleToCreateDto {
+                    Name = EntryName.Text,
+                    Description = EntryDescription.Text,
+                    IsDefault = isDefault,
+                    ManageCompany = manageCompanies,
+                    ManageUsers = manageUsers,
+                    ManageProjects = manageProjects,
+                    ManageRoles = manageRoles
+                };
+                AddRoleButton.IsEnabled = false;
+                CompanyRoleDto companyRole1 = await companyRoleServices.CreateCompanyRoleAsync(companyRole, 1);
+                Application.Current.MainPage = new Roles();
             }
         }
 

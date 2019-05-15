@@ -39,7 +39,7 @@ namespace Timesheet_Xamarin
         protected async override void OnAppearing()
         {
             //Haalt alle projecten op
-            List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
+            List<ProjectDto> projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
             List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
 
             //Steekt alle projecten in ProjectList (Picker)

@@ -18,6 +18,7 @@ namespace Timesheet_Xamarin
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
+        private string idUser = Application.Current.Properties["IdUser"].ToString();
 
         private LogDto log = new LogDto();
         private DateTime date;
@@ -35,7 +36,7 @@ namespace Timesheet_Xamarin
         protected async override void OnAppearing()
         {
             //Haalt alle projecten op
-            List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
+            List<ProjectDto> projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
             ProjectDto projectDto = null;
 
             //Steekt alle projecten in ProjectList (Picker)
