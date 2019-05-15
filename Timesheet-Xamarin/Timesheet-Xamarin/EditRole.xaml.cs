@@ -38,16 +38,29 @@ namespace Timesheet_Xamarin
             CheckBoxManageUsers.IsChecked = companyRole.ManageUsers;
             CheckBoxManageProjects.IsChecked = companyRole.ManageProjects;
             EntryName.Text = companyRole.Name;
+
             RoleName = EntryName.Text;
             EntryDescription.Text = companyRole.Description;
         }
 
         //Edit role
-        private void EditRoleButton_Clicked(object sender, EventArgs e)
+        private async void EditRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
             {
-                DisplayAlert("Warning", $"Correct!", "Ok");
+                CompanyRoleToUpdateDto companyRole = new CompanyRoleToUpdateDto
+                {
+                    Name = EntryName.Text,
+                    Description = EntryDescription.Text,
+                    IsDefault = isDefault,
+                    ManageCompany = manageCompanies,
+                    ManageUsers = manageUsers,
+                    ManageProjects = manageProjects,
+                    ManageRoles = manageRoles
+                };
+                EditRoleButton.IsEnabled = false;
+                CompanyRoleDto companyRole1 = await companyRoleServices.UpdateCompanyRoleByIdAsync(companyRole, 1, roleId);
+                Application.Current.MainPage = new Roles();
             }
         }
 

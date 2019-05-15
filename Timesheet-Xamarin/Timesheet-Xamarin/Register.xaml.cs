@@ -233,7 +233,6 @@ namespace Timesheet_Xamarin
                     }
                 };
                 buttonRegister.IsEnabled = false;
-                //await DisplayAlert("Warning", Errors.Count() + " haha", "Ok");
                 await userServices.CreateUserAsync(user);
                 
                 Application.Current.MainPage = new Login();
