@@ -11,7 +11,7 @@ using Xamarin.Forms;
 
 namespace Timesheet_Xamarin
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : CarouselPage
     {
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
@@ -25,9 +25,13 @@ namespace Timesheet_Xamarin
         //Projecten met Key
         private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
+        //List<Project> projects;
+        Dictionary<string, int> getIdByName;
+
         public MainPage()
         {
             InitializeComponent();
+            //InitializeProjects();
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
@@ -206,6 +210,25 @@ namespace Timesheet_Xamarin
         {
             Application.Current.MainPage = new Roles();
         }
+
+        //private void InitializeProjects()
+        //{
+        //    getIdByName = new Dictionary<string, int>();
+        //    foreach (Project project in projects)
+        //    {
+        //        var button = new Button() { Text = project.Name };
+        //        button.Clicked += ToPInfo;
+        //        getIdByName.Add(project.Name, project.Id);
+        //        ProjectOverview.Children;
+        //    }
+        //}
+
+        //void ToPInfo(object sender, EventArgs args)
+        //{
+        //    string name = ((Button)sender).Text;
+        //    var id = getIdByName[name];
+        //    Navigation.PushAsync(new PInfo(id));
+        //}
     }
 }
 

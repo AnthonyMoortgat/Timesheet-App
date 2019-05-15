@@ -32,6 +32,7 @@ namespace Timesheet_Xamarin
                 MainPage = new Login();
             }
 
+
             InitializeComponent();
             Initialize();
         }
