@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.ProjectInfo">
+
+    <TableView Intent="Data">
+        <TableRoot>
+            <TableSection Title="Getting Started">
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="left"
+                                 TextColor="#f35e20" />
+                        <Label Text="right"
+                                 HorizontalOptions="EndAndExpand"
+                                 TextColor="#503026" />
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="left"
+                                 TextColor="#f35e20" />
+                        <Label Text="right"
+                                 HorizontalOptions="EndAndExpand"
+                                 TextColor="#503026" />
+                    </StackLayout>
+                </ViewCell>
+                <ViewCell>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="left"
+                                 TextColor="#f35e20" />
+                        <Label Text="right"
+                                 HorizontalOptions="EndAndExpand"
+                                 TextColor="#503026" />
+                    </StackLayout>
+                </ViewCell>
+            </TableSection>
+        </TableRoot>
+    </TableView>
+    
+    <!--<StackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Grid.Row="0" Text="&lt; Back" Clicked="GoBack" ScaleX="0.5" ScaleY="0.5"/>
+            <Label Grid.Column="1" Grid.Row="0" Grid.ColumnSpan="2" Text="Your logs" FontSize="20"/>
+        </Grid>
+
+        <Grid x:Name="gridLayout">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="80" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Description" Grid.Row="1" Grid.Column="0" TextColor="Black"/>
+            --><!--<Label Text="Date" Grid.Row="1" Grid.Column="1" />--><!--
+            <Label Text="Start" Grid.Row="1" Grid.Column="1" TextColor="Black"/>
+            <Label Text="End" Grid.Row="1" Grid.Column="2" TextColor="Black"/>
+            <Label Text="Total" Grid.Row="1" Grid.Column="3" TextColor="Black"/>
+            <ScrollView>
+                
+            </ScrollView>
+        </Grid>
+    </StackLayout>-->
+</ContentPage>

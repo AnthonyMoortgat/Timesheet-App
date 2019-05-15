@@ -72,14 +72,18 @@
     </ContentPage>
     <ContentPage>
         <StackLayout>
-        <ScrollView x:Name="ProjectOverview">
-            <Label>Projects</Label>
+        <ScrollView>
+                <StackLayout x:Name="ProjectOverview">
+                    <Label>Projects</Label>
+                    
+                </StackLayout>
+            </ScrollView>
+        <ScrollView>
+                <StackLayout x:Name="CompanyOverview">
+                    <Label>Companies</Label>
 
-        </ScrollView>
-        <ScrollView x:Name="CompanyOverview">
-            <Label>Companies</Label>
-            
-        </ScrollView>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage>
 </CarouselPage>

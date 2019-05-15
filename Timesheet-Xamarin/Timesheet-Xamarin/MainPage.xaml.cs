@@ -25,13 +25,13 @@ namespace Timesheet_Xamarin
         //Projecten met Key
         private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
-        //List<Project> projects;
+        List<ProjectDto> projects;
         Dictionary<string, int> getIdByName;
 
         public MainPage()
         {
-            InitializeComponent();
-            //InitializeProjects();
+            InitializeComponent();           
+            InitializeProjects();
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
@@ -211,24 +211,25 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Roles();
         }
 
-        //private void InitializeProjects()
-        //{
-        //    getIdByName = new Dictionary<string, int>();
-        //    foreach (Project project in projects)
-        //    {
-        //        var button = new Button() { Text = project.Name };
-        //        button.Clicked += ToPInfo;
-        //        getIdByName.Add(project.Name, project.Id);
-        //        ProjectOverview.Children;
-        //    }
-        //}
+        private async void InitializeProjects()
+        {
+            projects = await userServices.GetAllUserProjectsAsync(5);
+            getIdByName = new Dictionary<string, int>();
+            foreach (ProjectDto project in projects)
+            {
+                var button = new Button() { Text = project.Name };
+                button.Clicked += ToProjectInfo;
+                getIdByName.Add(project.Name, project.ID);
+                ProjectOverview.Children.Add(button);
+            }
+        }
 
-        //void ToPInfo(object sender, EventArgs args)
-        //{
-        //    string name = ((Button)sender).Text;
-        //    var id = getIdByName[name];
-        //    Navigation.PushAsync(new PInfo(id));
-        //}
+        void ToProjectInfo(object sender, EventArgs args)
+        {
+            string name = ((Button)sender).Text;
+            var id = getIdByName[name];
+            Navigation.PushAsync(new ProjectInfo(id));
+        }
     }
 }
 
