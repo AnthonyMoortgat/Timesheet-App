@@ -52,9 +52,10 @@ namespace Timesheet_Xamarin
 
         }
 
-        private void GoBack(object sender, EventArgs e)
+        private async void GoBack(object sender, EventArgs e)
         {
-            Application.Current.MainPage.Navigation.PopAsync();
+            //Application.Current.MainPage = new MainPage();
+            await Navigation.PopModalAsync(true);
         }
     }
 }

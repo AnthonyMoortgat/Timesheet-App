@@ -14,25 +14,7 @@ namespace Timesheet_Xamarin
         {
             //var a = Application.Current.Properties["IdUser"];
             //var b = Application.Current.Properties["Token"];
-            try
-            {
-                if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
-                {
-                    MainPage = new Login();
-                }
-                else
-                {
-                    MainPage = new MainPage();
-                }
-            }
-            catch (Exception)
-            {
-                Application.Current.Properties["IdUser"] = "";
-                Application.Current.Properties["Token"] = "";
-                MainPage = new Login();
-            }
-
-
+           
             InitializeComponent();
             Initialize();
         }
@@ -52,7 +34,24 @@ namespace Timesheet_Xamarin
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            try
+            {
+                if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
+                {
+                    MainPage = new Login();
+                }
+                else
+                {
+                    var page = new MainPage();
+                    MainPage = new NavigationPage(page);
+                }
+            }
+            catch (Exception)
+            {
+                Application.Current.Properties["IdUser"] = "";
+                Application.Current.Properties["Token"] = "";
+                MainPage = new Login();
+            }
         }
 
         protected override void OnSleep()

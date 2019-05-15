@@ -30,16 +30,17 @@ namespace Timesheet_Xamarin
 
         public MainPage()
         {
-            InitializeComponent();           
+            InitializeComponent();
+            Start();
             InitializeProjects();
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
 
-        protected async override void OnAppearing()
+        private async void Start()
         {
             //Haalt alle projecten op
-            List<ProjectDto> projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
+            projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
             List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
 
             //Steekt alle projecten in ProjectList (Picker)
@@ -211,9 +212,8 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Roles();
         }
 
-        private async void InitializeProjects()
+        private void InitializeProjects()
         {
-            projects = await userServices.GetAllUserProjectsAsync(5);
             getIdByName = new Dictionary<string, int>();
             foreach (ProjectDto project in projects)
             {
@@ -224,11 +224,12 @@ namespace Timesheet_Xamarin
             }
         }
 
-        void ToProjectInfo(object sender, EventArgs args)
+        private async void ToProjectInfo(object sender, EventArgs args)
         {
             string name = ((Button)sender).Text;
             var id = getIdByName[name];
-            Navigation.PushAsync(new ProjectInfo(id));
+            await Navigation.PushModalAsync(new ProjectInfo(id), true);
+            //Application.Current.MainPage = new ProjectInfo(id);
         }
     }
 }

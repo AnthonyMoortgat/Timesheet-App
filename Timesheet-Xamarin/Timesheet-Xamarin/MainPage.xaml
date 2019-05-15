@@ -2,7 +2,9 @@
 <CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Timesheet_Xamarin"
-             x:Class="Timesheet_Xamarin.MainPage">
+             x:Class="Timesheet_Xamarin.MainPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
     <ContentPage>
     <StackLayout Margin="5,0,8,3">
         <RelativeLayout>
@@ -72,15 +74,15 @@
     </ContentPage>
     <ContentPage>
         <StackLayout>
+            <Label>Projects</Label>
         <ScrollView>
                 <StackLayout x:Name="ProjectOverview">
-                    <Label>Projects</Label>
-                    
+
                 </StackLayout>
-            </ScrollView>
+        </ScrollView>
+            <Label>Companies</Label>
         <ScrollView>
                 <StackLayout x:Name="CompanyOverview">
-                    <Label>Companies</Label>
 
                 </StackLayout>
             </ScrollView>
