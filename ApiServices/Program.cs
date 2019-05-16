@@ -183,10 +183,11 @@ namespace ApiServices
             //string s = $"{user[0].StartTime.ToString("dd/MM/yyyy")} | {user[0].StartTime.ToString("HH:mm")} - {user[0].StopTime.ToString("HH:mm")}: {user[0].Description} - Total: {user[0].StopTime - user[0].StartTime}";
 
             //List<ProjectDto> projects = companyServices.GetAllCompanyProjectsAsync(1).GetAwaiter().GetResult();
-            //List<ProjectDto> projects = userServices.GetAllUserProjectsAsync(1).GetAwaiter().GetResult();
+            //List<ProjectDto> projects = userServices.GetAllUserProjectsAsync(5).GetAwaiter().GetResult();
             //bool pu = projectServices.RemoveUserToProjectAsync(1, 1).GetAwaiter().GetResult();
+            List<LogDto> lk = userServices.GetAllUserLogsAsync(5).GetAwaiter().GetResult();
 
-            //Console.WriteLine(pu);
+            Console.WriteLine(lk[0].Description);
             Console.ReadLine();
         }
     }
