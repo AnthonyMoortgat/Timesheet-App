@@ -16,5 +16,10 @@ namespace Timesheet_Xamarin
 		{
 			InitializeComponent ();
 		}
-	}
+
+        private async void CancelButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PopAsync();
+        }
+    }
 }

@@ -17,6 +17,16 @@
                 ScaleY="0.75"
                 Clicked=""
                 />
+
+            <Button
+                x:Name="Back"
+                Text="Back"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="CancelButton_Clicked"
+                />
+            
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
