@@ -48,7 +48,7 @@ namespace Timesheet_Xamarin
                 //Steekt alle projecten in ProjectList (Picker)
                 AddProjectsToProjectList();
                 InitializeProjects();
-                AddLogsToLogList(LogsCollection, logs);
+                AddLogsToLogList(logs);
             }
             catch(Exception)
             {
@@ -170,7 +170,7 @@ namespace Timesheet_Xamarin
         }
 
         //Logs toevoegen aan LogList (ListView)
-        private void AddLogsToLogList(ObservableCollection<string> LogsCollection, List<LogDto> logsDto = null)
+        private void AddLogsToLogList(List<LogDto> logsDto = null)
         {
             LogsCollection = new ObservableCollection<string>();
             //Logs(naam en id) in Dictionary steken
@@ -229,6 +229,18 @@ namespace Timesheet_Xamarin
                 if (project.Name != "No project")
                 {
                     var button = new Button() { Text = project.Name };
+                    button.Clicked += ToProjectInfo;
+                    getIdByName.Add(project.Name, project.ID);
+                    ProjectOverview.Children.Add(button);
+                    emptyList = false;
+                }
+                else
+                {
+                    var button = new Button()
+                    {
+                        Text = project.Name,
+                        Scale = 0.5
+                    };
                     button.Clicked += ToProjectInfo;
                     getIdByName.Add(project.Name, project.ID);
                     ProjectOverview.Children.Add(button);

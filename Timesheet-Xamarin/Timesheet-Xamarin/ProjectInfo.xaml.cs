@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Timesheet_Library.Dto.Log;
+using Timesheet_Library.Dto.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,44 +14,37 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProjectInfo : ContentPage
 	{
-        //List<Log> logs;
+        //public ObservableCollection<LogDto> LogsCollection = null;
+        ObservableCollection<LogDto> logsCollection = new ObservableCollection<LogDto>();
+        public ObservableCollection<LogDto> LogsCollection { get { return logsCollection; } }
+        string idUser = Application.Current.Properties["IdUser"].ToString();
+        private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
+
+        UserServices userServices = new UserServices();
+        List<LogDto> logs = new List<LogDto>();
+
         //Project project;
-        public ProjectInfo(int id)
+        public ProjectInfo(int ProjectId)
         {
             InitializeComponent();
-            //logs = new List<Log>();
-            //logs.Add(new Log() { LogId = 1, ProjectId = 2, StartTime = DateTime.Now.AddHours(-4), EndTime = DateTime.Now, Description = "Test Log 1" });
-            //logs.Add(new Log() { LogId = 2, ProjectId = 3, StartTime = DateTime.Now.AddHours(-50), EndTime = DateTime.Now, Description = "Test Log 2" });
-            //logs.Add(new Log() { LogId = 3, ProjectId = 1, StartTime = DateTime.Now.AddHours(-7), EndTime = DateTime.Now, Description = "Test Log 3" });
-            //logs.Add(new Log() { LogId = 4, ProjectId = 3, StartTime = DateTime.Now.AddHours(-10), EndTime = DateTime.Now, Description = "Test Log 4" });
-            //logs.Add(new Log() { LogId = 5, ProjectId = 4, StartTime = DateTime.Now.AddHours(-666), EndTime = DateTime.Now, Description = "Test Log 5" });
-
+            Start(ProjectId);
+            LogProjectList.ItemsSource = LogsCollection;
             //gridLayout.RowDefinitions.Add(new RowDefinition());
-            InitializeGrid();
 
             //logs opvragen met ingelogde userId + project id
             //this.project = GetProjectById(id);
-
         }
 
-        private void InitializeGrid()
+        private async void Start(int id)
         {
-            //int rowIndex = 2;
-            //foreach (var log in logs)
-            //{
-            //    var description = new Label { Text = log.Description, VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, FontSize = 10 };
-            //    var start = new Label { Text = log.StartTime.ToString("hh:mm:ss"), VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, FontSize = 10 };
-            //    var end = new Label { Text = log.EndTime.ToString("hh:mm:ss"), VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, FontSize = 10 };
-            //    var hours = log.EndTime - log.StartTime;
-            //    var total = new Label { Text = hours.ToString(), VerticalOptions = LayoutOptions.Center, HorizontalOptions = LayoutOptions.Center, FontSize = 10 };
-
-            //    gridLayout.Children.Add(description, 0, rowIndex);
-            //    gridLayout.Children.Add(start, 1, rowIndex);
-            //    gridLayout.Children.Add(end, 2, rowIndex);
-            //    gridLayout.Children.Add(total, 3, rowIndex);
-            //    rowIndex++;
-            //}
-
+            List<LogDto> tempLogs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+            foreach (var log in tempLogs)
+            {
+                if (log.ProjectID == id)
+                {
+                    logsCollection.Add(log);
+                }
+            } 
         }
 
         private async void GoBack(object sender, EventArgs e)
