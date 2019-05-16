@@ -37,8 +37,8 @@ namespace Timesheet_Xamarin
 
             if (token != "") //Indien login niet klopt (dus geen token)
             {
-                //Navigation.PushModalAsync(new MainPage(), true);
-                Application.Current.MainPage = new MainPage();
+                await Navigation.PushModalAsync(new MainPage(), true);
+                //Application.Current.MainPage = new MainPage();
             }
             else
             { 

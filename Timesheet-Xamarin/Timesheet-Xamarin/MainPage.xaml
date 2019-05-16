@@ -75,13 +75,13 @@
     <ContentPage>
         <StackLayout>
             <Label>Projects</Label>
-        <ScrollView>
+            <ScrollView VerticalScrollBarVisibility="Default" VerticalOptions="FillAndExpand">
                 <StackLayout x:Name="ProjectOverview">
 
                 </StackLayout>
         </ScrollView>
             <Label>Companies</Label>
-        <ScrollView>
+            <ScrollView VerticalScrollBarVisibility="Default" VerticalOptions="FillAndExpand">
                 <StackLayout x:Name="CompanyOverview">
 
                 </StackLayout>

@@ -32,7 +32,7 @@ namespace Timesheet_Xamarin
         {
             InitializeComponent();
             Start();
-            InitializeProjects();
+            
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
@@ -40,12 +40,19 @@ namespace Timesheet_Xamarin
         private async void Start()
         {
             //Haalt alle projecten op
-            projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
-            List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+            try
+            {
+                projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
+                List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
 
-            //Steekt alle projecten in ProjectList (Picker)
-            AddProjectsToProjectList(projects, projectsWithKey);
-            AddLogsToLogList(LogsCollection, logs);
+                //Steekt alle projecten in ProjectList (Picker)
+                AddProjectsToProjectList();
+                InitializeProjects();
+                AddLogsToLogList(LogsCollection, logs);
+            }
+            catch(Exception)
+            {
+            }                                 
         }
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
@@ -183,7 +190,7 @@ namespace Timesheet_Xamarin
         }
 
         //Projecten toevoegen aan ProjectList (Picker)
-        private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
+        private void AddProjectsToProjectList()
         {
             //Projecten(naam en id) in Dictionary steken
             foreach (var project in projects)
@@ -214,14 +221,30 @@ namespace Timesheet_Xamarin
 
         private void InitializeProjects()
         {
+            bool emptyList = true;
             getIdByName = new Dictionary<string, int>();
+
             foreach (ProjectDto project in projects)
             {
-                var button = new Button() { Text = project.Name };
-                button.Clicked += ToProjectInfo;
-                getIdByName.Add(project.Name, project.ID);
-                ProjectOverview.Children.Add(button);
+                if (project.Name != "No project")
+                {
+                    var button = new Button() { Text = project.Name };
+                    button.Clicked += ToProjectInfo;
+                    getIdByName.Add(project.Name, project.ID);
+                    ProjectOverview.Children.Add(button);
+                    emptyList = false;
+                }
             }
+            if (emptyList)
+            {                             
+                var label = new Label()
+                {
+                    Text = "No projects yet.",
+                    FontSize =  10
+                };
+                ProjectOverview.Children.Add(label);               
+            }
+
         }
 
         private async void ToProjectInfo(object sender, EventArgs args)
