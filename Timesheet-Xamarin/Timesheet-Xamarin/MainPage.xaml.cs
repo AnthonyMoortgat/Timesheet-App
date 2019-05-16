@@ -199,7 +199,7 @@ namespace Timesheet_Xamarin
             Application.Current.Properties["IdUser"] = "";
             Application.Current.Properties["Token"] = "";
 
-            Application.Current.MainPage = new Login();
+            Application.Current.MainPage = new CompanyOptionPage();
         }
     }
 }

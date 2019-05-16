@@ -5,29 +5,25 @@
     <ContentPage.Content>
         <StackLayout>
             <Button
-                x:Name="AddProject"
-                Text="Add Project"
-                Clicked="ClickAddProject"
+                x:Name="ManageProjects"
+                Text="Manage Projects"
+                Clicked="ManageProjects_Clicked"
                 ScaleX="0.75"
                 ScaleY="0.75"
             />
             <Button
-                x:Name="AddWorkerToCompany"
-                Text="Add Worker To Company"
-                Clicked="ClickAddWorker"
+                x:Name="ManageUsers"
+                Text="Manage Users"
+                Clicked="ManageUsers_Clicked"
+                Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
             />
             <Button
-                x:Name="AddConsultantToProject"
-                Text="Add Consultant To Project"
-                Clicked="ClickAddConsultant"
-                ScaleX="0.75"
-                ScaleY="0.75"
-            />
-            <Button
-                x:Name="AddRoles"
-                Clicked="ClickAddRoles"
+                x:Name="ManageRoles"
+                Text="Manage Roles"
+                Clicked="ManageRoles_Clicked"
+                Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
             />

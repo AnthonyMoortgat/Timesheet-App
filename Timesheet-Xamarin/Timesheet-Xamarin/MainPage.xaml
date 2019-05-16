@@ -41,21 +41,22 @@
                 Clicked="LogTime_Clicked"
                 />
         </StackLayout>
-
+        
         <ScrollView>
             <StackLayout>
                 <ListView 
                     x:Name="LogList1"
                     ItemSelected="OnItemSelected"
                     />
-
-                <Button 
-                    Text="Log out" 
-                    x:Name="Logout"
-                    Clicked="Logout_Clicked"
-                    />
             </StackLayout>
         </ScrollView>
+
+        <Button 
+            Text="Log out" 
+            x:Name="Logout"
+            Clicked="Logout_Clicked"
+            />
+
     </StackLayout>
 
 </ContentPage>

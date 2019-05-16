@@ -17,22 +17,19 @@ namespace Timesheet_Xamarin
             InitializeComponent();
         }
 
-        private async void ClickAddProject(object sender, EventArgs args)
+        private void ManageProjects_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushModalAsync(new AddProjectPage());
-        }
-        private async void ClickAddWorker(object sender, EventArgs args)
-        {
-            await Navigation.PushModalAsync(new AddWorkerPage());
-        }
-        private async void ClickAddConsultant(object sender, EventArgs args)
-        {
-            await Navigation.PushModalAsync(new AddConsultantPage());
-        }
-        private async void ClickAddRoles(object sender, EventArgs args)
-        {
-            await Navigation.PushModalAsync(new AddRolesPage());
+            Application.Current.MainPage = new ProjectListPage();
         }
 
+        private void ManageUsers_Clicked(object sender, EventArgs e)
+        {
+            //Application.Current.MainPage = new Users();  Moet nog gemaakt worden
+        }
+
+        private void ManageRoles_Clicked(object sender, EventArgs e)
+        {
+            //Application.Current.MainPage = new Roles();
+        }
     }
 }

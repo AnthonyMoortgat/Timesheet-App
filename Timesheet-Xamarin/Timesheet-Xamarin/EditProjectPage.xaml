@@ -4,40 +4,48 @@
              x:Class="Timesheet_Xamarin.EditProjectPage">
     <ContentPage.Content>
         <StackLayout>
-            <Button
-                x:Name="AddConsultantToProjectButton"
-                Clicked=""
-                Text="Add Consultant To Project"
-                ScaleX="0.75"
-                ScaleY="0.75"
+            
+
+          <Entry
+                x:Name="EntryName"
+                Placeholder="Name"
+                Text=""
+                FontSize="13"
             />
+          
             <Entry
                 x:Name="EntryDescription"
                 Placeholder="Description"
                 Text=""
+                FontSize="13"
+            />
+
+          <Button
+                x:Name="EditRoleButton"
+                Text="Edit Role"
+                Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
-            />
-            <Picker
-                x:Name="PickerOveruren"
-                
+                Clicked="EditProjectButton_Clicked"
                 />
                 
-            
-            
-            
-            
-            
-            
-            
             <Button
                 x:Name="DeleteRoleButton"
                 Text="Delete Role"
                 Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
-                Clicked="DeleteRoleButton_Clicked"
+                Clicked="DeleteProjectButton_Clicked"
                 />
+
+            <Button
+                x:Name="AddConsultantToProjectButton"
+                Clicked="AddConsultantToProjectButton_Clicked"
+                Text="Add Consultant"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+            />
 
             <Button
                 x:Name="CancelButton"

@@ -8,28 +8,29 @@
                 x:Name="EntryNameProject"
                 Placeholder="Project Name"
                 Text=""
-                ScaleX="0.75"
-                ScaleY="0.75"
+                FontSize="13"
             />
             <Entry
                 x:Name="EntryDescription"
                 Placeholder="Description"
                 Text=""
-                ScaleX="0.75"
-                ScaleY="0.75"
+                FontSize="13"
             />
-            <Picker
-                x:Name="PickerOveruren"
-                
-                />
-            <Picker
-                x:Name="PickerContactPersoon"
-                
-                />
+
             <Button
                 x:Name="AddProjectButton"
                 Clicked="ClickAddProjectAsync"
                 Text="Add Project"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+            />
+
+            <Button
+                x:Name="CancelButton"
+                Clicked="CancelButton_Clicked"
+                Text="Cancel"
+                Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
             />

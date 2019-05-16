@@ -16,7 +16,8 @@ namespace Timesheet_Xamarin
 	{
         private ProjectServices projectServices = new ProjectServices();
         private List<ProjectDto> projects = new List<ProjectDto>();
-        private ProjectDto project;
+        //Company ID
+
 		public AddProjectPage ()
 		{
 			InitializeComponent();
@@ -28,17 +29,21 @@ namespace Timesheet_Xamarin
             projects = await projectServices.GetAllProjectsAsync(); //companyRoles worden in deze array gezet
         }
 
-        //Kijken of het project al bestaat
-        private bool CheckProjectExists()
+        private async void ClickAddProjectAsync(object sender, EventArgs args)
         {
-            foreach (var project in projects)
+            if (CheckDescriptionAndName() == true)
             {
-                if (project.Name == EntryNameProject.Text)
+                await DisplayAlert("Warning", $"Correct!", "Ok");
+
+                /*
+                ProjectToCreateDto project = new ProjectToCreateDto
                 {
-                    return false;
-                }
+                    CompanyID = 1, //Company ID 
+                    Description = EntryDescription.Text,
+                    Name = EntryNameProject.Text
+                };
+                ProjectDto projectDto = await projectServices.CreateProjectAsync(project);*/
             }
-            return true;
         }
 
         private bool CheckDescriptionAndName()
@@ -69,22 +74,22 @@ namespace Timesheet_Xamarin
             }
         }
 
-        private async void ClickAddProjectAsync(object sender, EventArgs args)
+        //Kijken of het project al bestaat
+        private bool CheckProjectExists()
         {
-            if(EntryNameProject.Text == "" && EntryDescription.Text == "")
+            foreach (var project in projects)
             {
-                await DisplayAlert("Warning", $"Some fields are not filled in!", "Ok");
-            }
-            else
-            {
-                ProjectToCreateDto project = new ProjectToCreateDto
+                if (project.Name == EntryNameProject.Text)
                 {
-                    CompanyID = 1,
-                    Description = EntryDescription.Text,
-                    Name = EntryNameProject.Text
-                };
-                ProjectDto projectDto = await projectServices.CreateProjectAsync(project);
+                    return false;
+                }
             }
+            return true;
+        }
+
+        private void CancelButton_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new ProjectListPage();
         }
     }
 }

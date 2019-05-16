@@ -4,18 +4,33 @@
              x:Class="Timesheet_Xamarin.AddConsultantPage">
     <ContentPage.Content>
         <StackLayout>
-        <Entry
-            x:Name="Email"
-            Placeholder="Enter Email"
-            Text=""
-        />
+            <Label
+                Text="Email Consultant"
+                />
+            
+            <Entry
+                x:Name="Email"
+                Placeholder="Enter Email"
+                Text=""
+                FontSize="13"
+            />
+            
             <Button
                 x:Name="AddConsultant"
                 Text="Add Consultant"
                 Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
-                Clicked=""
+                Clicked="AddConsultant_Clicked"
+                />
+
+            <Button
+                x:Name="BackToEditProject"
+                Text="Back"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="BackToEditProject_Clicked"
                 />
         </StackLayout>
     </ContentPage.Content>
