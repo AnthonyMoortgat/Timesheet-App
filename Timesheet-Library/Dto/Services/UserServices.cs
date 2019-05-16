@@ -117,8 +117,9 @@ namespace Timesheet_Library.Dto.Services
             {
                 getAllUserLogs = await response.Content.ReadAsStringAsync();
                 LogList = JsonConvert.DeserializeObject<List<LogDto>>(getAllUserLogs);
+                return LogList;
             }
-            return LogList;
+            return null;
         }
 
         public async Task<List<ProjectDto>> GetAllUserProjectsAsync(int id)
@@ -132,8 +133,9 @@ namespace Timesheet_Library.Dto.Services
             {
                 getAllUserProjects = await response.Content.ReadAsStringAsync();
                 ProjectList = JsonConvert.DeserializeObject<List<ProjectDto>>(getAllUserProjects);
+                return ProjectList;
             }
-            return ProjectList;
+            return null;
         }
     }
 }

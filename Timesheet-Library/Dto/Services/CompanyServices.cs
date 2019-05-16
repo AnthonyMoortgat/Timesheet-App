@@ -17,10 +17,11 @@ namespace Timesheet_Library.Dto.Services
         {
             if (client == null)
             {
-                client = new HttpClient();
-
-                //Set up client
-                client.BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/");
+                client = new HttpClient
+                {
+                    //Set up client
+                    BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/")
+                };
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJtaWNoYWVsQGdtYWlsLmNvbSIsIm5iZiI6MTU1Njg4NTAzNCwiZXhwIjoxNTU2OTcxNDM0LCJpYXQiOjE1NTY4ODUwMzR9.GSdOjI0UVAM1owMRNyfCdJ5rqBm4tTPvr_quKXS4B5SN1yMOwT-GCLcuKL1qyDDxCTq_xTu7ncV14LqQtEoHHA");

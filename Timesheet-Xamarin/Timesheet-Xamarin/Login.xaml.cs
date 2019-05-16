@@ -37,7 +37,8 @@ namespace Timesheet_Xamarin
 
             if (token != "") //Indien login niet klopt (dus geen token)
             {
-                Application.Current.MainPage = new MainPage();
+                await Navigation.PushModalAsync(new MainPage(), true);
+                //Application.Current.MainPage = new MainPage();
             }
             else
             { 
@@ -46,9 +47,10 @@ namespace Timesheet_Xamarin
             }
         }
 
-        private void GoToRegisterPage(object sender, EventArgs args)
+        private async void GoToRegisterPage(object sender, EventArgs args)
         {
-            Application.Current.MainPage = new Register();
+            await Navigation.PushModalAsync(new Register(), true);
+            //Application.Current.MainPage = new Register();
         }
     }
 }

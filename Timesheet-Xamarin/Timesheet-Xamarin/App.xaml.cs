@@ -22,7 +22,8 @@ namespace Timesheet_Xamarin
                 }
                 else
                 {
-                    MainPage = new MainPage();
+                    var page = new MainPage();
+                    MainPage = new NavigationPage(page);
                 }
             }
             catch (Exception)
@@ -31,8 +32,6 @@ namespace Timesheet_Xamarin
                 Application.Current.Properties["Token"] = "";
                 MainPage = new Login();
             }
-
-
             InitializeComponent();
             Initialize();
         }
@@ -52,7 +51,7 @@ namespace Timesheet_Xamarin
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+           
         }
 
         protected override void OnSleep()
