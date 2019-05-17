@@ -56,9 +56,9 @@ namespace Timesheet_Xamarin
                     projid = p.Key;
                 }
             }
-
+            Application.Current.Properties["projectid"] = projid;
             ProjectList.SelectedItem = null;
-            await Navigation.PushModalAsync(new EditProjectPage(projid));
+            await Navigation.PushModalAsync(new EditProjectPage());
         }
 
         //Projecten toevoegen aan ProjectList (ListView)

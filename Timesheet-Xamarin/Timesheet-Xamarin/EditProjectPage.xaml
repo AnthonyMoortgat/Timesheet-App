@@ -39,6 +39,15 @@
                 />
 
             <Button
+                x:Name="ConsultantListProjectButton"
+                Clicked="ConsultantListProjectButton_Clicked"
+                Text="List Consultants"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+            />
+
+            <Button
                 x:Name="AddConsultantToProjectButton"
                 Clicked="AddConsultantToProjectButton_Clicked"
                 Text="Add Consultant"

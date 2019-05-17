@@ -14,22 +14,21 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class EditProjectPage : ContentPage
 	{
-        private int projectId = 0;
+        private string projectId = Application.Current.Properties["projectid"].ToString();
         private ProjectServices projectServices = new ProjectServices();
         private ProjectDto projectById = new ProjectDto();
         private List<ProjectDto> projects = new List<ProjectDto>();
         private string projectSave = "";
 
-        public EditProjectPage(int projectID)
+        public EditProjectPage()
         {
             InitializeComponent();
-            projectId = projectID;
         }
 
         protected async override void OnAppearing()
         {
             //Haalt alle projecten op
-            projectById = await projectServices.GetProjectByIdAsync(projectId);
+            projectById = await projectServices.GetProjectByIdAsync(int.Parse(projectId));
             projects = await projectServices.GetAllProjectsAsync(); //Alle projects van de company moet dit worden
             EntryName.Text = projectById.Name;
             EntryDescription.Text = projectById.Description;
@@ -113,6 +112,11 @@ namespace Timesheet_Xamarin
         private void AddConsultantToProjectButton_Clicked(object sender, EventArgs e)
         {
             Application.Current.MainPage = new AddConsultantPage();
+        }
+
+        private void ConsultantListProjectButton_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new ConsultantListProjectPage();
         }
     }
 }
