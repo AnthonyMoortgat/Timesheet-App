@@ -8,7 +8,8 @@
     <StackLayout>
         <Button Text="&lt; Back" Clicked="GoBack"/>
         <ListView x:Name="LogProjectList"
-                ItemsSource="{Binding LogsCollection}">
+                ItemsSource="{Binding LogsCollection}"
+                ItemSelected="OnItemSelected">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

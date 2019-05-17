@@ -32,11 +32,9 @@ namespace Timesheet_Xamarin
         {
             InitializeComponent();
             Start();
-            
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
-
         private async void Start()
         {
             //Haalt alle projecten op
