@@ -91,16 +91,17 @@ namespace Timesheet_Library.Dto.Services
             return deletedProject;
         }
 
-        public async Task<ProjectUserDto> AddUserToProjectAsync(int id, int userId)
+        public async Task<bool> AddUserToProjectAsync(int id, string email)
         {
             GetClient();
-            ProjectUserDto userProject = null;
-            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Projects/{id}/users?userId={userId}", id);
+            //ProjectUserDto userProject = null;
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Projects/{id}/Users?email={email}", id);
             if (response.IsSuccessStatusCode)
             {
-                userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+                //userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+                return true;
             }
-            return userProject;
+            return false;
         }
 
         public async Task<bool> RemoveUserToProjectAsync(int id, int userId)
@@ -114,6 +115,21 @@ namespace Timesheet_Library.Dto.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<UserDto>> GetUsersFromProjectByIdAsync(int id)
+        {
+            GetClient();
+            string getAllUsers = null;
+            List<UserDto> UserList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Projects/{id}/Users");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllUsers = await response.Content.ReadAsStringAsync();
+                UserList = JsonConvert.DeserializeObject<List<UserDto>>(getAllUsers);
+            }
+            return UserList;
         }
     }
 }

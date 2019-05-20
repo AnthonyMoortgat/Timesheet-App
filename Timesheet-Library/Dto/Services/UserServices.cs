@@ -122,6 +122,22 @@ namespace Timesheet_Library.Dto.Services
             return null;
         }
 
+        public async Task<List<CompanyDto>> GetAllUserCompaniesAsync(int id)
+        {
+            GetClient();
+            string getAllCompanyProjects = null;
+            List<CompanyDto> CompanyList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Users/{id}/Companies");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanyProjects = await response.Content.ReadAsStringAsync();
+                CompanyList = JsonConvert.DeserializeObject<List<CompanyDto>>(getAllCompanyProjects);
+                return CompanyList;
+            }
+            return null;
+        }
+
         public async Task<List<ProjectDto>> GetAllUserProjectsAsync(int id)
         {
             GetClient();

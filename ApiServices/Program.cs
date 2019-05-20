@@ -185,9 +185,15 @@ namespace ApiServices
             //List<ProjectDto> projects = companyServices.GetAllCompanyProjectsAsync(1).GetAwaiter().GetResult();
             //List<ProjectDto> projects = userServices.GetAllUserProjectsAsync(5).GetAwaiter().GetResult();
             //bool pu = projectServices.RemoveUserToProjectAsync(1, 1).GetAwaiter().GetResult();
-            List<LogDto> lk = userServices.GetAllUserLogsAsync(5).GetAwaiter().GetResult();
+            //List<LogDto> lk = userServices.GetAllUserLogsAsync(5).GetAwaiter().GetResult();
 
-            Console.WriteLine(lk[0].Description);
+            bool u = projectServices.AddUserToProjectAsync(1, "michael@hotmail.com").GetAwaiter().GetResult();
+            //bool u = projectServices.RemoveUserToProjectAsync(1, 7).GetAwaiter().GetResult();
+
+            //Console.WriteLine(u.ProjectID);
+            //Console.WriteLine(u.UserID);
+            Console.WriteLine(u);
+
             Console.ReadLine();
         }
     }
