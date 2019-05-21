@@ -90,17 +90,19 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public async Task<CompanyRoleDto> GetUsersCompanyRolesAsync(int id, int userId)
+        public async Task<List<CompanyRoleDto>> GetUsersCompanyRolesAsync(int id, int userId)
         {
             GetClient();
-            CompanyRoleDto getCompanyRole = null;
-            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Users/{userId}/Roles");
+            string getAllCompanyRoles = null;
+            List<CompanyRoleDto> CompanyRoleList = null;
 
+            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Users/{userId}/Roles");
             if (response.IsSuccessStatusCode)
             {
-                getCompanyRole = await response.Content.ReadAsAsync<CompanyRoleDto>();
+                getAllCompanyRoles = await response.Content.ReadAsStringAsync();
+                CompanyRoleList = JsonConvert.DeserializeObject<List<CompanyRoleDto>>(getAllCompanyRoles);
             }
-            return getCompanyRole;
+            return CompanyRoleList;
         }
 
         public async Task<bool> CreateUserCompanyRolesAsync(int id, int userId, int roleId)
