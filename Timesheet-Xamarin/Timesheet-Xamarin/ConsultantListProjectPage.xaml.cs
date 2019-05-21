@@ -14,12 +14,11 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ConsultantListProjectPage : ContentPage
 	{
-        UserServices userServices = new UserServices();
-        ProjectServices projectServices = new ProjectServices();
-        CompanyServices companyServices = new CompanyServices();
-        string idUser = Application.Current.Properties["IdUser"].ToString();
-        string projectId = Application.Current.Properties["projectid"].ToString();
-        //Company ID
+        private UserServices userServices = new UserServices();
+        private ProjectServices projectServices = new ProjectServices();
+        private CompanyServices companyServices = new CompanyServices();
+        private string idUser = Application.Current.Properties["IdUser"].ToString();
+        private string projectId = Application.Current.Properties["projectid"].ToString();
 
         public ObservableCollection<string> UserCollection = null;
 
@@ -36,7 +35,7 @@ namespace Timesheet_Xamarin
             try
             {
                 //Haalt alle users op van het project
-                List<UserDto> consultants = await companyServices.GetUsersFromCompanyByIdAsync(1); //Moet Get users from project met projectid
+                List<UserDto> consultants = await projectServices.GetUsersFromProjectByIdAsync(int.Parse(projectId));
 
                 //Steekt alle projecten in ProjectList (Picker)
                 AddUserToConsultantList(UserCollection, consultants);
@@ -48,7 +47,7 @@ namespace Timesheet_Xamarin
             }
         }
 
-        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem == null)
             {
@@ -67,7 +66,7 @@ namespace Timesheet_Xamarin
             }
 
             Consultantlist.SelectedItem = null;
-            //await Navigation.PushModalAsync(new EditConsultantPage(userid));
+            await Navigation.PushModalAsync(new EditConsultantPage(userid));
         }
 
         //Users toevoegen aan Consultantlist (ListView)

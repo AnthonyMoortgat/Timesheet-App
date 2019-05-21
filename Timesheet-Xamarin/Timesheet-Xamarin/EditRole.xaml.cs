@@ -19,7 +19,7 @@ namespace Timesheet_Xamarin
         private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
         private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>();
         private CompanyRoleDto companyRole;
-        //ID Company
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         public EditRole (int roleID)
 		{
@@ -30,8 +30,8 @@ namespace Timesheet_Xamarin
         //Alle Role gegevens ophalen en tonen op het scherm
         protected async override void OnAppearing()
         {
-            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1);
-            companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(1, roleId);
+            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(int.Parse(idCompany));
+            companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(int.Parse(idCompany), roleId);
             CheckBoxIsDefault.IsChecked = companyRole.IsDefault;
             CheckBoxManageCompanies.IsChecked = companyRole.ManageCompany;
             CheckBoxManageRoles.IsChecked = companyRole.ManageRoles;
@@ -59,7 +59,7 @@ namespace Timesheet_Xamarin
                     ManageRoles = manageRoles
                 };
                 EditRoleButton.IsEnabled = false;
-                CompanyRoleDto companyRole1 = await companyRoleServices.UpdateCompanyRoleByIdAsync(companyRole, 1, roleId);
+                CompanyRoleDto companyRole1 = await companyRoleServices.UpdateCompanyRoleByIdAsync(companyRole, int.Parse(idCompany), roleId);
                 Application.Current.MainPage = new Roles();
             }
         }
@@ -71,7 +71,7 @@ namespace Timesheet_Xamarin
 
             if (action == true)
             {
-                bool deleted = await companyRoleServices.DeleteCompanyRoleByIdAsync(1, roleId); //ID company, ID role
+                bool deleted = await companyRoleServices.DeleteCompanyRoleByIdAsync(int.Parse(idCompany), roleId); //ID company, ID role
                 if (deleted == true)
                 {
                     Application.Current.MainPage = new Roles();

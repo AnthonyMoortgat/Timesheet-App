@@ -16,7 +16,7 @@ namespace Timesheet_Xamarin
         private ProjectServices projectServices = new ProjectServices();
         private CompanyServices companyServices = new CompanyServices();
         private List<ProjectDto> projects = new List<ProjectDto>();
-        string idCompany = Application.Current.Properties["IdCompany"].ToString();
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         public AddProjectPage()
         {

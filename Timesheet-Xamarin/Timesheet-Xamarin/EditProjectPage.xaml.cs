@@ -120,12 +120,12 @@ namespace Timesheet_Xamarin
 
         private void AddConsultantToProjectButton_Clicked(object sender, EventArgs e)
         {
-            //Application.Current.MainPage = new AddConsultantPage();
+            Application.Current.MainPage = new AddConsultantPage();
         }
 
         private void ConsultantListProjectButton_Clicked(object sender, EventArgs e)
         {
-            //Application.Current.MainPage = new ConsultantListProjectPage();
+            Application.Current.MainPage = new ConsultantListProjectPage();
         }
     }
 }
