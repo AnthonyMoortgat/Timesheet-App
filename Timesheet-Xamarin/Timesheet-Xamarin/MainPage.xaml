@@ -53,7 +53,7 @@
             </StackLayout>
         </ScrollView>
 
-        <Button 
+            <Button 
             Text="Log out" 
             x:Name="Logout"
             Clicked="Logout_Clicked"
@@ -61,16 +61,7 @@
             ScaleX="0.5"
             ScaleY="0.5"
             />
-
-        <Button 
-            Text="Company Option Page" 
-            x:Name="addRolesButton"
-            Clicked="Add_Role"
-            Padding="3"
-            ScaleX="0.5"
-            ScaleY="0.5"
-            />
-    </StackLayout>
+        </StackLayout>
     </ContentPage>
     <ContentPage x:Name="Overview">
         <StackLayout>

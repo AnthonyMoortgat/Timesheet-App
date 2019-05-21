@@ -19,6 +19,8 @@ namespace Timesheet_Xamarin
         private Dictionary<int, string> CompanyRolesWithKey = new Dictionary<int, string>();//Role name en ID opslaan
         private ObservableCollection<string> CompanyRolesCollection; //List voor in RoleList (Listview)
 
+        string idCompany = Application.Current.Properties["IdCompany"].ToString();
+
         public Roles ()
 		{
             InitializeComponent();

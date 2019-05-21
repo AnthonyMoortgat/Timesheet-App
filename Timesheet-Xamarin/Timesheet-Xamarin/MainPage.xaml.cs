@@ -220,11 +220,6 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Login();
         }
 
-        private void Add_Role(object sender, EventArgs e)
-        {
-            Application.Current.MainPage = new CompanyOptionPage();
-        }
-
         private void InitializeProjects()
         {
             bool emptyList = true;
@@ -299,7 +294,9 @@ namespace Timesheet_Xamarin
         {
             string name = ((Button)sender).Text;
             var id = companyByName[name];
-            await Navigation.PushModalAsync(new ProjectInfo(id), true);
+            Application.Current.Properties["IdCompany"] = id;
+
+            await Navigation.PushModalAsync(new CompanyOptionPage(), true);
         }
     }
 }

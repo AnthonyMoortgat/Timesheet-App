@@ -12,10 +12,11 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class CompanyOptionPage : ContentPage
     {
+        string idCompany = Application.Current.Properties["IdCompany"].ToString();
         public CompanyOptionPage()
         {
-            Application.Current.Properties["IdCompany"] = "1";
             InitializeComponent();
+            CompanyName.Text = idCompany;
         }
 
         private void ManageProjects_Clicked(object sender, EventArgs e)
@@ -35,7 +36,9 @@ namespace Timesheet_Xamarin
 
         private void BackButton_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new MainPage();
+            var page = new MainPage();
+            page.CurrentPage = page.Children[1];
+            Application.Current.MainPage = page;
         }
     }
 }
