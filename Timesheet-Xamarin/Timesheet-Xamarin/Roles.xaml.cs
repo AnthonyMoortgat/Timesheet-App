@@ -20,8 +20,6 @@ namespace Timesheet_Xamarin
         private ObservableCollection<string> CompanyRolesCollection; //List voor in RoleList (Listview)
         private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
-        string idCompany = Application.Current.Properties["IdCompany"].ToString();
-
         public Roles ()
 		{
             InitializeComponent();
