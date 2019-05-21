@@ -4,6 +4,9 @@
              x:Class="Timesheet_Xamarin.CompanyOptionPage">
     <ContentPage.Content>
         <StackLayout>
+            <Label
+                x:Name="CompanyName"
+                FontSize="20"/>
             <Button
                 x:Name="ManageCompany"
                 Text="Manage Company"

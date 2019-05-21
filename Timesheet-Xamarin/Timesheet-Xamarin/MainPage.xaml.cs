@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto;
 using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
@@ -26,7 +27,9 @@ namespace Timesheet_Xamarin
         private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
         List<ProjectDto> projects;
-        Dictionary<string, int> getIdByName;
+        Dictionary<string, int> projectByName;
+        List<CompanyDto> companies;
+        Dictionary<string, int> companyByName;
 
         public MainPage()
         {
@@ -37,15 +40,20 @@ namespace Timesheet_Xamarin
         }
         private async void Start()
         {
-            //Haalt alle projecten op
+            //Haalt alle projecten, companie en logs op
             try
             {
                 projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
+                companies = await userServices.GetAllUserCompaniesAsync(int.Parse(idUser));
                 List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
 
                 //Steekt alle projecten in ProjectList (Picker)
                 AddProjectsToProjectList();
+                //Genereer buttons voor elk project
                 InitializeProjects();
+                //Genereer buttons voor elke company
+                InitializeCompanies();
+                //steek alle logs in scrollList
                 AddLogsToLogList(logs);
             }
             catch(Exception)
@@ -212,15 +220,10 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Login();
         }
 
-        private void Add_Role(object sender, EventArgs e)
-        {
-            Application.Current.MainPage = new CompanyOptionPage();
-        }
-
         private void InitializeProjects()
         {
             bool emptyList = true;
-            getIdByName = new Dictionary<string, int>();
+            projectByName = new Dictionary<string, int>();
 
             foreach (ProjectDto project in projects)
             {
@@ -228,7 +231,7 @@ namespace Timesheet_Xamarin
                 {
                     var button = new Button() { Text = project.Name };
                     button.Clicked += ToProjectInfo;
-                    getIdByName.Add(project.Name, project.ID);
+                    projectByName.Add(project.Name, project.ID);
                     ProjectOverview.Children.Add(button);
                     emptyList = false;
                 }
@@ -240,7 +243,7 @@ namespace Timesheet_Xamarin
                         Scale = 0.5
                     };
                     button.Clicked += ToProjectInfo;
-                    getIdByName.Add(project.Name, project.ID);
+                    projectByName.Add(project.Name, project.ID);
                     ProjectOverview.Children.Add(button);
                     emptyList = false;
                 }
@@ -254,15 +257,46 @@ namespace Timesheet_Xamarin
                 };
                 ProjectOverview.Children.Add(label);               
             }
-
+        }
+        private void InitializeCompanies()
+        {
+            bool emptyList = true;
+            companyByName = new Dictionary<string, int>();
+            foreach (CompanyDto company in companies)
+            {
+                if (company.Name != "DefaultCompany")
+                {
+                    var button = new Button() { Text = company.Name };
+                    button.Clicked += ToCompanyOptions;
+                    companyByName.Add(company.Name, company.ID);
+                    CompanyOverview.Children.Add(button);
+                    emptyList = false;
+                }
+            }
+            if (emptyList)
+            {
+                var label = new Label()
+                {
+                    Text = "No company yet.",
+                    FontSize = 10
+                };
+                CompanyOverview.Children.Add(label);
+            }
         }
 
         private async void ToProjectInfo(object sender, EventArgs args)
         {
             string name = ((Button)sender).Text;
-            var id = getIdByName[name];
+            var id = projectByName[name];
             await Navigation.PushModalAsync(new ProjectInfo(id), true);
-            //Application.Current.MainPage = new ProjectInfo(id);
+        }
+        private async void ToCompanyOptions(object sender, EventArgs args)
+        {
+            string name = ((Button)sender).Text;
+            var id = companyByName[name];
+            Application.Current.Properties["IdCompany"] = id;
+
+            await Navigation.PushModalAsync(new CompanyOptionPage(), true);
         }
     }
 }
