@@ -6,7 +6,7 @@
         <StackLayout>
             <Button
                 x:Name="RemoveConsultantFromProject"
-                Text="Remove from this Project"
+                Text="Remove from this Company"
                 Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
