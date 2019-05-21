@@ -7,6 +7,7 @@
             <Label
                 x:Name="CompanyName"
                 FontSize="20"/>
+            
             <Button
                 x:Name="ManageCompany"
                 Text="Manage Company"
