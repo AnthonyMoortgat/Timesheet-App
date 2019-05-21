@@ -40,7 +40,7 @@ namespace Timesheet_Xamarin
         //Terug naar Company Option page
         private void BackButton_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new MainPage(); //Moet nog verandert worden naar de Options page ipv MainPage
+            Application.Current.MainPage = new CompanyOptionPage(); //Moet nog verandert worden naar de Options page ipv MainPage
         }
 
         //Id zoeken van het geselecteerde item (role) en dit id meegeven aan de Edit/Delete rolepage

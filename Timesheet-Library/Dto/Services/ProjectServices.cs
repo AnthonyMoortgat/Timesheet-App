@@ -79,7 +79,7 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public async Task<ProjectDto> DeleteProjectByIdAsync(int id)
+        public async Task<bool> DeleteProjectByIdAsync(int id)
         {
             GetClient();
             ProjectDto deletedProject = null;
@@ -87,8 +87,9 @@ namespace Timesheet_Library.Dto.Services
             if (response.IsSuccessStatusCode)
             {
                 deletedProject = await response.Content.ReadAsAsync<ProjectDto>();
+                return true;
             }
-            return deletedProject;
+            return false;
         }
 
         public async Task<bool> AddUserToProjectAsync(int id, string email)
