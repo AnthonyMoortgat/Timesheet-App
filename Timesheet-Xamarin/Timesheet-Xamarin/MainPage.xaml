@@ -72,7 +72,7 @@
             />
     </StackLayout>
     </ContentPage>
-    <ContentPage>
+    <ContentPage x:Name="Overview">
         <StackLayout>
             <Label>Projects</Label>
             <ScrollView VerticalScrollBarVisibility="Default" VerticalOptions="FillAndExpand">

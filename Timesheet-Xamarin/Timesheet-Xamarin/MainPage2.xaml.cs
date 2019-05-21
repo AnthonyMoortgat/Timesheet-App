@@ -52,9 +52,20 @@ namespace Timesheet_Xamarin
             }
         }
 
-        public async void ClickCancel(object sender, EventArgs args)
+        public void ClickCancel(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new MainPage());
+            string value = ProjectList.SelectedItem.ToString();
+            int projectid = 0;
+
+            //Zoekt id van project
+            foreach (var project in projectsWithKey)
+            {
+                if (project.Value == value)
+                {
+                    projectid = project.Key;
+                }
+            }
+           Application.Current.MainPage = new ProjectInfo(log.ProjectID);
         }
 
         private async void ClickEdit(object sender, EventArgs e)
@@ -97,7 +108,7 @@ namespace Timesheet_Xamarin
                 };
 
                 LogDto logDto = await logServices.UpdateLogByIdAsync(log, logId);
-                Application.Current.MainPage = new MainPage();
+                Application.Current.MainPage = new ProjectInfo(log.ProjectID);
             }
         }
 
@@ -110,7 +121,18 @@ namespace Timesheet_Xamarin
                 bool deleted = await logServices.DeleteLogByIdAsync(logId);
                 if (deleted == true)
                 {
-                    Application.Current.MainPage = new MainPage();
+                    string value = ProjectList.SelectedItem.ToString();
+                    int projectid = 0;
+
+                    //Zoekt id van project
+                    foreach (var project in projectsWithKey)
+                    {
+                        if (project.Value == value)
+                        {
+                            projectid = project.Key;
+                        }
+                    }
+                    Application.Current.MainPage = new ProjectInfo(log.ProjectID);
                 }  
             }
         }
