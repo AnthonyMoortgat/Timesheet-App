@@ -63,7 +63,7 @@
             />
 
         <Button 
-            Text="Add Roles" 
+            Text="Company Option Page" 
             x:Name="addRolesButton"
             Clicked="Add_Role"
             Padding="3"

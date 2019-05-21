@@ -214,7 +214,7 @@ namespace Timesheet_Xamarin
 
         private void Add_Role(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new Roles();
+            Application.Current.MainPage = new CompanyOptionPage();
         }
 
         private void InitializeProjects()
