@@ -26,7 +26,7 @@ namespace Timesheet_Xamarin
 
         private void ManageUsers_Clicked(object sender, EventArgs e)
         {
-            //Application.Current.MainPage = new Users();  Moet nog gemaakt worden
+            Application.Current.MainPage = new CompanyUsers();
         }
 
         private void ManageRoles_Clicked(object sender, EventArgs e)
