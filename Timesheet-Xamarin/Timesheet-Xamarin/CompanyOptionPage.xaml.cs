@@ -63,7 +63,7 @@ namespace Timesheet_Xamarin
 
         private void ManageCompany_Clicked(object sender, EventArgs e)
         {
-            //Application.Current.MainPage = new CompanyUsersListPage();  Moet nog gemaakt worden
+            Application.Current.MainPage = new CompanyUserListPage();
         }
 
         private void ManageProjects_Clicked(object sender, EventArgs e)

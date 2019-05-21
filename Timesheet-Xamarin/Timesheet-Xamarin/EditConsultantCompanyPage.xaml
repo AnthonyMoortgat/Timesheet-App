@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.EditConsultantCompanyPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Button
+                x:Name="RemoveConsultantFromProject"
+                Text="Remove from this Project"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="RemoveConsultantFromCompany_Clicked"
+                />
+
+            <Button
+                x:Name="BackToConsultantList"
+                Text="Back"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="BackToConsultantList_Clicked"
+                />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

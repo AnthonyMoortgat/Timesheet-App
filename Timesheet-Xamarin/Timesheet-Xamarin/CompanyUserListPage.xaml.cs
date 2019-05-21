@@ -12,20 +12,20 @@ using Xamarin.Forms.Xaml;
 namespace Timesheet_Xamarin
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ConsultantListProjectPage : ContentPage
+	public partial class CompanyUserListPage : ContentPage
 	{
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
         private CompanyServices companyServices = new CompanyServices();
         private string idUser = Application.Current.Properties["IdUser"].ToString();
-        private string projectId = Application.Current.Properties["projectid"].ToString();
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         public ObservableCollection<string> UserCollection = null;
 
         //Consultants met Key
         Dictionary<int, string> consultantWithKey = new Dictionary<int, string>();
 
-        public ConsultantListProjectPage()
+        public CompanyUserListPage()
         {
             InitializeComponent();
         }
@@ -34,10 +34,10 @@ namespace Timesheet_Xamarin
         {
             try
             {
-                //Haalt alle users op van het project
-                List<UserDto> consultants = await projectServices.GetUsersFromProjectByIdAsync(int.Parse(projectId));
+                //Haalt alle users op van de company
+                List<UserDto> consultants = await companyServices.GetUsersFromCompanyByIdAsync(int.Parse(idCompany));
 
-                //Steekt alle consultants in ConsultantList (Picker)
+                //Steekt alle users in ConsultantList (Picker)
                 AddUserToConsultantList(UserCollection, consultants);
             }
             catch (Exception)
@@ -66,7 +66,7 @@ namespace Timesheet_Xamarin
             }
 
             Consultantlist.SelectedItem = null;
-            await Navigation.PushModalAsync(new EditConsultantPage(userid));
+            await Navigation.PushModalAsync(new EditConsultantCompanyPage(userid));
         }
 
         //Users toevoegen aan Consultantlist (ListView)
@@ -89,9 +89,14 @@ namespace Timesheet_Xamarin
             Consultantlist.ItemsSource = UserCollection;
         }
 
+        private void AddConsultantButton_Clicked(object sender, EventArgs e)
+        {
+            Application.Current.MainPage = new AddConsultantCompanyPage();
+        }
+
         private void BackButton_Clicked(object sender, EventArgs e)
         {
-            Application.Current.MainPage = new EditProjectPage();
+            Application.Current.MainPage = new CompanyOptionPage();
         }
     }
 }
