@@ -7,12 +7,22 @@
             <Label
                 x:Name="CompanyName"
                 FontSize="20"/>
+            
+            <Button
+                x:Name="ManageCompany"
+                Text="Manage Company"
+                Clicked="ManageCompany_Clicked"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                IsEnabled="False"
+            />
             <Button
                 x:Name="ManageProjects"
                 Text="Manage Projects"
                 Clicked="ManageProjects_Clicked"
                 ScaleX="0.75"
                 ScaleY="0.75"
+                IsEnabled="False"
             />
             <Button
                 x:Name="ManageUsers"
@@ -21,6 +31,7 @@
                 Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
+                IsEnabled="False"
             />
             <Button
                 x:Name="ManageRoles"
@@ -29,6 +40,7 @@
                 Padding="3"
                 ScaleX="0.75"
                 ScaleY="0.75"
+                IsEnabled="False"
             />
             <Button
                 x:Name="BackButton"
