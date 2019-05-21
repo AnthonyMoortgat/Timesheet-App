@@ -18,6 +18,7 @@ namespace Timesheet_Xamarin
         private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>(); //alle roles van de company worden hier in geplaatst
         private Dictionary<int, string> CompanyRolesWithKey = new Dictionary<int, string>();//Role name en ID opslaan
         private ObservableCollection<string> CompanyRolesCollection; //List voor in RoleList (Listview)
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
@@ -29,7 +30,7 @@ namespace Timesheet_Xamarin
         //Als het scherm verschijnt
         protected async override void OnAppearing()
         {
-            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1); //Alle company roles opslaan 
+            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(int.Parse(idCompany)); //Alle company roles opslaan 
             AddRolesToRoleList(CompanyRolesCollection, companyRoles); //De roles in de Listview(RoleList) opslaan
         }
 

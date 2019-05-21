@@ -14,12 +14,12 @@ namespace Timesheet_Xamarin
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class ProjectListPage : ContentPage
 	{
-        ProjectServices projectServices = new ProjectServices();
-        UserServices userServices = new UserServices();
-        CompanyServices companyServices = new CompanyServices();
+        private ProjectServices projectServices = new ProjectServices();
+        private UserServices userServices = new UserServices();
+        private CompanyServices companyServices = new CompanyServices();
 
-        string idUser = Application.Current.Properties["IdUser"].ToString();
-        string idCompany = Application.Current.Properties["IdCompany"].ToString();
+        private string idUser = Application.Current.Properties["IdUser"].ToString();
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         public ObservableCollection<string> ProjectCollection = null;
 
