@@ -38,13 +38,13 @@ namespace Timesheet_Xamarin
         {
             //user to add
         }
-        private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
             {
                 var item = (UserDto)e.SelectedItem;
                 CompanyUserList.SelectedItem = null;
-                await Navigation.PushModalAsync(new MainPage2(item.ID));
+                Application.Current.MainPage = (new EditUserPage(item));
             }
         }
         private void GoBack(object sender, EventArgs e)
