@@ -15,8 +15,10 @@ namespace Timesheet_Xamarin
 	public partial class ProjectInfo : ContentPage
 	{
         ObservableCollection<LogDto> logsCollection = new ObservableCollection<LogDto>();
-        public ObservableCollection<LogDto> LogsCollection { get { return logsCollection; } }
+        public ObservableCollection<LogDto> LogsCollection { get { return logsCollection; } }       
+        string nameProject = Application.Current.Properties["NameProject"].ToString();
         string idUser = Application.Current.Properties["IdUser"].ToString();
+
         private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
         UserServices userServices = new UserServices();
         List<LogDto> logs = new List<LogDto>();
@@ -25,6 +27,7 @@ namespace Timesheet_Xamarin
         {
             InitializeComponent();
             Start(ProjectId);
+            ProjectName.Text = nameProject;
             LogProjectList.ItemsSource = LogsCollection;
         }
 
@@ -46,6 +49,8 @@ namespace Timesheet_Xamarin
             {
                 var item = (LogDto)e.SelectedItem;
                 LogProjectList.SelectedItem = null;
+                Application.Current.Properties["IdProject"] = item.ProjectID;
+
                 await Navigation.PushModalAsync(new MainPage2(item.ID));                
             }             
         }

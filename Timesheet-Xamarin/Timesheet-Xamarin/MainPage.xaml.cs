@@ -288,6 +288,8 @@ namespace Timesheet_Xamarin
         {
             string name = ((Button)sender).Text;
             var id = projectByName[name];
+            Application.Current.Properties["NameProject"] = name;
+
             await Navigation.PushModalAsync(new ProjectInfo(id), true);
         }
         private async void ToCompanyOptions(object sender, EventArgs args)
@@ -295,6 +297,7 @@ namespace Timesheet_Xamarin
             string name = ((Button)sender).Text;
             var id = companyByName[name];
             Application.Current.Properties["IdCompany"] = id;
+            Application.Current.Properties["NameCompany"] = name;
 
             await Navigation.PushModalAsync(new CompanyOptionPage(), true);
         }

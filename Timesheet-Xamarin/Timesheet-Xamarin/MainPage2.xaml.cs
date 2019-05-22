@@ -15,6 +15,7 @@ namespace Timesheet_Xamarin
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
         private string idUser = Application.Current.Properties["IdUser"].ToString();
+        private string idPreviousProject = Application.Current.Properties["IdProject"].ToString();
 
         private LogDto log = new LogDto();
         private DateTime date;
@@ -36,7 +37,7 @@ namespace Timesheet_Xamarin
             ProjectDto projectDto = null;
 
             //Steekt alle projecten in ProjectList (Picker)
-            AddProjectsToProjectList(projects, projectsWithKey);
+            AddProjectsToProjectList(projects);
 
             if (logId != 0) {
                 log = await logServices.GetLogByIdAsync(logId);
@@ -108,7 +109,7 @@ namespace Timesheet_Xamarin
                 };
 
                 LogDto logDto = await logServices.UpdateLogByIdAsync(log, logId);
-                Application.Current.MainPage = new ProjectInfo(log.ProjectID);
+                Application.Current.MainPage = new ProjectInfo(int.Parse(idPreviousProject));
             }
         }
 
@@ -187,7 +188,7 @@ namespace Timesheet_Xamarin
         }
 
         //Projecten toevoegen aan ProjectList (Picker)
-        private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
+        private void AddProjectsToProjectList(List<ProjectDto> projects)
         {
             //Projecten(naam en id) in Dictionary steken
             foreach (var project in projects)

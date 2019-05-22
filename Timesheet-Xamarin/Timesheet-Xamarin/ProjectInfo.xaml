@@ -6,7 +6,11 @@
              NavigationPage.HasNavigationBar="False">
 
     <StackLayout>
-        <Button Text="&lt; Back" Clicked="GoBack"/>
+        <Label x:Name="ProjectName"
+               FontSize="20"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               />
         <ListView x:Name="LogProjectList"
                 ItemsSource="{Binding LogsCollection}"
                 ItemSelected="OnItemSelected">
@@ -24,5 +28,10 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button 
+            Text="&lt; Back" 
+            Clicked="GoBack"
+            Scale="0.75"
+            />
     </StackLayout>
 </ContentPage>

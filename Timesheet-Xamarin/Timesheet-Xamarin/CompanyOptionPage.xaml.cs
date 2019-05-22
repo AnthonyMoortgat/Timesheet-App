@@ -15,13 +15,14 @@ namespace Timesheet_Xamarin
     {
         private string idCompany = Application.Current.Properties["IdCompany"].ToString();
         private string idUser = Application.Current.Properties["IdUser"].ToString();
+        private string nameCompany = Application.Current.Properties["NameCompany"].ToString();
         private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
         private bool manageCompany = false, manageProjects = false, manageUsers = false, manageRoles = false;
 
         public CompanyOptionPage()
         {
             InitializeComponent();
-            CompanyName.Text = idCompany;
+            CompanyName.Text = nameCompany;
             Start();
         }
 

@@ -6,7 +6,10 @@
         <StackLayout>
             <Label
                 x:Name="CompanyName"
-                FontSize="20"/>
+                FontSize="20"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                />
             
             <Button
                 x:Name="ManageCompany"
