@@ -4,7 +4,7 @@
              x:Class="Timesheet_Xamarin.CompanyUsers">
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Add User" Clicked="AddUserToCompany"/>
+            <Label Text="All User in Company" FontSize="20" FontAttributes="Bold" HorizontalOptions="Center"/>
             <ListView x:Name="CompanyUserList"
                 ItemsSource="{Binding UserCollection}"
                 ItemSelected="OnItemSelected">

@@ -19,6 +19,12 @@
 
             </StackLayout>
             <Button 
+                Text="Edit" 
+                x:Name="Edit"
+                Clicked="EditUserRoles"
+                Scale="0.75"
+                />
+            <Button 
                 Text="Cancel" 
                 x:Name="Cancel"
                 Clicked="ClickCancel"

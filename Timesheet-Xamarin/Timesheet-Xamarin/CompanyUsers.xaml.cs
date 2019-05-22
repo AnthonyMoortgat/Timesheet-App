@@ -33,11 +33,6 @@ namespace Timesheet_Xamarin
                 userCollection.Add(user);
             }
         }
-
-        private void AddUserToCompany(object sender, EventArgs e)
-        {
-            //user to add
-        }
         private void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             if (e.SelectedItem != null)
