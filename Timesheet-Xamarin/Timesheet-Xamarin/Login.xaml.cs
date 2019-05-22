@@ -31,26 +31,29 @@ namespace Timesheet_Xamarin
 
             List<UserDto> u = await userServices.GetUserByEmailAsync(email.Text);
 
-            Application.Current.Properties["IdUser"] = u[0].ID;
-
+            register.IsEnabled = false;
+            login.IsEnabled = false;
+            login.Text = "Logging in...";
             string token = await sessionServices.CreateSessionAsync(user);
 
-            if (token != "") //Indien login niet klopt (dus geen token)
+            if (token != "")
             {
+                Application.Current.Properties["IdUser"] = u[0].ID;
+                Application.Current.Properties["Token"] = token;
                 await Navigation.PushModalAsync(new MainPage(), true);
-                //Application.Current.MainPage = new MainPage();
             }
             else
             { 
-                Application.Current.Properties["Token"] = token;
                 error.IsVisible = true;
+                register.IsEnabled = true;
+                login.IsEnabled = true;
+                login.Text = "Login";
             }
         }
 
         private async void GoToRegisterPage(object sender, EventArgs args)
         {
             await Navigation.PushModalAsync(new Register(), true);
-            //Application.Current.MainPage = new Register();
         }
     }
 }
