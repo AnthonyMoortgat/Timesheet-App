@@ -14,12 +14,13 @@ namespace Timesheet_Xamarin
 {
     public partial class MainPage : CarouselPage
     {
+        ObservableCollection<LogDto> logsCollection = new ObservableCollection<LogDto>();
+        public ObservableCollection<LogDto> LogsCollection { get { return logsCollection; } }
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
         private string idUser = Application.Current.Properties["IdUser"].ToString();
 
-        private ObservableCollection<string> LogsCollection = null;
 
         //Logs met Key
         private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
@@ -45,7 +46,11 @@ namespace Timesheet_Xamarin
             {
                 projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
                 companies = await userServices.GetAllUserCompaniesAsync(int.Parse(idUser));
-                List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+                List<LogDto> tempLogs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+                foreach (var log in tempLogs)
+                {
+                    logsCollection.Add(log);                    
+                }
 
                 //Steekt alle projecten in ProjectList (Picker)
                 AddProjectsToProjectList();
@@ -54,7 +59,7 @@ namespace Timesheet_Xamarin
                 //Genereer buttons voor elke company
                 InitializeCompanies();
                 //steek alle logs in scrollList
-                AddLogsToLogList(logs);
+                AddLogsToLogList();
             }
             catch(Exception)
             {
@@ -63,24 +68,16 @@ namespace Timesheet_Xamarin
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem == null)
+            if (e.SelectedItem != null)
             {
-                return;
+                var item = (LogDto)e.SelectedItem;
+                LogList1.SelectedItem = null;
+                Application.Current.Properties["IdProject"] = item.ProjectID;
+                ProjectDto tempProject = await projectServices.GetProjectByIdAsync(item.ProjectID);
+                
+                Application.Current.Properties["NameProject"] = tempProject.Name;
+                await Navigation.PushModalAsync(new MainPage2(item.ID));
             }
-            string logToEdit = LogList1.SelectedItem.ToString();
-            int logid = 0;
-
-            //Zoekt id van de log
-            foreach (var l in logsWithKey)
-            {
-                if (l.Value == logToEdit)
-                {
-                    logid = l.Key;
-                }
-            }
-
-            LogList1.SelectedItem = null;
-            await Navigation.PushModalAsync(new MainPage2(logid));
         }
 
         private async void LogTime_Clicked(object sender, EventArgs e)
@@ -176,22 +173,8 @@ namespace Timesheet_Xamarin
         }
 
         //Logs toevoegen aan LogList (ListView)
-        private void AddLogsToLogList(List<LogDto> logsDto = null)
+        private void AddLogsToLogList()
         {
-            LogsCollection = new ObservableCollection<string>();
-            //Logs(naam en id) in Dictionary steken
-            foreach (var log in logsDto)
-            {
-                logsWithKey.Add(log.ID, $"{log.StartTime.ToString("dd/MM/yyyy")} | {log.StartTime.ToString("HH:mm")} - {log.StopTime.ToString("HH:mm")}: {log.Description} - Total: {log.StopTime - log.StartTime}");
-            }
-
-            //Dictionary in LogList(ListView) steken
-            foreach (var log in logsWithKey)
-            {
-                LogsCollection.Add(log.Value.ToString());
-            }
-
-            //Dictionary in LogList(ListView) steken
             LogList1.ItemsSource = LogsCollection;
         }
 

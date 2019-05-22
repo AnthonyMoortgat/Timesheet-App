@@ -66,7 +66,7 @@ namespace Timesheet_Xamarin
                     projectid = project.Key;
                 }
             }
-           Application.Current.MainPage = new ProjectInfo(log.ProjectID);
+           Application.Current.MainPage = new ProjectInfo(int.Parse(idPreviousProject));
         }
 
         private async void ClickEdit(object sender, EventArgs e)

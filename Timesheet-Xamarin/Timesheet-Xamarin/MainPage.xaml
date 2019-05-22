@@ -46,15 +46,28 @@
 
         <ScrollView
             VerticalScrollBarVisibility="Always">
-            <StackLayout>
-                <ListView 
-                    x:Name="LogList1"
-                    ItemSelected="OnItemSelected"
-                    />
-            </StackLayout>
-        </ScrollView>
+                <StackLayout>
+                    <ListView x:Name="LogList1"
+                ItemsSource="{Binding LogsCollection}"
+                ItemSelected="OnItemSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Label  Text="{Binding Description}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label  Text="{Binding StartTime}" FontSize="10"/>
+                                            <Label  Text="{Binding StopTime}" FontSize="10"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
 
-            <Button 
+        <Button 
             Text="Log out" 
             x:Name="Logout"
             Clicked="Logout_Clicked"
