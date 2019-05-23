@@ -16,8 +16,9 @@ namespace Timesheet_Xamarin
         private bool isDefault = true, manageCompanies = false, manageRoles = false, manageUsers = false, manageProjects = false; //booleans voor status checkbox op te slaan
         private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
         private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>(); //companyRoles moeten hierin geplaatst worden
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
-		public AddRolePage ()
+        public AddRolePage ()
 		{
 			InitializeComponent ();
 		}
@@ -25,15 +26,26 @@ namespace Timesheet_Xamarin
         //Alle companies ophalen
         protected async override void OnAppearing()
         {
-            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1); //companyRoles worden in deze array gezet
+            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(int.Parse(idCompany)); //companyRoles worden in deze array gezet
         }
 
         //Role toevoegen
-        private void AddRoleButton_Clicked(object sender, EventArgs e)
+        private async void AddRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
             {
-                DisplayAlert("Warning", $"Correct!", "Ok");
+                CompanyRoleToCreateDto companyRole = new CompanyRoleToCreateDto {
+                    Name = EntryName.Text,
+                    Description = EntryDescription.Text,
+                    IsDefault = isDefault,
+                    ManageCompany = manageCompanies,
+                    ManageUsers = manageUsers,
+                    ManageProjects = manageProjects,
+                    ManageRoles = manageRoles
+                };
+                AddRoleButton.IsEnabled = false;
+                CompanyRoleDto companyRole1 = await companyRoleServices.CreateCompanyRoleAsync(companyRole, int.Parse(idCompany));
+                Application.Current.MainPage = new Roles();
             }
         }
 

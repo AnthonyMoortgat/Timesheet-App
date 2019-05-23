@@ -19,36 +19,48 @@ namespace Timesheet_Xamarin
         private CompanyRoleServices companyRoleServices = new CompanyRoleServices();
         private List<CompanyRoleDto> companyRoles = new List<CompanyRoleDto>();
         private CompanyRoleDto companyRole;
-        //ID Company
+        private string idCompany = Application.Current.Properties["IdCompany"].ToString();
 
         public EditRole (int roleID)
 		{
 			InitializeComponent ();
             roleId = roleID;
-            DisplayAlert("Warning", roleId.ToString(), "Ok");
         }
 
         //Alle Role gegevens ophalen en tonen op het scherm
         protected async override void OnAppearing()
         {
-            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(1);
-            companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(1, roleId);
+            companyRoles = await companyRoleServices.GetAllCompanyRolesAsync(int.Parse(idCompany));
+            companyRole = await companyRoleServices.GetCompanyRoleByIdAsync(int.Parse(idCompany), roleId);
             CheckBoxIsDefault.IsChecked = companyRole.IsDefault;
             CheckBoxManageCompanies.IsChecked = companyRole.ManageCompany;
-            CheckBoxManageRoles.IsChecked = companyRole.ManageProjectRoles;
+            CheckBoxManageRoles.IsChecked = companyRole.ManageRoles;
             CheckBoxManageUsers.IsChecked = companyRole.ManageUsers;
             CheckBoxManageProjects.IsChecked = companyRole.ManageProjects;
             EntryName.Text = companyRole.Name;
+
             RoleName = EntryName.Text;
             EntryDescription.Text = companyRole.Description;
         }
 
         //Edit role
-        private void EditRoleButton_Clicked(object sender, EventArgs e)
+        private async void EditRoleButton_Clicked(object sender, EventArgs e)
         {
             if (CheckDescriptionAndName() == true)
             {
-                DisplayAlert("Warning", $"Correct!", "Ok");
+                CompanyRoleToUpdateDto companyRole = new CompanyRoleToUpdateDto
+                {
+                    Name = EntryName.Text,
+                    Description = EntryDescription.Text,
+                    IsDefault = isDefault,
+                    ManageCompany = manageCompanies,
+                    ManageUsers = manageUsers,
+                    ManageProjects = manageProjects,
+                    ManageRoles = manageRoles
+                };
+                EditRoleButton.IsEnabled = false;
+                CompanyRoleDto companyRole1 = await companyRoleServices.UpdateCompanyRoleByIdAsync(companyRole, int.Parse(idCompany), roleId);
+                Application.Current.MainPage = new Roles();
             }
         }
 
@@ -59,7 +71,7 @@ namespace Timesheet_Xamarin
 
             if (action == true)
             {
-                bool deleted = await companyRoleServices.DeleteCompanyRoleByIdAsync(1, roleId); //ID company, ID role
+                bool deleted = await companyRoleServices.DeleteCompanyRoleByIdAsync(int.Parse(idCompany), roleId); //ID company, ID role
                 if (deleted == true)
                 {
                     Application.Current.MainPage = new Roles();

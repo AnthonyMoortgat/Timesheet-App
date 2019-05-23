@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Timesheet_Xamarin.EditProjectPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Entry
+                x:Name="EntryName"
+                Placeholder="Name"
+                Text=""
+                FontSize="13"
+            />
+
+            <Entry
+                x:Name="EntryDescription"
+                Placeholder="Description"
+                Text=""
+                FontSize="13"
+            />
+
+            <Button
+                x:Name="EditProjectButton"
+                Text="Edit Project"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="EditProjectButton_Clicked"
+                />
+
+            <Button
+                x:Name="DeleteProjectButton"
+                Text="Delete Project"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="DeleteProjectButton_Clicked"
+                />
+
+            <Button
+                x:Name="ConsultantListProjectButton"
+                Clicked="ConsultantListProjectButton_Clicked"
+                Text="List Consultants"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+            />
+
+            <Button
+                x:Name="AddConsultantToProjectButton"
+                Clicked="AddConsultantToProjectButton_Clicked"
+                Text="Add Consultant"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+            />
+
+            <Button
+                x:Name="CancelButton"
+                Text="Cancel"
+                Padding="3"
+                ScaleX="0.75"
+                ScaleY="0.75"
+                Clicked="CancelButton_Clicked"
+                />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

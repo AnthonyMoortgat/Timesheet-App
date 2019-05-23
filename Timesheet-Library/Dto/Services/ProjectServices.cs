@@ -79,7 +79,7 @@ namespace Timesheet_Library.Dto.Services
             return false;
         }
 
-        public async Task<ProjectDto> DeleteProjectByIdAsync(int id)
+        public async Task<bool> DeleteProjectByIdAsync(int id)
         {
             GetClient();
             ProjectDto deletedProject = null;
@@ -87,8 +87,50 @@ namespace Timesheet_Library.Dto.Services
             if (response.IsSuccessStatusCode)
             {
                 deletedProject = await response.Content.ReadAsAsync<ProjectDto>();
+                return true;
             }
-            return deletedProject;
+            return false;
+        }
+
+        public async Task<bool> AddUserToProjectAsync(int id, string email)
+        {
+            GetClient();
+            //ProjectUserDto userProject = null;
+            HttpResponseMessage response = await client.PostAsJsonAsync($"api/Projects/{id}/Users?email={email}", id);
+            if (response.IsSuccessStatusCode)
+            {
+                //userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> RemoveUserToProjectAsync(int id, int userId)
+        {
+            GetClient();
+            ProjectUserDto userProject = null;
+            HttpResponseMessage response = await client.DeleteAsync($"api/Projects/{id}/users?userId={userId}");
+            if (response.IsSuccessStatusCode)
+            {
+                userProject = await response.Content.ReadAsAsync<ProjectUserDto>();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<List<UserDto>> GetUsersFromProjectByIdAsync(int id)
+        {
+            GetClient();
+            string getAllUsers = null;
+            List<UserDto> UserList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Projects/{id}/Users");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllUsers = await response.Content.ReadAsStringAsync();
+                UserList = JsonConvert.DeserializeObject<List<UserDto>>(getAllUsers);
+            }
+            return UserList;
         }
     }
 }

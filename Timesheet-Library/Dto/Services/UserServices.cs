@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Timesheet_Library.Dto.Log;
+using Timesheet_Library.Dto.Project;
 
 namespace Timesheet_Library.Dto.Services
 {
@@ -116,10 +117,42 @@ namespace Timesheet_Library.Dto.Services
             {
                 getAllUserLogs = await response.Content.ReadAsStringAsync();
                 LogList = JsonConvert.DeserializeObject<List<LogDto>>(getAllUserLogs);
+                return LogList;
             }
-            return LogList;
+            return null;
         }
 
+        public async Task<List<CompanyDto>> GetAllUserCompaniesAsync(int id)
+        {
+            GetClient();
+            string getAllCompanyProjects = null;
+            List<CompanyDto> CompanyList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Users/{id}/Companies");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanyProjects = await response.Content.ReadAsStringAsync();
+                CompanyList = JsonConvert.DeserializeObject<List<CompanyDto>>(getAllCompanyProjects);
+                return CompanyList;
+            }
+            return null;
+        }
+
+        public async Task<List<ProjectDto>> GetAllUserProjectsAsync(int id)
+        {
+            GetClient();
+            string getAllUserProjects = null;
+            List<ProjectDto> ProjectList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Users/{id}/Projects");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllUserProjects = await response.Content.ReadAsStringAsync();
+                ProjectList = JsonConvert.DeserializeObject<List<ProjectDto>>(getAllUserProjects);
+                return ProjectList;
+            }
+            return null;
+        }
     }
 }
 

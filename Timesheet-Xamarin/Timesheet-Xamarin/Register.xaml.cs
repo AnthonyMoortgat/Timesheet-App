@@ -233,10 +233,10 @@ namespace Timesheet_Xamarin
                     }
                 };
                 buttonRegister.IsEnabled = false;
-                //await DisplayAlert("Warning", Errors.Count() + " haha", "Ok");
                 await userServices.CreateUserAsync(user);
-                
-                Application.Current.MainPage = new Login();
+
+                await Navigation.PopModalAsync();
+                //Application.Current.MainPage = new Login();
             }
 
             SetError(Errors);
@@ -265,7 +265,8 @@ namespace Timesheet_Xamarin
 
         private void GoToLoginPage(object sender, EventArgs args)
         {
-            Application.Current.MainPage = new Login();
+            Navigation.PopModalAsync();
+            //Application.Current.MainPage = new Login();
         }
 
         //Check op lege string

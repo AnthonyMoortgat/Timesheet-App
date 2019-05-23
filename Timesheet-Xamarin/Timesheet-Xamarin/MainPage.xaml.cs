@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto;
 using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
@@ -11,58 +12,72 @@ using Xamarin.Forms;
 
 namespace Timesheet_Xamarin
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : CarouselPage
     {
+        ObservableCollection<LogDto> logsCollection = new ObservableCollection<LogDto>();
+        public ObservableCollection<LogDto> LogsCollection { get { return logsCollection; } }
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
         private string idUser = Application.Current.Properties["IdUser"].ToString();
 
-        private ObservableCollection<string> LogsCollection = null;
 
         //Logs met Key
         private Dictionary<int, string> logsWithKey = new Dictionary<int, string>();
         //Projecten met Key
         private Dictionary<int, string> projectsWithKey = new Dictionary<int, string>();
 
+        List<ProjectDto> projects;
+        Dictionary<string, int> projectByName;
+        List<CompanyDto> companies;
+        Dictionary<string, int> companyByName;
+
         public MainPage()
         {
             InitializeComponent();
+            Start();
             StartTime.Time = new TimeSpan(8, 0, 0);
             EndTime.Time = new TimeSpan(16, 0, 0);
         }
-
-        protected async override void OnAppearing()
+        private async void Start()
         {
-            //Haalt alle projecten op
-            List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
-            List<LogDto> logs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+            //Haalt alle projecten, companie en logs op
+            try
+            {
+                projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
+                companies = await userServices.GetAllUserCompaniesAsync(int.Parse(idUser));
+                List<LogDto> tempLogs = await userServices.GetAllUserLogsAsync(int.Parse(idUser));
+                foreach (var log in tempLogs)
+                {
+                    logsCollection.Add(log);                    
+                }
 
-            //Steekt alle projecten in ProjectList (Picker)
-            AddProjectsToProjectList(projects, projectsWithKey);
-            AddLogsToLogList(LogsCollection, logs);
+                //Steekt alle projecten in ProjectList (Picker)
+                AddProjectsToProjectList();
+                //Genereer buttons voor elk project
+                InitializeProjects();
+                //Genereer buttons voor elke company
+                InitializeCompanies();
+                //steek alle logs in scrollList
+                AddLogsToLogList();
+            }
+            catch(Exception)
+            {
+            }                                 
         }
 
         private async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            if (e.SelectedItem == null)
+            if (e.SelectedItem != null)
             {
-                return;
+                var item = (LogDto)e.SelectedItem;
+                LogList1.SelectedItem = null;
+                Application.Current.Properties["IdProject"] = item.ProjectID;
+                ProjectDto tempProject = await projectServices.GetProjectByIdAsync(item.ProjectID);
+                
+                Application.Current.Properties["NameProject"] = tempProject.Name;
+                await Navigation.PushModalAsync(new MainPage2(item.ID));
             }
-            string logToEdit = LogList1.SelectedItem.ToString();
-            int logid = 0;
-
-            //Zoekt id van de log
-            foreach (var l in logsWithKey)
-            {
-                if (l.Value == logToEdit)
-                {
-                    logid = l.Key;
-                }
-            }
-
-            LogList1.SelectedItem = null;
-            await Navigation.PushModalAsync(new MainPage2(logid));
         }
 
         private async void LogTime_Clicked(object sender, EventArgs e)
@@ -158,27 +173,13 @@ namespace Timesheet_Xamarin
         }
 
         //Logs toevoegen aan LogList (ListView)
-        private void AddLogsToLogList(ObservableCollection<string> LogsCollection, List<LogDto> logsDto = null)
+        private void AddLogsToLogList()
         {
-            LogsCollection = new ObservableCollection<string>();
-            //Logs(naam en id) in Dictionary steken
-            foreach (var log in logsDto)
-            {
-                logsWithKey.Add(log.ID, $"{log.StartTime.ToString("dd/MM/yyyy")} | {log.StartTime.ToString("HH:mm")} - {log.StopTime.ToString("HH:mm")}: {log.Description} - Total: {log.StopTime - log.StartTime}");
-            }
-
-            //Dictionary in LogList(ListView) steken
-            foreach (var log in logsWithKey)
-            {
-                LogsCollection.Add(log.Value.ToString());
-            }
-
-            //Dictionary in LogList(ListView) steken
             LogList1.ItemsSource = LogsCollection;
         }
 
         //Projecten toevoegen aan ProjectList (Picker)
-        private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
+        private void AddProjectsToProjectList()
         {
             //Projecten(naam en id) in Dictionary steken
             foreach (var project in projects)
@@ -202,9 +203,86 @@ namespace Timesheet_Xamarin
             Application.Current.MainPage = new Login();
         }
 
-        private void Add_Role(object sender, EventArgs e)
+        private void InitializeProjects()
         {
-            Application.Current.MainPage = new Roles();
+            bool emptyList = true;
+            projectByName = new Dictionary<string, int>();
+
+            foreach (ProjectDto project in projects)
+            {
+                if (project.Name != "No project")
+                {
+                    var button = new Button() { Text = project.Name };
+                    button.Clicked += ToProjectInfo;
+                    projectByName.Add(project.Name, project.ID);
+                    ProjectOverview.Children.Add(button);
+                    emptyList = false;
+                }
+                else
+                {
+                    var button = new Button()
+                    {
+                        Text = project.Name,
+                        Scale = 0.5
+                    };
+                    button.Clicked += ToProjectInfo;
+                    projectByName.Add(project.Name, project.ID);
+                    ProjectOverview.Children.Add(button);
+                    emptyList = false;
+                }
+            }
+            if (emptyList)
+            {                             
+                var label = new Label()
+                {
+                    Text = "No projects yet.",
+                    FontSize =  10
+                };
+                ProjectOverview.Children.Add(label);               
+            }
+        }
+        private void InitializeCompanies()
+        {
+            bool emptyList = true;
+            companyByName = new Dictionary<string, int>();
+            foreach (CompanyDto company in companies)
+            {
+                if (company.Name != "DefaultCompany")
+                {
+                    var button = new Button() { Text = company.Name };
+                    button.Clicked += ToCompanyOptions;
+                    companyByName.Add(company.Name, company.ID);
+                    CompanyOverview.Children.Add(button);
+                    emptyList = false;
+                }
+            }
+            if (emptyList)
+            {
+                var label = new Label()
+                {
+                    Text = "No company yet.",
+                    FontSize = 10
+                };
+                CompanyOverview.Children.Add(label);
+            }
+        }
+
+        private async void ToProjectInfo(object sender, EventArgs args)
+        {
+            string name = ((Button)sender).Text;
+            var id = projectByName[name];
+            Application.Current.Properties["NameProject"] = name;
+
+            await Navigation.PushModalAsync(new ProjectInfo(id), true);
+        }
+        private async void ToCompanyOptions(object sender, EventArgs args)
+        {
+            string name = ((Button)sender).Text;
+            var id = companyByName[name];
+            Application.Current.Properties["IdCompany"] = id;
+            Application.Current.Properties["NameCompany"] = name;
+
+            await Navigation.PushModalAsync(new CompanyOptionPage(), true);
         }
     }
 }

@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Timesheet_Library.Dto.Log;
 using Timesheet_Library.Dto.Project;
 using Timesheet_Library.Dto.Services;
@@ -18,6 +14,8 @@ namespace Timesheet_Xamarin
         private LogServices logServices = new LogServices();
         private UserServices userServices = new UserServices();
         private ProjectServices projectServices = new ProjectServices();
+        private string idUser = Application.Current.Properties["IdUser"].ToString();
+        private string idPreviousProject = Application.Current.Properties["IdProject"].ToString();
 
         private LogDto log = new LogDto();
         private DateTime date;
@@ -35,11 +33,11 @@ namespace Timesheet_Xamarin
         protected async override void OnAppearing()
         {
             //Haalt alle projecten op
-            List<ProjectDto> projects = await projectServices.GetAllProjectsAsync();
+            List<ProjectDto> projects = await userServices.GetAllUserProjectsAsync(int.Parse(idUser));
             ProjectDto projectDto = null;
 
             //Steekt alle projecten in ProjectList (Picker)
-            AddProjectsToProjectList(projects, projectsWithKey);
+            AddProjectsToProjectList(projects);
 
             if (logId != 0) {
                 log = await logServices.GetLogByIdAsync(logId);
@@ -55,9 +53,20 @@ namespace Timesheet_Xamarin
             }
         }
 
-        public async void ClickCancel(object sender, EventArgs args)
+        public void ClickCancel(object sender, EventArgs args)
         {
-            await Navigation.PushModalAsync(new MainPage());
+            string value = ProjectList.SelectedItem.ToString();
+            int projectid = 0;
+
+            //Zoekt id van project
+            foreach (var project in projectsWithKey)
+            {
+                if (project.Value == value)
+                {
+                    projectid = project.Key;
+                }
+            }
+           Application.Current.MainPage = new ProjectInfo(int.Parse(idPreviousProject));
         }
 
         private async void ClickEdit(object sender, EventArgs e)
@@ -100,7 +109,7 @@ namespace Timesheet_Xamarin
                 };
 
                 LogDto logDto = await logServices.UpdateLogByIdAsync(log, logId);
-                Application.Current.MainPage = new MainPage();
+                Application.Current.MainPage = new ProjectInfo(int.Parse(idPreviousProject));
             }
         }
 
@@ -113,7 +122,18 @@ namespace Timesheet_Xamarin
                 bool deleted = await logServices.DeleteLogByIdAsync(logId);
                 if (deleted == true)
                 {
-                    Application.Current.MainPage = new MainPage();
+                    string value = ProjectList.SelectedItem.ToString();
+                    int projectid = 0;
+
+                    //Zoekt id van project
+                    foreach (var project in projectsWithKey)
+                    {
+                        if (project.Value == value)
+                        {
+                            projectid = project.Key;
+                        }
+                    }
+                    Application.Current.MainPage = new ProjectInfo(log.ProjectID);
                 }  
             }
         }
@@ -168,7 +188,7 @@ namespace Timesheet_Xamarin
         }
 
         //Projecten toevoegen aan ProjectList (Picker)
-        private void AddProjectsToProjectList(List<ProjectDto> projects, Dictionary<int, string> projectsWithKey)
+        private void AddProjectsToProjectList(List<ProjectDto> projects)
         {
             //Projecten(naam en id) in Dictionary steken
             foreach (var project in projects)

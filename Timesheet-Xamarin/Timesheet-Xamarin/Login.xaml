@@ -4,9 +4,31 @@
              x:Class="Timesheet_Xamarin.Login">
     <ContentPage.Content>
         <StackLayout>
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <Label
+                    Text="No"
+                    FontSize="20"
+                    FontAttributes="Bold"                   
+                    TextColor="DimGray"
+                    VerticalOptions="CenterAndExpand"
+                    />
+                <Label
+                    Text="Time"
+                    FontSize="45"
+                    FontAttributes="Bold"
+                    TextColor="DarkBlue"
+                    VerticalOptions="End"
+                    />
+                <Label
+                    Text="For Style"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    TextColor="DimGray"
+                    VerticalOptions="CenterAndExpand"
+                    />
+            </StackLayout>
             <Label 
                 Text="Login"
-                HorizontalTextAlignment="Center"
                 FontSize="Large"
                 />
 

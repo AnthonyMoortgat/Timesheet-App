@@ -12,7 +12,6 @@ namespace Timesheet_Library.Dto
         public bool ManageCompany { get; set; }
         public bool ManageUsers { get; set; }
         public bool ManageProjects { get; set; }
-        public bool ManageProjectRoles { get; set; }
-        public bool ManageProjectUsers { get; set; }
+        public bool ManageRoles { get; set; }
     }
 }

@@ -82,8 +82,7 @@ namespace ApiServices
                 ManageCompany = true,
                 ManageUsers = false,
                 ManageProjects = true,
-                ManageProjectRoles = true,
-                ManageProjectUsers = true
+                ManageRoles = true
             };
 
             //Update companyrole
@@ -95,8 +94,7 @@ namespace ApiServices
                 ManageCompany = true,
                 ManageUsers = true,
                 ManageProjects = true,
-                ManageProjectRoles = true,
-                ManageProjectUsers = false
+                ManageRoles = true
             };
 
             ProjectToCreateDto createdProject = new ProjectToCreateDto
@@ -114,9 +112,11 @@ namespace ApiServices
             };
 
 
-
             //Test
             UserServices userServices = new UserServices();
+            CompanyServices companyServices = new CompanyServices();
+            ProjectServices projectServices = new ProjectServices();
+            CompanyRoleServices companyRoleServices = new CompanyRoleServices();
 
             UserDto user1 = new UserDto();
             CompanyDto c = new CompanyDto();
@@ -177,11 +177,23 @@ namespace ApiServices
             //bool bp = ProjectServices.UpdateProjectByIdAsync(updatedProject, 1).GetAwaiter().GetResult();
             //Console.WriteLine(bp);
 
-            List<LogDto> user = userServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
+            //List<LogDto> user = userServices.GetAllUserLogsAsync(1).GetAwaiter().GetResult();
             //List<UserDto> users = userServices.GetUserByEmailAsync("kevin@gmail.com").GetAwaiter().GetResult();
             //Console.WriteLine(user[0].StartTime.ToString("HH:mm"));
-            string s = $"{user[0].StartTime.ToString("dd/MM/yyyy")} | {user[0].StartTime.ToString("HH:mm")} - {user[0].StopTime.ToString("HH:mm")}: {user[0].Description} - Total: {user[0].StopTime - user[0].StartTime}";
-            Console.WriteLine(s);
+            //string s = $"{user[0].StartTime.ToString("dd/MM/yyyy")} | {user[0].StartTime.ToString("HH:mm")} - {user[0].StopTime.ToString("HH:mm")}: {user[0].Description} - Total: {user[0].StopTime - user[0].StartTime}";
+
+            //List<ProjectDto> projects = companyServices.GetAllCompanyProjectsAsync(1).GetAwaiter().GetResult();
+            List<ProjectDto> projects = userServices.GetAllUserProjectsAsync(1).GetAwaiter().GetResult();
+            //bool pu = projectServices.RemoveUserToProjectAsync(1, 1).GetAwaiter().GetResult();
+            //List<LogDto> lk = userServices.GetAllUserLogsAsync(5).GetAwaiter().GetResult();
+
+            //bool u = projectServices.AddUserToProjectAsync(1, "michael@hotmail.com").GetAwaiter().GetResult();
+            //bool u = projectServices.RemoveUserToProjectAsync(1, 7).GetAwaiter().GetResult();
+
+            //Console.WriteLine(u.ProjectID);
+            //Console.WriteLine(u.UserID);
+            Console.WriteLine(projects[0].Name);
+
             Console.ReadLine();
         }
     }

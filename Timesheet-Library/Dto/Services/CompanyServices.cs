@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Timesheet_Library.Dto.Project;
 
 namespace Timesheet_Library.Dto.Services
 {
@@ -16,10 +17,11 @@ namespace Timesheet_Library.Dto.Services
         {
             if (client == null)
             {
-                client = new HttpClient();
-
-                //Set up client
-                client.BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/");
+                client = new HttpClient
+                {
+                    //Set up client
+                    BaseAddress = new Uri("https://timesheetappapi20190303094246.azurewebsites.net/")
+                };
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
                 client.DefaultRequestHeaders.Add("Authorization", "Bearer " + "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIxIiwiZW1haWwiOiJtaWNoYWVsQGdtYWlsLmNvbSIsIm5iZiI6MTU1Njg4NTAzNCwiZXhwIjoxNTU2OTcxNDM0LCJpYXQiOjE1NTY4ODUwMzR9.GSdOjI0UVAM1owMRNyfCdJ5rqBm4tTPvr_quKXS4B5SN1yMOwT-GCLcuKL1qyDDxCTq_xTu7ncV14LqQtEoHHA");
@@ -129,6 +131,21 @@ namespace Timesheet_Library.Dto.Services
                 return true;
             }
             return false;
+        }
+
+        public async Task<List<ProjectDto>> GetAllCompanyProjectsAsync(int id)
+        {
+            GetClient();
+            string getAllCompanyProjects = null;
+            List<ProjectDto> ProjectList = null;
+
+            HttpResponseMessage response = await client.GetAsync($"api/Companies/{id}/Projects");
+            if (response.IsSuccessStatusCode)
+            {
+                getAllCompanyProjects = await response.Content.ReadAsStringAsync();
+                ProjectList = JsonConvert.DeserializeObject<List<ProjectDto>>(getAllCompanyProjects);
+            }
+            return ProjectList;
         }
     }
 }

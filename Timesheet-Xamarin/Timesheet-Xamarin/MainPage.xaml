@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<CarouselPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Timesheet_Xamarin"
-             x:Class="Timesheet_Xamarin.MainPage">
-
+             x:Class="Timesheet_Xamarin.MainPage"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage>
     <StackLayout Margin="5,0,8,3">
         <RelativeLayout>
             <StackLayout>
@@ -42,14 +44,28 @@
                 />
         </StackLayout>
 
-        <ScrollView>
-            <StackLayout>
-                <ListView 
-                    x:Name="LogList1"
-                    ItemSelected="OnItemSelected"
-                    />
-            </StackLayout>
-        </ScrollView>
+        <ScrollView
+            VerticalScrollBarVisibility="Always">
+                <StackLayout>
+                    <ListView x:Name="LogList1"
+                ItemsSource="{Binding LogsCollection}"
+                ItemSelected="OnItemSelected">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <StackLayout>
+                                        <Label  Text="{Binding Description}" />
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label  Text="{Binding StartTime}" FontSize="10"/>
+                                            <Label  Text="{Binding StopTime}" FontSize="10"/>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </ScrollView>
 
         <Button 
             Text="Log out" 
@@ -59,15 +75,22 @@
             ScaleX="0.5"
             ScaleY="0.5"
             />
+        </StackLayout>
+    </ContentPage>
+    <ContentPage x:Name="Overview">
+        <StackLayout>
+            <Label>Projects</Label>
+            <ScrollView VerticalScrollBarVisibility="Always"  VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="ProjectOverview">
 
-        <Button 
-            Text="Add Roles" 
-            x:Name="addRolesButton"
-            Clicked="Add_Role"
-            Padding="3"
-            ScaleX="0.5"
-            ScaleY="0.5"
-            />
-    </StackLayout>
+                </StackLayout>
+        </ScrollView>
+            <Label>Companies</Label>
+            <ScrollView VerticalScrollBarVisibility="Default" VerticalOptions="FillAndExpand">
+                <StackLayout x:Name="CompanyOverview">
 
-</ContentPage>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage>
+</CarouselPage>

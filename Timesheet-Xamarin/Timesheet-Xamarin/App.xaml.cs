@@ -8,20 +8,30 @@ namespace Timesheet_Xamarin
 {
     public partial class App : Application
     {
+        
+
         public App()
         {
             //var a = Application.Current.Properties["IdUser"];
             //var b = Application.Current.Properties["Token"];
-
-            if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
+            try
             {
+                if (String.IsNullOrEmpty(Application.Current.Properties["IdUser"].ToString()) && String.IsNullOrEmpty(Application.Current.Properties["Token"].ToString()))
+                {
+                    MainPage = new Login();
+                }
+                else
+                {
+                    var page = new MainPage();
+                    MainPage = new NavigationPage(page);
+                }
+            }
+            catch (Exception)
+            {
+                Application.Current.Properties["IdUser"] = "";
+                Application.Current.Properties["Token"] = "";
                 MainPage = new Login();
             }
-            else
-            {
-                MainPage = new MainPage();
-            }
-
             InitializeComponent();
             Initialize();
         }
@@ -41,7 +51,7 @@ namespace Timesheet_Xamarin
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+           
         }
 
         protected override void OnSleep()

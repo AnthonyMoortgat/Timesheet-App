@@ -30,7 +30,6 @@
                     FillColor="Blue"
                     CheckColor="White"
                     Grid.Row="0" Grid.Column="0"
-                    IsChecked="True"
                     IsCheckedChanged="CheckBoxIsDefault_IsCheckedChanged"
                 />
 
