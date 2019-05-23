@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timesheet-Xamarin", "Timesh
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Timesheet-Library", "Timesheet-Library\Timesheet-Library.csproj", "{C562DA96-79B4-48B1-8D50-B7F9C7D6EA1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiServices", "ApiServices\ApiServices.csproj", "{19C654B2-853E-4C34-A74D-D685AE10E138}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiServices", "ApiServices\ApiServices.csproj", "{19C654B2-853E-4C34-A74D-D685AE10E138}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
